@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ParkingStatus.Domain
+namespace ParkingStatus.Infrastructure
 {
     public class Class1
     {
