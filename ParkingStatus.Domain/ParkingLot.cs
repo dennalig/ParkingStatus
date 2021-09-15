@@ -2,7 +2,7 @@
 
 namespace ParkingStatus.Domain
 {
-    public class Class1
+    public class ParkingLot
     {
     }
 }
