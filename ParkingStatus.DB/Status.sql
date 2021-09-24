@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Status]
+﻿CREATE TABLE [dbo].[STATUS]
 (
 	[StatusID] INT NOT NULL PRIMARY KEY, 
     [StatusName] VARCHAR(MAX) NOT NULL, 

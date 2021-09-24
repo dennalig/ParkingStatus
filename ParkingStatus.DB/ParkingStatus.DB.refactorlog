@@ -7,4 +7,25 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="StatusID" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="61ff88ea-6419-417c-8511-c101069400ae" ChangeDateTime="09/24/2021 14:28:38">
+    <Property Name="ElementName" Value="[dbo].[Table1].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Table1]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LotID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a069cada-dc5d-4d18-80b5-226fd52aebd7" ChangeDateTime="09/24/2021 14:45:57">
+    <Property Name="ElementName" Value="[dbo].[LOTSTATUSSCHEDULE].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LOTSTATUSSCHEDULE]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LotStatusScheduleID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="14cdc795-eceb-4085-a30d-87da9b858556" ChangeDateTime="09/24/2021 14:47:39">
+    <Property Name="ElementName" Value="[dbo].[FK_LOTSTATUSSCHEDULE_ToTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[LOTSTATUSSCHEDULE]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[LotID]" />
+  </Operation>
 </Operations>

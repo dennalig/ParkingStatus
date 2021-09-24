@@ -58,7 +58,8 @@
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Status.sql" />
+    <Build Include="STATUS.sql" />
+    <Build Include="LOT.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ParkingStatus.DB.refactorlog" />
