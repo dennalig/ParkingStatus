@@ -84,4 +84,25 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="[FK_LotStatusScheduleID]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="95e62e52-4f98-4117-bd44-f77a97a68750" ChangeDateTime="09/27/2021 18:14:30">
+    <Property Name="ElementName" Value="[dbo].[StatusEvent].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[StatusEvent]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="StatusEventID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="bc874abb-2221-443b-b4df-f22b7e4f2434" ChangeDateTime="09/27/2021 18:16:33">
+    <Property Name="ElementName" Value="[dbo].[FK_StatusEvent_ToTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[StatusEvent]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_StatusID]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3d22d37c-155f-4292-91a9-3c3123b7ee86" ChangeDateTime="09/27/2021 18:18:22">
+    <Property Name="ElementName" Value="[dbo].[FK_StatusID]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[StatusEvent]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_StatusEvent_StatusID]" />
+  </Operation>
 </Operations>
