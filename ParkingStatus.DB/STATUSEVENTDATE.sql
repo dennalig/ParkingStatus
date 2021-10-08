@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[STATUSEVENTDATE]
 (
-	[StatusEventDateID] INT NOT NULL PRIMARY KEY, 
+	[StatusEventDateID] INT NOT NULL PRIMARY KEY IDENTITY, 
     [StartTime] DATETIME NOT NULL, 
     [EndTime] DATETIME NOT NULL, 
     [StatusEventID] INT NOT NULL, 

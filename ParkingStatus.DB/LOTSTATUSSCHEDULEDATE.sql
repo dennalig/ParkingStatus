@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[LOTSTATUSSCHEDULEDATE]
 (
-	[LotStatusScheduleDateID] INT NOT NULL PRIMARY KEY, 
+	[LotStatusScheduleDateID] INT NOT NULL PRIMARY KEY IDENTITY, 
     [StartTime] DATETIME NOT NULL, 
     [EndTime] DATETIME NOT NULL, 
     [LotStatusScheduleID] INT NOT NULL, 
