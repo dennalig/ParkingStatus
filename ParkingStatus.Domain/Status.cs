@@ -4,7 +4,10 @@ using System.Text;
 
 namespace ParkingStatus.Domain
 {
-    class Status
+    public class Status: BaseEntity
     {
+        public string Name { get;set; }
+        public string Color { get; set; }
+        public string Description { get; set; }
     }
 }
