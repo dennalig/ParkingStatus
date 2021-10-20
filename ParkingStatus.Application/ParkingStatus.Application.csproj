@@ -8,4 +8,8 @@
     <ProjectReference Include="..\ParkingStatus.Domain\ParkingStatus.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Contracts\" />
+  </ItemGroup>
+
 </Project>
