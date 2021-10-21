@@ -15,6 +15,8 @@ namespace ParkingStatus.Application.Contracts
 
         Task<LotDto> CreateLotAsync(int id, LotForCreationDto lotForCreationDto);
 
+        Task UpdateLotAsync(int id, LotForUpdateDto lotForUpdateDto);
+
         Task DeleteLotAsync(int id);
     }
 }
