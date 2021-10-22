@@ -2,7 +2,7 @@
 
 namespace ParkingStatus.Contracts
 {
-    public class LotStatusScheduleDateDto : BaseDto
+    public class LotStatusScheduleDateDto : BaseEntityDto
     {
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }

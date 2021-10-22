@@ -5,9 +5,9 @@ using System.Text;
 
 namespace ParkingStatus.Contracts.Lot
 {
-    public class LotForCreationDto :BaseDto
+    public class LotForCreationDto :BaseEntityDto
     {
-        [Required(ErrorMessage = "Name is required")]
+        [Required(ErrorMessage = "Name is required", AllowEmptyStrings = false)]
         public string Name { get; set; }
         public string Description { get; set; }
 

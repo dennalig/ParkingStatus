@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ParkingStatus.Contracts.Status
 {
-    public class StatusDto : BaseEntityDto
+    public class StatusForUpdateDto : BaseEntityDto
     {
         [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }

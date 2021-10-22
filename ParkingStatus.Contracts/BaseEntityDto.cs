@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ParkingStatus.Contracts
 {
-    public class BaseDto
+    public class BaseEntityDto
     {
         public int Id { get; set; }
     }
