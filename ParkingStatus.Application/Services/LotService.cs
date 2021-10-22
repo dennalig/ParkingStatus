@@ -18,7 +18,7 @@ namespace ParkingStatus.Application.Services
         {
             var lots = await _repositoryManager.LotRepository.GetAllAsync();
 
-            //var lotsDto = lots.Adapt<IEnumerable<LotDto>>();
+            // TODO : manually adapt domain entities into dto's 
 
             return null;
 
