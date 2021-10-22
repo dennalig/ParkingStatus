@@ -9,7 +9,7 @@ namespace ParkingStatus.Domain.Repository
     {
         Task<IEnumerable<StatusEvent>> GetAllAsync();
 
-        Task<IEnumerable<StatusEvent>> GetAllOfStatus(Status status); // get all status Events of a certain status
+        IEnumerable<StatusEvent> GetAllOfStatus(Status status); // get all status Events of a certain status
 
         Task<StatusEvent> GetByIdAsync(int statusEventId);
 

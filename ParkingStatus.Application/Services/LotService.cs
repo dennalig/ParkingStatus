@@ -16,6 +16,7 @@ namespace ParkingStatus.Application.Services
     {
         private readonly IRepositoryManager _repositoryManager;
 
+        public LotService(IRepositoryManager repositoryManger) => _repositoryManager = repositoryManger;
         public async Task<IEnumerable<Lot>> GetAllLotsAsync()
         {
             var lots = await _repositoryManager.LotRepository.GetAllAsync();
@@ -35,10 +36,22 @@ namespace ParkingStatus.Application.Services
             return lot;
         }
 
-        public LotService(IRepositoryManager repositoryManger) => _repositoryManager = repositoryManger;
-        public Task<Lot> CreateLotAsync(int id, LotForCreationDto lotForCreationDto)
+  
+        public async  Task<Lot> CreateLotAsync(int id, LotForCreationDto lotForCreationDto)
         {
-            throw new NotImplementedException();
+            var lot = new Lot();
+            lot.Id = lotForCreationDto.Id;
+            lot.Name = lotForCreationDto.Name;
+            lot.Description = lotForCreationDto.Description;
+            lot.lotStatusSchedule = lotForCreationDto.lotStatusSchedule;
+
+            _repositoryManager.LotRepository.AddLot(lot);
+
+            await _repositoryManager.UnitOfWork.SaveChangesAsync();
+
+            return lot;
+
+            
         }
 
         public Task DeleteLotAsync(int id)

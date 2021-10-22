@@ -17,25 +17,16 @@ namespace ParkingStatus.Infrastructure.Persistence.Repositories
             await _dbContext.Lots.Include(x => x.Id).ToListAsync();
         
 
-        public Task<Lot> GetByIdAsync(int lotId)
-        {
-            throw new NotImplementedException();
-        }
-        
-        public void AddLot(Lot lot)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<Lot> GetByIdAsync(int lotId) =>
+            await _dbContext.Lots.Include(x => x.Id).FirstOrDefaultAsync(x => x.Id == lotId);
 
-        public void DeleteLot(Lot lot)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void EditLot(Lot lot)
-        {
-            throw new NotImplementedException();
-        }
+        public void AddLot(Lot lot) => _dbContext.Lots.Add(lot);
+
+        public void DeleteLot(Lot lot) => _dbContext.Lots.Remove(lot);
+
+        //https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.dbcontext.update?view=efcore-5.0
+        public void EditLot(Lot lot) => _dbContext.Lots.Update(lot);
 
 
     }

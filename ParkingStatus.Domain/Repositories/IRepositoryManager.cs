@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ParkingStatus.Domain.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,5 +12,7 @@ namespace ParkingStatus.Domain.Repository
         IStatusRepository StatusRepository { get;  }
 
         IStatusEventRepository StatusEventRepository { get;  }
+
+        IUnitOfWork UnitOfWork { get; }
     }
 }

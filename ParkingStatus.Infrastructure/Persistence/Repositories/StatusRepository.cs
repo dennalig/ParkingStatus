@@ -1,4 +1,5 @@
-﻿using ParkingStatus.Domain;
+﻿using Microsoft.EntityFrameworkCore;
+using ParkingStatus.Domain;
 using ParkingStatus.Domain.Repository;
 using System;
 using System.Collections.Generic;
@@ -12,29 +13,22 @@ namespace ParkingStatus.Infrastructure.Persistence.Repositories
         private readonly RepositoryDbContext _dbContext;
 
         public StatusRepository(RepositoryDbContext dbContext) => _dbContext = dbContext;
-        public void AddStatus(Status status)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void DeleteStatus(Status status)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<IEnumerable<Status>> GetAllAsync() =>
+            await _dbContext.Statuses.Include(x => x.Id).ToListAsync();
 
-        public void EditLot(Status status)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<Status> GetByIdAsync(int statusId) =>
+            await _dbContext.Statuses.Include(x => x.Id).FirstOrDefaultAsync(x => x.Id == statusId);
 
-        public Task<IEnumerable<Status>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
+        public void AddStatus(Status status) => _dbContext.Statuses.Add(status);
 
-        public Task<Status> GetByIdAsync(int statusId)
-        {
-            throw new NotImplementedException();
-        }
+
+        public void DeleteStatus(Status status) => _dbContext.Statuses.Remove(status);
+
+
+        public void EditLot(Status status) => _dbContext.Statuses.Update(status);
+   
+
+
     }
 }
