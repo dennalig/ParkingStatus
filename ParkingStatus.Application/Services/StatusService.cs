@@ -1,5 +1,6 @@
 ﻿using ParkingStatus.Application.Contracts;
 using ParkingStatus.Contracts.Status;
+using ParkingStatus.Domain.Repository;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,8 @@ namespace ParkingStatus.Application.Services
 {
     internal sealed class StatusService : IStatusService
     {
+        private readonly IRepositoryManager _repositoryManager;
+        public StatusService(IRepositoryManager repositoryManager) => _repositoryManager = repositoryManager;
         public Task<StatusDto> CreateStatusAsync(int id, StatusForCreationDto statusForCreationDto)
         {
             throw new NotImplementedException();

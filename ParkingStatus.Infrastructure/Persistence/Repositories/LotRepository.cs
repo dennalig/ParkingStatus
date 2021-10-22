@@ -1,4 +1,5 @@
-﻿using ParkingStatus.Domain;
+﻿using Microsoft.EntityFrameworkCore;
+using ParkingStatus.Domain;
 using ParkingStatus.Domain.Repository;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,16 @@ namespace ParkingStatus.Infrastructure.Persistence.Repositories
     {
         private readonly RepositoryDbContext _dbContext;
         public LotRepository(RepositoryDbContext dbContext) => _dbContext = dbContext;
+        
+        public async Task<IEnumerable<Lot>> GetAllAsync() =>
+            await _dbContext.Lots.Include(x => x.Id).ToListAsync();
+        
+
+        public Task<Lot> GetByIdAsync(int lotId)
+        {
+            throw new NotImplementedException();
+        }
+        
         public void AddLot(Lot lot)
         {
             throw new NotImplementedException();
@@ -26,14 +37,5 @@ namespace ParkingStatus.Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Lot>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Lot> GetByIdAsync(int lotId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
