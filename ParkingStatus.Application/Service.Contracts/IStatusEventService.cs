@@ -1,4 +1,5 @@
 ﻿using ParkingStatus.Contracts.StatusEvent;
+using ParkingStatus.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,10 +9,10 @@ namespace ParkingStatus.Application.Contracts
 {
     public interface IStatusEventService
     {
-        Task<IEnumerable<StatusEventDto>> GetAllStatusEventsAsync();
-        Task<StatusEventDto> GetStatusEventByIdAsync(int id);
+        Task<IEnumerable<StatusEvent>> GetAllStatusEventsAsync();
+        Task<StatusEvent> GetStatusEventByIdAsync(int id);
 
-        Task<StatusEventDto> CreateStatusEventAsync(int id,
+        Task<StatusEvent> CreateStatusEventAsync(int id,
             StatusEventForCreationDto statusEventForCreationDto);
 
         Task UpdateStatusEventAsync(int id,

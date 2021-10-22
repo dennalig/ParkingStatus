@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ParkingStatus.Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -12,6 +13,6 @@ namespace ParkingStatus.Contracts.StatusEvent
         [Required(ErrorMessage = "Status ID is required")]
         public int StatusID { get; set; } // a status event can only have one status that it is assigned to ,
 
-        public List<StatusEventDateDto> StatusEventDates { get; set; }
+        public List<StatusEventDate> StatusEventDates { get; set; }
     }
 }

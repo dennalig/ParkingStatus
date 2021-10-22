@@ -37,5 +37,6 @@ namespace ParkingStatus.Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
+
     }
 }

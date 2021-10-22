@@ -1,6 +1,7 @@
 ﻿using ParkingStatus.Application.Contracts;
 using ParkingStatus.Contracts;
 using ParkingStatus.Contracts.Lot;
+using ParkingStatus.Domain;
 using ParkingStatus.Domain.Repository;
 using System;
 using System.Collections.Generic;
@@ -14,23 +15,21 @@ namespace ParkingStatus.Application.Services
     {
         private readonly IRepositoryManager _repositoryManager;
 
-        public async Task<IEnumerable<LotDto>> GetAllLotsAsync()
+        public async Task<IEnumerable<Lot>> GetAllLotsAsync()
         {
             var lots = await _repositoryManager.LotRepository.GetAllAsync();
 
-            // TODO : manually adapt domain entities into dto's 
-
-            return null;
+            return lots;
 
         }
 
-        public Task<LotDto> GetLotByIdAsync(int id)
+        public Task<Lot> GetLotByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
         public LotService(IRepositoryManager repositoryManger) => _repositoryManager = repositoryManger;
-        public Task<LotDto> CreateLotAsync(int id, LotForCreationDto lotForCreationDto)
+        public Task<Lot> CreateLotAsync(int id, LotForCreationDto lotForCreationDto)
         {
             throw new NotImplementedException();
         }

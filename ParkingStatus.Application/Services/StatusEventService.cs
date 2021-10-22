@@ -1,5 +1,6 @@
 ﻿using ParkingStatus.Application.Contracts;
 using ParkingStatus.Contracts.StatusEvent;
+using ParkingStatus.Domain;
 using ParkingStatus.Domain.Repository;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace ParkingStatus.Application.Services
 
         private readonly IRepositoryManager _repositoryManager;
         public StatusEventService(IRepositoryManager repositoryManager) => _repositoryManager = repositoryManager;
-        public Task<StatusEventDto> CreateStatusEventAsync(int id, StatusEventForCreationDto statusEventForCreationDto)
+        public Task<StatusEvent> CreateStatusEventAsync(int id, StatusEventForCreationDto statusEventForCreationDto)
         {
             throw new NotImplementedException();
         }
@@ -23,12 +24,12 @@ namespace ParkingStatus.Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<StatusEventDto>> GetAllStatusEventsAsync()
+        public Task<IEnumerable<StatusEvent>> GetAllStatusEventsAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<StatusEventDto> GetStatusEventByIdAsync(int id)
+        public Task<StatusEvent> GetStatusEventByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
