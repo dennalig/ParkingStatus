@@ -2,6 +2,7 @@
 using ParkingStatus.Contracts;
 using ParkingStatus.Contracts.Lot;
 using ParkingStatus.Domain;
+using ParkingStatus.Domain.Exceptions;
 using ParkingStatus.Domain.Repository;
 using System;
 using System.Collections.Generic;
@@ -23,9 +24,15 @@ namespace ParkingStatus.Application.Services
 
         }
 
-        public Task<Lot> GetLotByIdAsync(int id)
+        public async Task<Lot> GetLotByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var lot = await _repositoryManager.LotRepository.GetByIdAsync(id);
+
+            if(lot is null)
+            {
+                throw new LotNotFoundException(id);
+            }
+            return lot;
         }
 
         public LotService(IRepositoryManager repositoryManger) => _repositoryManager = repositoryManger;
