@@ -1,6 +1,7 @@
 ﻿using ParkingStatus.Application.Contracts;
 using ParkingStatus.Contracts.Status;
 using ParkingStatus.Domain;
+using ParkingStatus.Domain.Exceptions;
 using ParkingStatus.Domain.Repository;
 using System;
 using System.Collections.Generic;
@@ -14,30 +15,64 @@ namespace ParkingStatus.Application.Services
         private readonly IRepositoryManager _repositoryManager;
         public StatusService(IRepositoryManager repositoryManager) => _repositoryManager = repositoryManager;
 
-        public Task<IEnumerable<Status>> GetAllStatusesAsync()
+        public async Task<IEnumerable<Status>> GetAllStatusesAsync()
         {
-            throw new NotImplementedException();
+            var statuses = await _repositoryManager.StatusRepository.GetAllAsync();
+            return statuses;
         }
 
-        public Task<Status> GetStatusByIdAsync(int id)
+        public async Task<Status> GetStatusByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var status = await _repositoryManager.StatusRepository.GetByIdAsync(id);
+
+            return status;
         }
 
 
-        public Task<Status> CreateStatusAsync(int id, StatusForCreationDto statusForCreationDto)
+        public async Task<Status> CreateStatusAsync(int id, StatusForCreationDto statusForCreationDto)
         {
-            throw new NotImplementedException();
+            var status = new Status();
+            status.Id = statusForCreationDto.Id;
+            status.Name = statusForCreationDto.Name;
+            status.Color = statusForCreationDto.Color;
+            status.Description = statusForCreationDto.Description;
+
+            _repositoryManager.StatusRepository.AddStatus(status);
+
+            await _repositoryManager.UnitOfWork.SaveChangesAsync();
+
+            return status;
+
         }
 
-        public Task UpdateStatusAsync(int id, StatusForUpdateDto statusForUpdateDto)
+        public async Task UpdateStatusAsync(int id, StatusForUpdateDto statusForUpdateDto)
         {
-            throw new NotImplementedException();
+            var status = await _repositoryManager.StatusRepository.GetByIdAsync(id);
+
+            if(status is null)
+            {
+                throw new StatusNotFoundException(id);
+            }
+
+            status.Name = statusForUpdateDto.Name;
+            status.Color = statusForUpdateDto.Color;
+            status.Description = statusForUpdateDto.Description;
+
+            await _repositoryManager.UnitOfWork.SaveChangesAsync();
         }
 
-        public Task DeleteStatusAsync(int id)
+        public async Task DeleteStatusAsync(int id)
         {
-            throw new NotImplementedException();
+            var status = await _repositoryManager.StatusRepository.GetByIdAsync(id);
+
+            if(status is null)
+            {
+                throw new StatusNotFoundException(id);
+            }
+
+            _repositoryManager.StatusRepository.DeleteStatus(status);
+
+            await _repositoryManager.UnitOfWork.SaveChangesAsync();
         }
 
     }
