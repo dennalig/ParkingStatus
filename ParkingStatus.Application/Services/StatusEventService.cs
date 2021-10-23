@@ -14,16 +14,6 @@ namespace ParkingStatus.Application.Services
 
         private readonly IRepositoryManager _repositoryManager;
         public StatusEventService(IRepositoryManager repositoryManager) => _repositoryManager = repositoryManager;
-        public Task<StatusEvent> CreateStatusEventAsync(int id, StatusEventForCreationDto statusEventForCreationDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task DeleteStatusEventAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<IEnumerable<StatusEvent>> GetAllStatusEventsAsync()
         {
             throw new NotImplementedException();
@@ -34,7 +24,17 @@ namespace ParkingStatus.Application.Services
             throw new NotImplementedException();
         }
 
+        public Task<StatusEvent> CreateStatusEventAsync(int id, StatusEventForCreationDto statusEventForCreationDto)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task UpdateStatusEventAsync(int id, StatusEventForUpdateDto statusEventForUpdateDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteStatusEventAsync(int id)
         {
             throw new NotImplementedException();
         }

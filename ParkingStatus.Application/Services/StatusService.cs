@@ -13,15 +13,6 @@ namespace ParkingStatus.Application.Services
     {
         private readonly IRepositoryManager _repositoryManager;
         public StatusService(IRepositoryManager repositoryManager) => _repositoryManager = repositoryManager;
-        public Task<Status> CreateStatusAsync(int id, StatusForCreationDto statusForCreationDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task DeleteStatusAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
 
         public Task<IEnumerable<Status>> GetAllStatusesAsync()
         {
@@ -33,9 +24,21 @@ namespace ParkingStatus.Application.Services
             throw new NotImplementedException();
         }
 
+
+        public Task<Status> CreateStatusAsync(int id, StatusForCreationDto statusForCreationDto)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task UpdateStatusAsync(int id, StatusForUpdateDto statusForUpdateDto)
         {
             throw new NotImplementedException();
         }
+
+        public Task DeleteStatusAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
