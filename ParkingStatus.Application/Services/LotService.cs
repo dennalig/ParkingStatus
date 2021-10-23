@@ -37,7 +37,7 @@ namespace ParkingStatus.Application.Services
         }
 
   
-        public async  Task<Lot> CreateLotAsync(int id, LotForCreationDto lotForCreationDto)
+        public async Task<Lot> CreateLotAsync(int id, LotForCreationDto lotForCreationDto)
         {
             var lot = new Lot();
             lot.Id = lotForCreationDto.Id;
@@ -54,14 +54,35 @@ namespace ParkingStatus.Application.Services
             
         }
 
-        public Task DeleteLotAsync(int id)
+ 
+
+        public async Task UpdateLotAsync(int id, LotForUpdateDto lotForUpdateDto)
         {
-            throw new NotImplementedException();
+            var lot = await _repositoryManager.LotRepository.GetByIdAsync(id);
+
+            if(lot is null)
+            {
+                throw new LotNotFoundException(id);
+            }
+
+            lot.Name = lotForUpdateDto.Name;
+            lot.Description = lotForUpdateDto.Description;
+            lot.lotStatusSchedule = lotForUpdateDto.lotStatusSchedule;
+
+            await _repositoryManager.UnitOfWork.SaveChangesAsync();
         }
 
-        public Task UpdateLotAsync(int id, LotForUpdateDto lotForUpdateDto)
+        public async Task DeleteLotAsync(int id)
         {
-            throw new NotImplementedException();
+            var lot = await _repositoryManager.LotRepository.GetByIdAsync(id);
+
+            if(lot is null)
+            {
+                throw new LotNotFoundException(id);
+            }
+            _repositoryManager.LotRepository.AddLot(lot);
+
+            await _repositoryManager.UnitOfWork.SaveChangesAsync();
         }
     }
 }
