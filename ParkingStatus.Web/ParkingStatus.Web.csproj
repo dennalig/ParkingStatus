@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="JavaScriptEngineSwitcher.ChakraCore.Native.win-x64" Version="3.12.6" />
+    <PackageReference Include="JavaScriptEngineSwitcher.ChakraCore.Native.win-x86" Version="3.12.6" />
     <PackageReference Include="JavaScriptEngineSwitcher.V8" Version="3.12.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.0" />
     <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.4.4">
@@ -13,6 +15,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="React.AspNet" Version="5.2.11" />
+    <PackageReference Include="React.Web.Mvc4" Version="5.2.11" />
+    <PackageReference Include="System.Web.Optimization.React" Version="5.2.11" />
   </ItemGroup>
 
 </Project>
