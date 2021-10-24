@@ -13,6 +13,7 @@ namespace ParkingStatus.Infrastructure.Persistence.Repositories
         private readonly RepositoryDbContext _dbContext;
         public LotRepository(RepositoryDbContext dbContext) => _dbContext = dbContext;
         
+        //TODO: Specifiy LotStatusSchedules also
         public async Task<IEnumerable<Lot>> GetAllAsync() =>
             await _dbContext.Lots.Include(x => x.Id).ToListAsync();
         

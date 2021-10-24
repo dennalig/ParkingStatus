@@ -14,11 +14,20 @@ namespace ParkingStatus.Infrastructure.Persistence
 
         }
 
+        //Lot items
         public DbSet<Lot> Lots { get; set; }
 
+        public DbSet<LotStatusSchedule> LotStatusSchedules { get; set; }
+
+        public DbSet<LotStatusScheduleDate> LotStatusScheduleDates { get; set; }
+
+        //Status Items
         public DbSet<Status> Statuses { get; set; }
 
+        //Status Event Items
         public DbSet<StatusEvent> StatusEvents { get; set; }
+
+        public DbSet<StatusEventDate> StatusEventDates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) =>
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(RepositoryDbContext).Assembly);
