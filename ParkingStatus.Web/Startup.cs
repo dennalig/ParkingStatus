@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ParkingStatus.Infrastructure;
+using ParkingStatus.Infrastructure.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,9 +26,8 @@ namespace ParkingStatus.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ParkingStatusContext>(options => 
+            services.AddDbContext<RepositoryDbContext>(options => 
                 options.UseSqlServer("Server=.;Database=ParkingStatus;Integrated Security=True;"));
-
             services.AddRazorPages();
         }
 
