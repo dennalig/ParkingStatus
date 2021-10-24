@@ -11,5 +11,6 @@ namespace ParkingStatus.Domain
 
         public int StatusID { get; set; } // each LotStatusScheduleDate can have a different status
 
+        public int LotStatusScheduleId { get; set; }
     }
 }

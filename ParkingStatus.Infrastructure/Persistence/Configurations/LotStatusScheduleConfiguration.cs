@@ -13,7 +13,13 @@ namespace ParkingStatus.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<LotStatusSchedule> builder)
         {
-            throw new NotImplementedException();
+            builder.ToTable(nameof(LotStatusSchedule));
+
+            builder.HasKey(lotStatusSchedule => lotStatusSchedule.Id);
+
+            builder.Property(lotStatusSchedule => lotStatusSchedule.Name);
+
+            
         }
     }
 }

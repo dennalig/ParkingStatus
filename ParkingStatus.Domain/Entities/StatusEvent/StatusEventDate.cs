@@ -11,6 +11,7 @@ namespace ParkingStatus.Domain
         public DateTime EndTime { get; set; }
         public int LotID { get; set; }
 
+        public int StatusEventId { get; set; }
    
     }
 }

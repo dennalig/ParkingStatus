@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ParkingStatus.Domain;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace ParkingStatus.Infrastructure.Persistence.Configurations
 {
@@ -23,6 +21,8 @@ namespace ParkingStatus.Infrastructure.Persistence.Configurations
             builder.Property(lot => lot.Name).IsRequired();
 
             builder.Property(lot => lot.Description);
+
+            
 
 
         }
