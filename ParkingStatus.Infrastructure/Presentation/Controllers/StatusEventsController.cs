@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Web.Mvc;
+
 
 namespace ParkingStatus.Infrastructure.Presentation.Controllers
 {
+    [ApiController]
+    [Route("api/statusvents/{statusEventId:int}/statusEvents")]
     public class StatusEventsController : ControllerBase
     {
-        protected override void ExecuteCore()
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }
