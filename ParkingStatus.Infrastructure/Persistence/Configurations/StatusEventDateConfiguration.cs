@@ -13,7 +13,7 @@ namespace ParkingStatus.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<StatusEventDate> builder)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

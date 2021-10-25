@@ -6,8 +6,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
+using ParkingStatus.Application.Contracts;
+using ParkingStatus.Application.Services;
+using ParkingStatus.Domain.Repository;
 using ParkingStatus.Infrastructure;
 using ParkingStatus.Infrastructure.Persistence;
+using ParkingStatus.Infrastructure.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +51,11 @@ namespace ParkingStatus.Web
                     );
 
             services.AddControllers();
+
+            services.AddScoped<IServiceManager, ServiceManager>();
+            services.AddScoped<IRepositoryManager, RepositoryManager>();
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +66,7 @@ namespace ParkingStatus.Web
                 app.UseDeveloperExceptionPage();
                 app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod()
                     .AllowAnyHeader());
+
             }
             else
             {
@@ -75,6 +85,7 @@ namespace ParkingStatus.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
         }
     }

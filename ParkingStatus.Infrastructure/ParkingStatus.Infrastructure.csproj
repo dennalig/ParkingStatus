@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ParkingStatus.Application\ParkingStatus.Application.csproj" />
     <ProjectReference Include="..\ParkingStatus.Contracts\ParkingStatus.Contracts.csproj" />
     <ProjectReference Include="..\ParkingStatus.Domain\ParkingStatus.Domain.csproj" />
   </ItemGroup>

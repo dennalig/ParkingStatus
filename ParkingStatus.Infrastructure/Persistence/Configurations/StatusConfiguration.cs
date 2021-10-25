@@ -13,7 +13,7 @@ namespace ParkingStatus.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Status> builder)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
