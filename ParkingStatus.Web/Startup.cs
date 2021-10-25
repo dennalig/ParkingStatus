@@ -1,9 +1,13 @@
+using JavaScriptEngineSwitcher.ChakraCore;
+using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
 using ParkingStatus.Application.Contracts;
@@ -12,6 +16,7 @@ using ParkingStatus.Domain.Repository;
 using ParkingStatus.Infrastructure;
 using ParkingStatus.Infrastructure.Persistence;
 using ParkingStatus.Infrastructure.Persistence.Repositories;
+using React.AspNet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +60,12 @@ namespace ParkingStatus.Web
             services.AddScoped<IServiceManager, ServiceManager>();
             services.AddScoped<IRepositoryManager, RepositoryManager>();
 
+            services.AddHttpContextAccessor();
+      
+
+            services.AddReact();
+            services.AddJsEngineSwitcher(options => options.DefaultEngineName = ChakraCoreJsEngine.EngineName).AddChakraCore();
+
             
         }
 
@@ -82,11 +93,14 @@ namespace ParkingStatus.Web
 
             app.UseAuthorization();
 
+            //app.UseReact(config => { });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
             });
+
+            app.UseCookiePolicy();
         }
     }
 }
