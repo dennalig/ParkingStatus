@@ -12,6 +12,6 @@ namespace ParkingStatus.Contracts.Lot
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public LotStatusSchedule LotStatusSchedule { get; set; }
+        public ICollection<LotStatusSchedule> LotStatusSchedule { get; set; }
     }
 }

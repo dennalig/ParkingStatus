@@ -10,6 +10,6 @@ namespace ParkingStatus.Contracts
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public LotStatusSchedule lotStatusSchedule { get; set; }
+        public IEnumerable<LotStatusSchedule> LotStatusSchedule { get; set; }
     }
 }

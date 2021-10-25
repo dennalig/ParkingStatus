@@ -22,6 +22,11 @@ namespace ParkingStatus.Infrastructure.Persistence.Configurations
 
             builder.Property(lot => lot.Description);
 
+            builder.HasMany(lot => lot.LotStatusSchedule)
+                .WithOne()
+                .HasForeignKey(lotStatusSchedule => lotStatusSchedule.LotId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             
 
 
