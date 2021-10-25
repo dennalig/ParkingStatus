@@ -13,7 +13,7 @@ namespace ParkingStatus.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<LotStatusScheduleDate> builder)
         {
-            
+            //TODO: Configure
         }
     }
 }

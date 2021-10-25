@@ -19,7 +19,7 @@ namespace ParkingStatus.Infrastructure.Persistence.Configurations
 
             builder.Property(lotStatusSchedule => lotStatusSchedule.Name);
 
-            
+            //TODO : Configure properly
         }
     }
 }
