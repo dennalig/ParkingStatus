@@ -8,7 +8,7 @@ namespace ParkingStatus.Domain
         // Name and Description fields
         public string Name { get; set; }
         public string Description { get; set; }
-        public LotStatusSchedule lotStatusSchedule { get; set; }
+        public LotStatusSchedule LotStatusSchedule { get; set; }
 
     }
 }

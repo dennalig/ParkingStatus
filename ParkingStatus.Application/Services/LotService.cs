@@ -43,7 +43,7 @@ namespace ParkingStatus.Application.Services
             lot.Id = lotForCreationDto.Id;
             lot.Name = lotForCreationDto.Name;
             lot.Description = lotForCreationDto.Description;
-            lot.lotStatusSchedule = lotForCreationDto.lotStatusSchedule;
+            lot.LotStatusSchedule = lotForCreationDto.LotStatusSchedule;
 
             _repositoryManager.LotRepository.AddLot(lot);
 
@@ -67,7 +67,7 @@ namespace ParkingStatus.Application.Services
 
             lot.Name = lotForUpdateDto.Name;
             lot.Description = lotForUpdateDto.Description;
-            lot.lotStatusSchedule = lotForUpdateDto.lotStatusSchedule;
+            lot.LotStatusSchedule = lotForUpdateDto.LotStatusSchedule;
 
             await _repositoryManager.UnitOfWork.SaveChangesAsync();
         }
