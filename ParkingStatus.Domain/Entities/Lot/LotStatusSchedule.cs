@@ -9,7 +9,7 @@ namespace ParkingStatus.Domain
         // name of the schedule
         public string Name { get; set; }
 
-        public List<LotStatusScheduleDate> LotStatusScheduleDates {get;set;} // list of lot statusscheduledate objects for the schedule object
+        public ICollection<LotStatusScheduleDate> LotStatusScheduleDates {get;set;} // list of lot statusscheduledate objects for the schedule object
 
         public int LotId { get; set; }
     }

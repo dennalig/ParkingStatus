@@ -11,7 +11,7 @@ namespace ParkingStatus.Domain
         
         public int StatusID { get; set; } // a status event can only have one status that it is assigned to ,
                                                           
-        public List<StatusEventDate> StatusEventDates { get; set; } // each entry in the list implies a varying duration (start and endtime) 
+        public ICollection<StatusEventDate> StatusEventDates { get; set; } // each entry in the list implies a varying duration (start and endtime) 
                                                                     // and/or a varying Lot 
 
     }

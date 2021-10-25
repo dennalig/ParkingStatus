@@ -11,6 +11,6 @@ namespace ParkingStatus.Contracts.StatusEvent
 
         public int StatusID { get; set; } // a status event can only have one status that it is assigned to ,
 
-        public List<StatusEventDate> StatusEventDates { get; set; }
+        public ICollection<StatusEventDate> StatusEventDates { get; set; }
     }
 }
