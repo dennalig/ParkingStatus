@@ -14,6 +14,10 @@ namespace ParkingStatus.Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<LotStatusScheduleDate> builder)
         {
             //TODO: Configure
+
+            builder.ToTable(nameof(LotStatusScheduleDate));
+
+            builder.HasKey(lotStatusScheduleDate => lotStatusScheduleDate.Id);
         }
     }
 }

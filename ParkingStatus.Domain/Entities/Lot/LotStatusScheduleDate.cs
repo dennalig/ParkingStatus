@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ParkingStatus.Domain
 {
-    public class LotStatusScheduleDate
+    public class LotStatusScheduleDate: BaseEntity
     {
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }

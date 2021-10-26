@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ParkingStatus.Infrastructure.Presentation.Controllers
 {
     [ApiController]
-    [Route("api/lots/{LotId:int}/lots")]
+    [Route("api/lots")]
     public class LotsController: ControllerBase
     {
         private readonly IServiceManager _serviceManager;
