@@ -4,8 +4,11 @@ import com.ParkingStatus.ParkingStatus.DataAccessService.LotDataAccessService;
 import com.ParkingStatus.ParkingStatus.Models.Lot.Lot;
 
 import com.ParkingStatus.ParkingStatus.Models.Lot.LotStatusSchedule;
+import com.ParkingStatus.ParkingStatus.Models.Lot.LotStatusScheduleDate;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -19,7 +22,7 @@ public class LotService {
 
     public List<Lot> getAllLots(){
         return List.of(
-                new Lot(1, "name", "Description", null)
+                new Lot(1, "name", "Description")
         );
     }
 

@@ -7,7 +7,7 @@ public class StatusEvent {
     private int StatusEventId;
     private String Description;
     private int StatusId;
-    private List<StatusEventDate> StatusEventDates;
+
 
     public StatusEvent(int statusEventId, String description,
                        int statusId,
@@ -15,7 +15,7 @@ public class StatusEvent {
         StatusEventId = statusEventId;
         Description = description;
         StatusId = statusId;
-        StatusEventDates = statusEventDates;
+
     }
 
     public int getStatusEventId() {
@@ -42,13 +42,7 @@ public class StatusEvent {
         StatusId = statusId;
     }
 
-    public List<StatusEventDate> getStatusEventDates() {
-        return StatusEventDates;
-    }
 
-    public void setStatusEventDates(List<StatusEventDate> statusEventDates) {
-        StatusEventDates = statusEventDates;
-    }
 
     @Override
     public String toString() {
@@ -56,7 +50,7 @@ public class StatusEvent {
                 "StatusEventId=" + StatusEventId +
                 ", Description='" + Description + '\'' +
                 ", StatusId=" + StatusId +
-                ", StatusEventDates=" + StatusEventDates +
+
                 '}';
     }
 }

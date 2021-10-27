@@ -23,7 +23,7 @@ public class StatusService {
 
     }
 
-    public void updateStauts(int id, Status status){
+    public void updateStatus(int id, Status status){
 
     }
 

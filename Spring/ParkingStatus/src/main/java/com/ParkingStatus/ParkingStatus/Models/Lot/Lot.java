@@ -8,13 +8,11 @@ public class Lot {
 
     private String Description;
 
-    private LotStatusSchedule lotStatusSchedule;
 
-    public Lot(int lotID, String name, String description, LotStatusSchedule lotStatusSchedule) {
+    public Lot(int lotID, String name, String description) {
         LotID = lotID;
         Name = name;
         Description = description;
-        this.lotStatusSchedule = lotStatusSchedule;
     }
 
     public int getLotID() {
@@ -41,13 +39,6 @@ public class Lot {
         Description = description;
     }
 
-    public LotStatusSchedule getLotStatusSchedule() {
-        return lotStatusSchedule;
-    }
-
-    public void setLotStatusSchedule(LotStatusSchedule lotStatusSchedule) {
-        this.lotStatusSchedule = lotStatusSchedule;
-    }
 
     @Override
     public String toString() {
@@ -55,7 +46,6 @@ public class Lot {
                 "LotID=" + LotID +
                 ", Name='" + Name + '\'' +
                 ", Description='" + Description + '\'' +
-                ", lotStatusSchedule=" + lotStatusSchedule +
                 '}';
     }
 }
