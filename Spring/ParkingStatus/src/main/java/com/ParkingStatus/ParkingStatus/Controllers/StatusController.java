@@ -1,7 +1,9 @@
 package com.ParkingStatus.ParkingStatus.Controllers;
 
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping(path ="api/v1/statuses")
 public class StatusController {
 }
