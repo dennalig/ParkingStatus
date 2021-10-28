@@ -18,7 +18,7 @@ public class LotService {
 
     public List<Lot> getAllLots(){
         return List.of(
-                new Lot(1, "name", "Description")
+                new Lot(1, "name", "Description", "LotImageName", null)
         );
     }
 

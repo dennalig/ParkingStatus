@@ -1,5 +1,7 @@
 package com.ParkingStatus.ParkingStatus.Models.Lot;
 
+import java.io.File;
+
 public class Lot {
 
     private int LotID;
@@ -8,12 +10,18 @@ public class Lot {
 
     private String LotDescription;
 
+    private String LotImageName;
 
-    public Lot(int lotID, String name, String description) {
+    private File LotImage;
+
+    public Lot(int lotID, String lotName, String lotDescription, String lotImageName, File lotImage) {
         LotID = lotID;
-        LotName = name;
-        LotDescription = description;
+        LotName = lotName;
+        LotDescription = lotDescription;
+        LotImageName = lotImageName;
+        LotImage = lotImage;
     }
+
 
     public int getLotID() {
         return LotID;
@@ -39,6 +47,13 @@ public class Lot {
         LotDescription = description;
     }
 
+    public String getLotImageName() {
+        return LotImageName;
+    }
+
+    public void setLotImageName(String lotImageName) {
+        LotImageName = lotImageName;
+    }
 
     @Override
     public String toString() {

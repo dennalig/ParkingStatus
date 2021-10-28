@@ -1,19 +1,23 @@
 package com.ParkingStatus.ParkingStatus.Models.Status;
 
+import java.io.File;
+
 public class Status {
 
     private int StatusId;
     private int Name;
     private String Color;
     private String Description;
+    private String StatusImageName;
+    private File StatusImage;
 
-    public Status(int statusId, int name,
-                  String color,
-                  String description) {
+    public Status(int statusId, int name, String color, String description, String statusImageName, File statusImage) {
         StatusId = statusId;
         Name = name;
         Color = color;
         Description = description;
+        StatusImageName = statusImageName;
+        StatusImage = statusImage;
     }
 
     public int getStatusId() {
@@ -46,6 +50,22 @@ public class Status {
 
     public void setDescription(String description) {
         Description = description;
+    }
+
+    public String getStatusImageName() {
+        return StatusImageName;
+    }
+
+    public void setStatusImageName(String statusImageName) {
+        StatusImageName = statusImageName;
+    }
+
+    public File getStatusImage() {
+        return StatusImage;
+    }
+
+    public void setStatusImage(File statusImage) {
+        StatusImage = statusImage;
     }
 
     @Override
