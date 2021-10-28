@@ -4,15 +4,15 @@ public class Lot {
 
     private int LotID;
 
-    private String Name;
+    private String LotName;
 
-    private String Description;
+    private String LotDescription;
 
 
     public Lot(int lotID, String name, String description) {
         LotID = lotID;
-        Name = name;
-        Description = description;
+        LotName = name;
+        LotDescription = description;
     }
 
     public int getLotID() {
@@ -24,19 +24,19 @@ public class Lot {
     }
 
     public String getName() {
-        return Name;
+        return LotName;
     }
 
     public void setName(String name) {
-        Name = name;
+        LotName = name;
     }
 
     public String getDescription() {
-        return Description;
+        return LotDescription;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        LotDescription = description;
     }
 
 
@@ -44,8 +44,8 @@ public class Lot {
     public String toString() {
         return "Lot{" +
                 "LotID=" + LotID +
-                ", Name='" + Name + '\'' +
-                ", Description='" + Description + '\'' +
+                ", Name='" + LotName + '\'' +
+                ", Description='" + LotDescription + '\'' +
                 '}';
     }
 }

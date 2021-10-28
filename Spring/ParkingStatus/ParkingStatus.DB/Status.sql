@@ -4,6 +4,6 @@
     [StatusName] VARCHAR(MAX) NOT NULL, 
     [StatusColor] VARCHAR(50) NULL, 
     [StatusDescription] VARCHAR(MAX) NULL, 
-    [StatusImageName] VARCHAR(50) NULL, 
+    [StatusImageName] VARCHAR(MAX) NULL, 
     [StatusImage] VARBINARY(MAX) NULL
 )
