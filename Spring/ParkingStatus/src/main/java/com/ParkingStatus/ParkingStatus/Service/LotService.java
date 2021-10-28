@@ -1,14 +1,10 @@
 package com.ParkingStatus.ParkingStatus.Service;
 
-import com.ParkingStatus.ParkingStatus.DataAccessService.LotDataAccessService;
+import com.ParkingStatus.ParkingStatus.DataAccessService.Lot.LotDataAccessService;
 import com.ParkingStatus.ParkingStatus.Models.Lot.Lot;
 
-import com.ParkingStatus.ParkingStatus.Models.Lot.LotStatusSchedule;
-import com.ParkingStatus.ParkingStatus.Models.Lot.LotStatusScheduleDate;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -30,7 +26,7 @@ public class LotService {
         return null;
     }
 
-    public void createLot(int id, String name, String description, LotStatusSchedule lotStatusSchedule){
+    public void createLot(Lot lot){
 
     }
 

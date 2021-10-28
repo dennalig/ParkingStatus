@@ -3,9 +3,7 @@ package com.ParkingStatus.ParkingStatus.Controllers;
 import com.ParkingStatus.ParkingStatus.Models.Status.Status;
 import com.ParkingStatus.ParkingStatus.Service.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,4 +22,25 @@ public class StatusController {
     public List<Status> getAllStatuses(){
         return statusService.getAllStatuses();
     }
+
+    @GetMapping(path = "{statusId}")
+    public Status getStatusById(@PathVariable("statusId")int id){
+        return statusService.getStatusById(id);
+    }
+
+    @PostMapping
+    public void createStatus(@RequestBody Status status){
+        statusService.createStatus(status);
+    }
+
+    @PostMapping(path ="{statusId}")
+    public void updateStatus(@PathVariable("statusId")int id, @RequestBody Status status){
+        statusService.updateStatus(id, status);
+    }
+
+    @DeleteMapping("{statusId}")
+    public void deleteStatus(@PathVariable("statusId")int id){
+        statusService.deleteStatus(id);
+    }
+
 }

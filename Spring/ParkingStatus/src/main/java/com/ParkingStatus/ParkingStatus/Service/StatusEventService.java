@@ -1,5 +1,6 @@
 package com.ParkingStatus.ParkingStatus.Service;
 
+import com.ParkingStatus.ParkingStatus.DataAccessService.StatusEvent.StatusEventDataAccessService;
 import com.ParkingStatus.ParkingStatus.Models.StatusEvent.StatusEvent;
 import com.ParkingStatus.ParkingStatus.Models.StatusEvent.StatusEventDate;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,9 @@ import java.util.List;
 @Service
 public class StatusEventService {
 
-    public StatusEventService() {
+    private final StatusEventDataAccessService statusEventDataAccessService;
+    public StatusEventService(StatusEventDataAccessService statusEventDataAccessService) {
+        this.statusEventDataAccessService = statusEventDataAccessService;
     }
 
     public List<StatusEvent> getAllStatusEvents(){
@@ -24,8 +27,7 @@ public class StatusEventService {
         return null;
     }
 
-    public void createStatusEvent(int id, int statusId, String description,
-                                  List<StatusEventDate> statusEventDates){
+    public void createStatusEvent(StatusEvent statusEvent){
 
     }
 

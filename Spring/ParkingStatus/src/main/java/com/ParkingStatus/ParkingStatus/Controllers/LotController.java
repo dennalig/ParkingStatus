@@ -4,9 +4,8 @@ package com.ParkingStatus.ParkingStatus.Controllers;
 import com.ParkingStatus.ParkingStatus.Models.Lot.Lot;
 import com.ParkingStatus.ParkingStatus.Service.LotService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -27,6 +26,26 @@ public class LotController {
      public List<Lot> getAllLots(){
 
         return lotService.getAllLots();
+     }
+
+     @GetMapping(path = "{lotId}")
+     public Lot getLotByID(@PathVariable("lotId") int id){
+        return lotService.getLotByID(id);
+     }
+
+     @PostMapping
+     public void createLot(@RequestBody Lot lot){
+        lotService.createLot(lot);
+     }
+
+     @PostMapping(path ="{lotId}")
+     public void updateLot(@PathVariable("lotId")int id, @RequestBody Lot lot){
+        lotService.updateLot(id, lot);
+     }
+
+     @DeleteMapping("{lotId}")
+     public void deleteLot(@PathVariable("lotId")int id){
+        lotService.deleteLot(id);
      }
 
 

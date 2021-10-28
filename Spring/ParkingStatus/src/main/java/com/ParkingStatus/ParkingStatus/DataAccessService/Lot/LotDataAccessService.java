@@ -1,4 +1,4 @@
-package com.ParkingStatus.ParkingStatus.DataAccessService;
+package com.ParkingStatus.ParkingStatus.DataAccessService.Lot;
 
 import org.springframework.stereotype.Repository;
 
