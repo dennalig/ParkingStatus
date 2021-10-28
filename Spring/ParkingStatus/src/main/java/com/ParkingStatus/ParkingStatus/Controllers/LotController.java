@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.*;
 import java.util.List;
 
 @RestController
@@ -16,6 +15,7 @@ import java.util.List;
 public class LotController {
 
     private final LotService lotService;
+
 
     @Autowired
     public LotController(LotService lotService) {
@@ -25,6 +25,7 @@ public class LotController {
     @GetMapping
      public List<Lot> getAllLots(){
 
+//        Connection testConnection = getConnectionToDB();
         return lotService.getAllLots();
      }
 
@@ -48,6 +49,20 @@ public class LotController {
         lotService.deleteLot(id);
      }
 
+     public Connection getConnectionToDB(){
+        try{
+            Connection conn = DriverManager.getConnection(
+               "jdbc:sqlserver://DESKTOP-7ACTRJE",
+               "sa",
+               ""
+            );
+
+            return conn;
+        }
+        catch(Exception e){
+            return null;
+        }
+     }
 
 }
 
