@@ -1,9 +1,13 @@
 package com.ParkingStatus.ParkingStatus.Models.Lot;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.File;
 
+@Entity
 public class Lot {
 
+    @Id
     private int LotID;
 
     private String LotName;
