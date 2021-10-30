@@ -1,13 +1,11 @@
 package com.ParkingStatus.ParkingStatus.Models.Lot;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.io.File;
 
-@Entity
+//@Entity
 public class Lot {
 
-    @Id
+//    @Id
     private int LotID;
 
     private String LotName;
@@ -57,6 +55,14 @@ public class Lot {
 
     public void setLotImageName(String lotImageName) {
         LotImageName = lotImageName;
+    }
+
+    public File getLotImage() {
+        return LotImage;
+    }
+
+    public void setLotImage(File lotImage) {
+        LotImage = lotImage;
     }
 
     @Override

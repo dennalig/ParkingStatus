@@ -1,10 +1,7 @@
 package com.ParkingStatus.ParkingStatus.Service;
 
-import com.ParkingStatus.ParkingStatus.DataAccessService.Lot.ILotRepository;
-import com.ParkingStatus.ParkingStatus.DataAccessService.Lot.LotDataAccessService;
 import com.ParkingStatus.ParkingStatus.Models.Lot.Lot;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,11 +11,11 @@ public class LotService {
 
 //    private final LotDataAccessService lotDataAccessService;
 
-    @Autowired
-    ILotRepository LotRepository;
+//    @Autowired
+//    ILotRepository LotRepository;
 
-    public LotService(ILotRepository lotRepository) {
-        LotRepository = lotRepository;
+    public LotService() {
+//        LotRepository = lotRepository;
     }
 
     public List<Lot> getAllLots(){

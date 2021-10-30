@@ -2,6 +2,6 @@ package com.ParkingStatus.ParkingStatus.DataAccessService.Lot;
 
 import org.springframework.stereotype.Repository;
 
-@Repository
+//@Repository
 public class LotDataAccessService {
 }
