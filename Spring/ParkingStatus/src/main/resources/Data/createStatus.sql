@@ -1,0 +1,9 @@
+CREATE TABLE STATUS
+(
+	StatusID INT NOT NULL PRIMARY KEY,
+    StatusName VARCHAR(500) NOT NULL,
+    StatusColor VARCHAR(50) NULL,
+    StatusDescription VARCHAR(500) NULL,
+    StatusImageName VARCHAR(500) NULL
+
+);

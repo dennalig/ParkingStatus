@@ -1,0 +1,8 @@
+CREATE TABLE STATUSEVENT
+(
+	StatusEventID INT NOT NULL PRIMARY KEY,
+    Description VARCHAR(50) NULL,
+    StatusID INT NOT NULL,
+    StatusEventImageName VARCHAR(500) NULL,
+    FOREIGN KEY (StatusID) REFERENCES STATUS(StatusID)
+);

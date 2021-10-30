@@ -1,0 +1,7 @@
+CREATE TABLE LOT
+(
+	LotID INT NOT NULL PRIMARY KEY,
+    LotName VARCHAR(500) NOT NULL,
+    LotDescription VARCHAR(500) NULL,
+    LotImageName VARCHAR(500) NULL
+);
