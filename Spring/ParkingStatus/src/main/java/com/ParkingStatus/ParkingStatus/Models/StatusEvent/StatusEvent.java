@@ -13,7 +13,7 @@ public class StatusEvent {
     private String StatusEventImageName;
     private File StatusEventImage;
 
-    private List<StatusEventDate> StatusEventDates;
+    public List<StatusEventDate> StatusEventDates;
 
     public StatusEvent(){}
 

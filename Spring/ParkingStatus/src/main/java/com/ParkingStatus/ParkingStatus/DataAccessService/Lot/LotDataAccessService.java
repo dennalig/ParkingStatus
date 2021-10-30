@@ -1,6 +1,8 @@
 package com.ParkingStatus.ParkingStatus.DataAccessService.Lot;
 
 import com.ParkingStatus.ParkingStatus.Models.Lot.Lot;
+import com.ParkingStatus.ParkingStatus.Models.Lot.LotStatusSchedule;
+import com.ParkingStatus.ParkingStatus.Models.Lot.LotStatusScheduleDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -29,7 +31,7 @@ public class LotDataAccessService {
         List<Lot> lotList = new ArrayList<Lot>();
 
         for(Map<String, Object> map: queriedLots){
-            Lot lot = new Lot();
+            mapLotFromDB(map);
         }
        return null;
      }
@@ -48,5 +50,35 @@ public class LotDataAccessService {
 
     public int removeLot(int id){
         return 0;
+    }
+
+    public Lot mapLotFromDB(Map<String, Object>dbMap){
+        Lot lot = new Lot();
+        lot.setLotID((Integer) dbMap.get("lotid"));
+        lot.setLotName((String) dbMap.get("lotname"));
+        lot.setLotDescription(dbMap.get("lotdescription") == null ? ""
+                :(String)dbMap.get("lotdescription"));
+        lot.setLotImageName(dbMap.get("lotimagename") == null ? ""
+                : (String)dbMap.get("lotimagename"));
+
+        //TODO: Define mapping of lotstatusschedules also
+
+        //TODO: set Image value here also
+
+//        System.out.println(dbMap.get("lotdescription"));
+
+        return null;
+    }
+
+    public LotStatusSchedule mapLotStatusScheduleFromDB(Map<String, Object> dbMapForSchedule){
+        LotStatusSchedule lotStatusSchedule = new LotStatusSchedule();
+
+        return lotStatusSchedule;
+    }
+
+    public List<LotStatusScheduleDate> mapLotStatusScheduleDatesFromDB(Map<String, Object> dbMapForSchedule){
+     List<LotStatusScheduleDate> lotStatusScheduleDates = new ArrayList<LotStatusScheduleDate>();
+
+     return lotStatusScheduleDates;
     }
 }

@@ -7,7 +7,7 @@ public class LotStatusSchedule {
     private int LotStatusScheduleId;
     private String Name ;
     private int LotId;
-    private List<LotStatusScheduleDate> LotStatusScheduleDates;
+    public List<LotStatusScheduleDate> LotStatusScheduleDates;
 
     public LotStatusSchedule(){}
     public LotStatusSchedule(int lotStatusScheduleId, String name, int lotId,

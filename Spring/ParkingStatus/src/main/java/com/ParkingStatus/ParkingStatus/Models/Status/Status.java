@@ -12,7 +12,9 @@ public class Status {
     private File StatusImage;
 
     public Status(){}
-    public Status(int statusId, int name, String color, String description, String statusImageName, File statusImage) {
+    public Status(int statusId, int name,
+                  String color, String description,
+                  String statusImageName, File statusImage) {
         StatusId = statusId;
         Name = name;
         Color = color;

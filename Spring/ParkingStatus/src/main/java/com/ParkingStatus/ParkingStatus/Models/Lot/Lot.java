@@ -16,7 +16,7 @@ public class Lot {
 
     private File LotImage;
 
-    private LotStatusSchedule LotStatusSchedule;
+    public LotStatusSchedule LotStatusSchedule;
 
     public Lot() {}
 
@@ -39,20 +39,20 @@ public class Lot {
         LotID = lotID;
     }
 
-    public String getName() {
+    public String getLotName() {
         return LotName;
     }
 
-    public void setName(String name) {
-        LotName = name;
+    public void setLotName(String lotName) {
+        LotName = lotName;
     }
 
-    public String getDescription() {
+    public String getLotDescription() {
         return LotDescription;
     }
 
-    public void setDescription(String description) {
-        LotDescription = description;
+    public void setLotDescription(String lotDescription) {
+        LotDescription = lotDescription;
     }
 
     public String getLotImageName() {
@@ -62,8 +62,6 @@ public class Lot {
     public void setLotImageName(String lotImageName) {
         LotImageName = lotImageName;
     }
-
-
 
     public File getLotImage() {
         return LotImage;
