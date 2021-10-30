@@ -10,6 +10,7 @@ public class LotStatusScheduleDate {
     private int StatusId;
     private int LotStatusScheduleId;
 
+    public LotStatusScheduleDate(){}
     public LotStatusScheduleDate(int lotStatusScheduleDateId, LocalDateTime startTime,
                                  LocalDateTime endTime,
                                  int statusId,

@@ -18,6 +18,8 @@ public class Lot {
 
     private LotStatusSchedule LotStatusSchedule;
 
+    public Lot() {}
+
     public Lot(int lotID, String lotName, String lotDescription, String lotImageName, File lotImage,
                LotStatusSchedule lotStatusSchedule) {
         LotID = lotID;

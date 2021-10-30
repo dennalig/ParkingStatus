@@ -9,6 +9,7 @@ public class LotStatusSchedule {
     private int LotId;
     private List<LotStatusScheduleDate> LotStatusScheduleDates;
 
+    public LotStatusSchedule(){}
     public LotStatusSchedule(int lotStatusScheduleId, String name, int lotId,
                              List<LotStatusScheduleDate> lotStatusScheduleDates) {
         LotStatusScheduleId = lotStatusScheduleId;
@@ -17,7 +18,6 @@ public class LotStatusSchedule {
         LotStatusScheduleDates = lotStatusScheduleDates;
 
     }
-
 
 
     public int getLotStatusScheduleId() {

@@ -1,5 +1,7 @@
 package com.ParkingStatus.ParkingStatus.Models.StatusEvent;
 
+import com.ParkingStatus.ParkingStatus.Models.Status.Status;
+
 import java.io.File;
 import java.util.List;
 
@@ -13,6 +15,8 @@ public class StatusEvent {
 
     private List<StatusEventDate> StatusEventDates;
 
+    public StatusEvent(){}
+
     public StatusEvent(int statusEventId, String description, int statusId,
                        String statusEventImageName, File statusEventImage,
                        List<StatusEventDate> statusEventDates) {
@@ -24,14 +28,6 @@ public class StatusEvent {
         StatusEventDates = statusEventDates;
     }
 
-    public StatusEvent(int statusEventId, String description, int statusId,
-                       String statusEventImageName, File statusEventImage) {
-        StatusEventId = statusEventId;
-        Description = description;
-        StatusId = statusId;
-        StatusEventImageName = statusEventImageName;
-        StatusEventImage = statusEventImage;
-    }
 
     public int getStatusEventId() {
         return StatusEventId;
