@@ -11,6 +11,19 @@ public class StatusEvent {
     private String StatusEventImageName;
     private File StatusEventImage;
 
+    private List<StatusEventDate> StatusEventDates;
+
+    public StatusEvent(int statusEventId, String description, int statusId,
+                       String statusEventImageName, File statusEventImage,
+                       List<StatusEventDate> statusEventDates) {
+        StatusEventId = statusEventId;
+        Description = description;
+        StatusId = statusId;
+        StatusEventImageName = statusEventImageName;
+        StatusEventImage = statusEventImage;
+        StatusEventDates = statusEventDates;
+    }
+
     public StatusEvent(int statusEventId, String description, int statusId,
                        String statusEventImageName, File statusEventImage) {
         StatusEventId = statusEventId;
@@ -58,6 +71,14 @@ public class StatusEvent {
 
     public void setStatusEventImage(File statusEventImage) {
         StatusEventImage = statusEventImage;
+    }
+
+    public List<StatusEventDate> getStatusEventDates() {
+        return StatusEventDates;
+    }
+
+    public void setStatusEventDates(List<StatusEventDate> statusEventDates) {
+        StatusEventDates = statusEventDates;
     }
 
     @Override

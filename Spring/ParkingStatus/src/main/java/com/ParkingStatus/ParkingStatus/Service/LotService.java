@@ -1,7 +1,9 @@
 package com.ParkingStatus.ParkingStatus.Service;
 
+import com.ParkingStatus.ParkingStatus.DataAccessService.Lot.LotDataAccessService;
 import com.ParkingStatus.ParkingStatus.Models.Lot.Lot;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,19 +11,16 @@ import java.util.List;
 @Service
 public class LotService {
 
-//    private final LotDataAccessService lotDataAccessService;
+    private final LotDataAccessService lotDataAccessService;
 
-//    @Autowired
-//    ILotRepository LotRepository;
+    @Autowired
+    public LotService(LotDataAccessService lotDataAccessService) {
 
-    public LotService() {
-//        LotRepository = lotRepository;
+        this.lotDataAccessService = lotDataAccessService;
     }
 
     public List<Lot> getAllLots(){
-        return List.of(
-                new Lot(1, "name", "Description", "LotImageName", null)
-        );
+        return lotDataAccessService.selectAllLots();
     }
 
     public Lot getLotByID(int id){

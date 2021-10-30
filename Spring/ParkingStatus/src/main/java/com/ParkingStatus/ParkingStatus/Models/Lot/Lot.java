@@ -16,12 +16,16 @@ public class Lot {
 
     private File LotImage;
 
-    public Lot(int lotID, String lotName, String lotDescription, String lotImageName, File lotImage) {
+    private LotStatusSchedule LotStatusSchedule;
+
+    public Lot(int lotID, String lotName, String lotDescription, String lotImageName, File lotImage,
+               LotStatusSchedule lotStatusSchedule) {
         LotID = lotID;
         LotName = lotName;
         LotDescription = lotDescription;
         LotImageName = lotImageName;
         LotImage = lotImage;
+        LotStatusSchedule = lotStatusSchedule;
     }
 
 
@@ -57,12 +61,22 @@ public class Lot {
         LotImageName = lotImageName;
     }
 
+
+
     public File getLotImage() {
         return LotImage;
     }
 
     public void setLotImage(File lotImage) {
         LotImage = lotImage;
+    }
+
+    public com.ParkingStatus.ParkingStatus.Models.Lot.LotStatusSchedule getLotStatusSchedule() {
+        return LotStatusSchedule;
+    }
+
+    public void setLotStatusSchedule(com.ParkingStatus.ParkingStatus.Models.Lot.LotStatusSchedule lotStatusSchedule) {
+        LotStatusSchedule = lotStatusSchedule;
     }
 
     @Override

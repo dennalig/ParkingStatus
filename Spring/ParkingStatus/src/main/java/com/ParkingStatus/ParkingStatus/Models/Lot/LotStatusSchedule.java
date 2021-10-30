@@ -7,15 +7,18 @@ public class LotStatusSchedule {
     private int LotStatusScheduleId;
     private String Name ;
     private int LotId;
-
+    private List<LotStatusScheduleDate> LotStatusScheduleDates;
 
     public LotStatusSchedule(int lotStatusScheduleId, String name, int lotId,
                              List<LotStatusScheduleDate> lotStatusScheduleDates) {
         LotStatusScheduleId = lotStatusScheduleId;
         Name = name;
         LotId = lotId;
+        LotStatusScheduleDates = lotStatusScheduleDates;
 
     }
+
+
 
     public int getLotStatusScheduleId() {
         return LotStatusScheduleId;
@@ -41,6 +44,13 @@ public class LotStatusSchedule {
         LotId = lotId;
     }
 
+    public List<LotStatusScheduleDate> getLotStatusScheduleDates() {
+        return LotStatusScheduleDates;
+    }
+
+    public void setLotStatusScheduleDates(List<LotStatusScheduleDate> lotStatusScheduleDates) {
+        LotStatusScheduleDates = lotStatusScheduleDates;
+    }
 
     @Override
     public String toString() {

@@ -25,7 +25,7 @@ public class LotController {
     @GetMapping
      public List<Lot> getAllLots(){
 
-//        Connection testConnection = getConnectionToDB();
+
         return lotService.getAllLots();
      }
 
@@ -49,20 +49,6 @@ public class LotController {
         lotService.deleteLot(id);
      }
 
-     public Connection getConnectionToDB(){
-        try{
-            Connection conn = DriverManager.getConnection(
-               "jdbc:sqlserver://DESKTOP-7ACTRJE",
-               "sa",
-               ""
-            );
-
-            return conn;
-        }
-        catch(Exception e){
-            return null;
-        }
-     }
 
 }
 
