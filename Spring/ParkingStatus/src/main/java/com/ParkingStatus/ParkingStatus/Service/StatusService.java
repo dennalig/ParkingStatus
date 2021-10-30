@@ -2,6 +2,7 @@ package com.ParkingStatus.ParkingStatus.Service;
 
 import com.ParkingStatus.ParkingStatus.DataAccessService.Status.StatusDataAccessService;
 import com.ParkingStatus.ParkingStatus.Models.Status.Status;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.List;
 public class StatusService {
 
     private final StatusDataAccessService statusDataAccessService;
+
+    @Autowired
     public StatusService(StatusDataAccessService statusDataAccessService){
         this.statusDataAccessService = statusDataAccessService;
     }
