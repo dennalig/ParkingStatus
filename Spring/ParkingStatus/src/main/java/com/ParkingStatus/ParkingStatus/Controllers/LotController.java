@@ -17,6 +17,7 @@ import java.util.List;
 @RequestMapping(path ="api/v1/lots")
 public class LotController {
 
+    @Autowired
     private final LotService lotService;
 
 

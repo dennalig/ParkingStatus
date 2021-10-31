@@ -5,14 +5,14 @@ import java.io.File;
 public class Status {
 
     private int StatusId;
-    private int Name;
+    private String Name;
     private String Color;
     private String Description;
     private String StatusImageName;
     private File StatusImage;
 
     public Status(){}
-    public Status(int statusId, int name,
+    public Status(int statusId, String name,
                   String color, String description,
                   String statusImageName, File statusImage) {
         StatusId = statusId;
@@ -31,11 +31,11 @@ public class Status {
         StatusId = statusId;
     }
 
-    public int getName() {
+    public String getName() {
         return Name;
     }
 
-    public void setName(int name) {
+    public void setName(String name) {
         Name = name;
     }
 

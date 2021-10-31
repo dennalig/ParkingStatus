@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path ="api/v1/statusevents")
+@RequestMapping(path ="api/v1/statusevent")
 public class StatusEventController {
 
+    @Autowired
     private final StatusEventService statusEventService;
 
     @Autowired
@@ -23,7 +24,7 @@ public class StatusEventController {
         return statusEventService.getAllStatusEvents();
     }
 
-    @GetMapping(path ="{statusId}")
+    @GetMapping(path ="status/{statusId}")
     public List<StatusEvent> getAllStatusEventsOfStatus(@PathVariable("statusId") int statusId){
         return statusEventService.getAllStatusEventsOfStatus(statusId);
     }

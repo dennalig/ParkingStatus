@@ -10,6 +10,7 @@ import java.util.List;
 @Service
 public class StatusService {
 
+    @Autowired
     private final StatusDataAccessService statusDataAccessService;
 
     @Autowired
@@ -18,11 +19,11 @@ public class StatusService {
     }
 
     public List<Status> getAllStatuses(){
-        return null;
+        return statusDataAccessService.selectAllStatuses();
     }
 
     public Status getStatusById(int id){
-        return null;
+        return statusDataAccessService.selectStatusById(id);
     }
 
     public void createStatus(Status status){

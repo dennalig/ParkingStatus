@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
+
 import java.util.List;
 import java.util.Map;
 
@@ -75,6 +75,8 @@ public class LotDataAccessService {
         //TODO: Cascade delete
         return id;
     }
+
+    //mapping methods
 
     public Lot mapSelectLotFromDB(Map<String, Object>dbMap){
         Lot lot = new Lot();

@@ -11,6 +11,7 @@ import java.util.List;
 @Service
 public class StatusEventService {
 
+    @Autowired
     private final StatusEventDataAccessService statusEventDataAccessService;
 
     @Autowired
@@ -19,15 +20,15 @@ public class StatusEventService {
     }
 
     public List<StatusEvent> getAllStatusEvents(){
-        return null;
+        return statusEventDataAccessService.selectAllStatusEvents() ;
     }
 
     public List<StatusEvent> getAllStatusEventsOfStatus(int statusId){
-        return null;
+        return statusEventDataAccessService.selectAllStatusEventsOfStatus(statusId);
     }
 
     public StatusEvent getStatusEventById(int id){
-        return null;
+        return statusEventDataAccessService.selectStatusEventById(id);
     }
 
     public void createStatusEvent(StatusEvent statusEvent){

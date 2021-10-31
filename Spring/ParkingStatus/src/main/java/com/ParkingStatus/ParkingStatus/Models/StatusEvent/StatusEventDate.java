@@ -9,19 +9,21 @@ public class StatusEventDate {
     private String EndTime;
     private int StatusId;
     private int StatusEventId;
+    private int LotId;
+
 
     public StatusEventDate(){}
 
-    public StatusEventDate(int statusEventDateId,
-                           String startTime,
-                           String endTime,
-                           int statusId,
-                           int statusEventId) {
+
+    public StatusEventDate(int statusEventDateId, String startTime,
+                           String endTime, int statusId,
+                           int statusEventId, int lotId) {
         StatusEventDateId = statusEventDateId;
         StartTime = startTime;
         EndTime = endTime;
         StatusId = statusId;
         StatusEventId = statusEventId;
+        LotId = lotId;
     }
 
     public int getStatusEventDateId() {
@@ -62,6 +64,14 @@ public class StatusEventDate {
 
     public void setStatusEventId(int statusEventId) {
         StatusEventId = statusEventId;
+    }
+
+    public int getLotId() {
+        return LotId;
+    }
+
+    public void setLotId(int lotId) {
+        LotId = lotId;
     }
 
     @Override
