@@ -30,10 +30,10 @@ public class LotDataAccessService {
 
 //       queriedLots.forEach(System.out::println);
 
-        List<Lot> lotList = new ArrayList<Lot>();
+        List<Lot> lotList = new ArrayList<>();
 
         for(Map<String, Object> map: queriedLots){
-            lotList.add(mapLotFromDB(map));
+            lotList.add(mapSelectLotFromDB(map));
         }
 
        return lotList;
@@ -55,7 +55,7 @@ public class LotDataAccessService {
         return 0;
     }
 
-    public Lot mapLotFromDB(Map<String, Object>dbMap){
+    public Lot mapSelectLotFromDB(Map<String, Object>dbMap){
         Lot lot = new Lot();
         lot.setLotID((Integer) dbMap.get("lotid"));
         lot.setLotName((String) dbMap.get("lotname"));
@@ -73,7 +73,7 @@ public class LotDataAccessService {
                 "LIMIT 1 ;";
 
         List<Map<String, Object>> queriedSchedule = jdbcTemplate.queryForList(scheduleQuery);
-        lot.setLotStatusSchedule(mapLotStatusScheduleFromDB(queriedSchedule.get(0)));
+        lot.setLotStatusSchedule(mapSelectLotStatusScheduleFromDB(queriedSchedule.get(0)));
 
         //TODO: set Image value here also
 
@@ -82,7 +82,7 @@ public class LotDataAccessService {
         return lot;
     }
 
-    public LotStatusSchedule mapLotStatusScheduleFromDB(Map<String, Object> dbMapForSchedule){
+    public LotStatusSchedule mapSelectLotStatusScheduleFromDB(Map<String, Object> dbMapForSchedule){
         LotStatusSchedule lotStatusSchedule = new LotStatusSchedule();
         lotStatusSchedule.setLotStatusScheduleId((Integer)
                 dbMapForSchedule.get("lotstatusscheduleid"));
@@ -92,7 +92,7 @@ public class LotDataAccessService {
 //        System.out.println(lotStatusSchedule.getName());
 
         //init lotstatusscheduledates list
-        lotStatusSchedule.LotStatusScheduleDates = new ArrayList<LotStatusScheduleDate>();
+        lotStatusSchedule.LotStatusScheduleDates = new ArrayList<>();
 
         String scheduleDateQuery = "SELECT * " +
                 "FROM lotStatusScheduleDate " +
@@ -104,7 +104,7 @@ public class LotDataAccessService {
         for(Map<String, Object> map: queriedSchedDates){
             // add dates here
             lotStatusSchedule.LotStatusScheduleDates.add(
-                    mapLotStatusScheduleDatesFromDB(map)
+                    mapSelectLotStatusScheduleDatesFromDB(map)
             );
         }
 
@@ -114,20 +114,18 @@ public class LotDataAccessService {
         return lotStatusSchedule;
     }
 
-    public LotStatusScheduleDate mapLotStatusScheduleDatesFromDB(Map<String, Object>
+    public LotStatusScheduleDate mapSelectLotStatusScheduleDatesFromDB(Map<String, Object>
                                                                          dbMapForScheduleDate){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
 
         LotStatusScheduleDate lotStatusScheduleDate = new LotStatusScheduleDate();
      lotStatusScheduleDate.setLotStatusScheduleDateId((Integer)dbMapForScheduleDate.get("lotstatusScheduleDateId"));
 
-     lotStatusScheduleDate.setStartTime(LocalDateTime.parse(
-             (String)dbMapForScheduleDate.get("starttime"),
-             formatter));
+     lotStatusScheduleDate.setStartTime(
+             (String)dbMapForScheduleDate.get("starttime"));
 
-     lotStatusScheduleDate.setEndTime(LocalDateTime.parse(
-                (String)dbMapForScheduleDate.get("endtime"),
-                formatter));
+     lotStatusScheduleDate.setEndTime(
+                (String)dbMapForScheduleDate.get("endtime"));
 
      lotStatusScheduleDate.setStatusId((Integer) dbMapForScheduleDate.get("statusid"));
      lotStatusScheduleDate.setLotStatusScheduleId((Integer)

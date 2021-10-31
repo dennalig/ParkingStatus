@@ -5,16 +5,16 @@ import java.time.LocalDateTime;
 public class StatusEventDate {
 
     private int StatusEventDateId;
-    private LocalDateTime StartTime;
-    private LocalDateTime EndTime;
+    private String StartTime;
+    private String EndTime;
     private int StatusId;
     private int StatusEventId;
 
     public StatusEventDate(){}
 
     public StatusEventDate(int statusEventDateId,
-                           LocalDateTime startTime,
-                           LocalDateTime endTime,
+                           String startTime,
+                           String endTime,
                            int statusId,
                            int statusEventId) {
         StatusEventDateId = statusEventDateId;
@@ -32,19 +32,19 @@ public class StatusEventDate {
         StatusEventDateId = statusEventDateId;
     }
 
-    public LocalDateTime getStartTime() {
+    public String getStartTime() {
         return StartTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(String startTime) {
         StartTime = startTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public String getEndTime() {
         return EndTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(String endTime) {
         EndTime = endTime;
     }
 
