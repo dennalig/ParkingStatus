@@ -19,7 +19,9 @@ public class LotService {
         this.lotDataAccessService = lotDataAccessService;
     }
 
+
     public List<Lot> getAllLots(){
+//        lotDataAccessService.selectAllLots().forEach(System.out::println);
         return lotDataAccessService.selectAllLots();
     }
 

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,9 +33,10 @@ public class LotDataAccessService {
         List<Lot> lotList = new ArrayList<Lot>();
 
         for(Map<String, Object> map: queriedLots){
-            mapLotFromDB(map);
+            lotList.add(mapLotFromDB(map));
         }
-       return null;
+
+       return lotList;
      }
 
     public Lot selectLotById(){
@@ -62,23 +65,80 @@ public class LotDataAccessService {
                 : (String)dbMap.get("lotimagename"));
 
         //TODO: Define mapping of lotstatusschedules also
+        //https://www.techonthenet.com/sql/select_limit.php
+        String scheduleQuery = "SELECT LotStatusScheduleID, LotID, Name " +
+                "FROM lotStatusSchedule " +
+                "WHERE LotID = " +
+                lot.getLotID() +
+                "LIMIT 1 ;";
+
+        List<Map<String, Object>> queriedSchedule = jdbcTemplate.queryForList(scheduleQuery);
+        lot.setLotStatusSchedule(mapLotStatusScheduleFromDB(queriedSchedule.get(0)));
 
         //TODO: set Image value here also
 
 //        System.out.println(dbMap.get("lotdescription"));
 
-        return null;
+        return lot;
     }
 
     public LotStatusSchedule mapLotStatusScheduleFromDB(Map<String, Object> dbMapForSchedule){
         LotStatusSchedule lotStatusSchedule = new LotStatusSchedule();
+        lotStatusSchedule.setLotStatusScheduleId((Integer)
+                dbMapForSchedule.get("lotstatusscheduleid"));
+        lotStatusSchedule.setLotId((Integer) dbMapForSchedule.get("lotid"));
+        lotStatusSchedule.setName(dbMapForSchedule.get("Name") == null ?
+                "" : (String)dbMapForSchedule.get("Name"));
+//        System.out.println(lotStatusSchedule.getName());
+
+        //init lotstatusscheduledates list
+        lotStatusSchedule.LotStatusScheduleDates = new ArrayList<LotStatusScheduleDate>();
+
+        String scheduleDateQuery = "SELECT * " +
+                "FROM lotStatusScheduleDate " +
+                "WHERE LotStatusScheduleId = " +
+                lotStatusSchedule.getLotStatusScheduleId() + "; ";
+
+        List<Map<String, Object>> queriedSchedDates = jdbcTemplate.queryForList(scheduleDateQuery);
+
+        for(Map<String, Object> map: queriedSchedDates){
+            // add dates here
+            lotStatusSchedule.LotStatusScheduleDates.add(
+                    mapLotStatusScheduleDatesFromDB(map)
+            );
+        }
+
+
+
 
         return lotStatusSchedule;
     }
 
-    public List<LotStatusScheduleDate> mapLotStatusScheduleDatesFromDB(Map<String, Object> dbMapForSchedule){
-     List<LotStatusScheduleDate> lotStatusScheduleDates = new ArrayList<LotStatusScheduleDate>();
+    public LotStatusScheduleDate mapLotStatusScheduleDatesFromDB(Map<String, Object>
+                                                                         dbMapForScheduleDate){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-     return lotStatusScheduleDates;
+        LotStatusScheduleDate lotStatusScheduleDate = new LotStatusScheduleDate();
+     lotStatusScheduleDate.setLotStatusScheduleDateId((Integer)dbMapForScheduleDate.get("lotstatusScheduleDateId"));
+
+     lotStatusScheduleDate.setStartTime(LocalDateTime.parse(
+             (String)dbMapForScheduleDate.get("starttime"),
+             formatter));
+
+     lotStatusScheduleDate.setEndTime(LocalDateTime.parse(
+                (String)dbMapForScheduleDate.get("endtime"),
+                formatter));
+
+     lotStatusScheduleDate.setStatusId((Integer) dbMapForScheduleDate.get("statusid"));
+     lotStatusScheduleDate.setLotStatusScheduleId((Integer)
+             dbMapForScheduleDate.get("lotStatusScheduleId"));
+
+//     System.out.println(lotStatusScheduleDate.getStartTime());
+     //TODO: Consider recurring dates and specifying it on a 7-day schedule
+     //yyyy-MM-dd HH:mm
+
+
+
+     return lotStatusScheduleDate;
     }
 }
