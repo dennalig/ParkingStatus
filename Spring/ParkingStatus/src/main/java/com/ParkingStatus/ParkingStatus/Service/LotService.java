@@ -11,6 +11,7 @@ import java.util.List;
 @Service
 public class LotService {
 
+    @Autowired
     private final LotDataAccessService lotDataAccessService;
 
     @Autowired
@@ -26,11 +27,11 @@ public class LotService {
     }
 
     public Lot getLotByID(int id){
-        return null;
+        return lotDataAccessService.selectLotById(id);
     }
 
     public void createLot(Lot lot){
-
+        lotDataAccessService.insertLot(lot);
     }
 
     public void updateLot(int id, Lot lot){
@@ -38,6 +39,6 @@ public class LotService {
     }
 
     public void deleteLot(int id){
-
+        lotDataAccessService.removeLot(id);
     }
 }

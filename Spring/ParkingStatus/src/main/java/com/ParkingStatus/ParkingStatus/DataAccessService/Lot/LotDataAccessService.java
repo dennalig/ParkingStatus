@@ -1,5 +1,6 @@
 package com.ParkingStatus.ParkingStatus.DataAccessService.Lot;
 
+import com.ParkingStatus.ParkingStatus.DataAccessService.GenericClass;
 import com.ParkingStatus.ParkingStatus.Models.Lot.Lot;
 import com.ParkingStatus.ParkingStatus.Models.Lot.LotStatusSchedule;
 import com.ParkingStatus.ParkingStatus.Models.Lot.LotStatusScheduleDate;
@@ -7,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,8 @@ import java.util.Map;
 public class LotDataAccessService {
 
     private final JdbcTemplate jdbcTemplate;
+
+    private static final GenericClass genericClass = new GenericClass();
 
     @Autowired
     public LotDataAccessService(JdbcTemplate jdbcTemplate) {
@@ -39,20 +42,38 @@ public class LotDataAccessService {
        return lotList;
      }
 
-    public Lot selectLotById(){
-        return null;
+    public Lot selectLotById(int id){
+        String queryOneLot = "SELECT * FROM lot " +
+                "WHERE lotid = " +
+                id+" ;";
+        List<Map<String, Object>> queriedLotObject =
+                jdbcTemplate.queryForList(queryOneLot);
+
+
+
+        Lot queriedLot = mapSelectLotFromDB(queriedLotObject.get(0));
+
+        //TODO: Return one lot
+        return queriedLot;
     }
 
    public int insertLot(Lot lot){
+
+       //TODO: Return one id
         return 0;
     }
 
     public int updateLot(int id, Lot lot){
+
+        //TODO: Return one id
         return 0;
     }
 
     public int removeLot(int id){
-        return 0;
+
+        String deleteLotQuery = "";
+        //TODO: Cascade delete
+        return id;
     }
 
     public Lot mapSelectLotFromDB(Map<String, Object>dbMap){
@@ -73,7 +94,12 @@ public class LotDataAccessService {
                 "LIMIT 1 ;";
 
         List<Map<String, Object>> queriedSchedule = jdbcTemplate.queryForList(scheduleQuery);
-        lot.setLotStatusSchedule(mapSelectLotStatusScheduleFromDB(queriedSchedule.get(0)));
+
+        //check for nulls
+        if(queriedSchedule.size() != 0){
+            lot.setLotStatusSchedule(mapSelectLotStatusScheduleFromDB(queriedSchedule.get(0)));
+        }
+
 
         //TODO: set Image value here also
 
@@ -101,22 +127,20 @@ public class LotDataAccessService {
 
         List<Map<String, Object>> queriedSchedDates = jdbcTemplate.queryForList(scheduleDateQuery);
 
-        for(Map<String, Object> map: queriedSchedDates){
-            // add dates here
-            lotStatusSchedule.LotStatusScheduleDates.add(
-                    mapSelectLotStatusScheduleDatesFromDB(map)
-            );
+        if(queriedSchedDates.size() != 0){
+            for(Map<String, Object> map: queriedSchedDates){
+                // add dates here
+                lotStatusSchedule.LotStatusScheduleDates.add(
+                        mapSelectLotStatusScheduleDatesFromDB(map)
+                );
+            }
         }
-
-
-
 
         return lotStatusSchedule;
     }
 
     public LotStatusScheduleDate mapSelectLotStatusScheduleDatesFromDB(Map<String, Object>
                                                                          dbMapForScheduleDate){
-
 
         LotStatusScheduleDate lotStatusScheduleDate = new LotStatusScheduleDate();
      lotStatusScheduleDate.setLotStatusScheduleDateId((Integer)dbMapForScheduleDate.get("lotstatusScheduleDateId"));
@@ -133,10 +157,10 @@ public class LotDataAccessService {
 
 //     System.out.println(lotStatusScheduleDate.getStartTime());
      //TODO: Consider recurring dates and specifying it on a 7-day schedule
-     //yyyy-MM-dd HH:mm
-
-
+     //yyyy-MM-dd HH
 
      return lotStatusScheduleDate;
     }
+
+
 }
