@@ -95,7 +95,11 @@ public class StatusDataAccessService {
     }
 
     public int removeStatus(int id){
-        return 0;
+        String removeSql = "DELETE FROM status WHERE " +
+                "statusId = " + id +";";
+
+        jdbcTemplate.update(removeSql);
+        return id;
     }
 
 

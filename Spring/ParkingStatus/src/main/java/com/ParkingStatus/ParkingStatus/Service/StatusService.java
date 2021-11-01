@@ -35,7 +35,7 @@ public class StatusService {
     }
 
     public void deleteStatus(int id){
-
+        statusDataAccessService.removeStatus(id);
     }
 
 
