@@ -43,13 +43,26 @@ public class StatusDataAccessService {
                 id +" ; ";
         List<Map<String, Object>> queriedStatusObject = jdbcTemplate.queryForList(queryOneStatus);
 
-        Status queriedStatus = mapSelectStatusFromDb(queriedStatusObject.get(0));
+        if(queriedStatusObject.size() != 0 ){
+            Status queriedStatus = mapSelectStatusFromDb(queriedStatusObject.get(0));
+            return queriedStatus;
+        }
 
-        return queriedStatus;
+
+        return null;
     }
 
     public int insertStatus(Status status){
-        return 0;
+        Status newStatus = new Status();
+
+        newStatus.setStatusId(status.getStatusId());
+
+        if(selectStatusById(newStatus.getStatusId()) == null){
+            return newStatus.getStatusId();
+        }
+
+        return -1;
+
     }
 
     public int updateStatus(int id, Status status){

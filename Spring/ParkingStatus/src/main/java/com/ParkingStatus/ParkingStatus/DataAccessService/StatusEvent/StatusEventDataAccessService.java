@@ -63,13 +63,17 @@ public class StatusEventDataAccessService {
 
         List<Map<String, Object>> queriedOneStatusEvent = jdbcTemplate.queryForList(sql);
 
-        StatusEvent statusEvent = new StatusEvent();
+        if(queriedOneStatusEvent.size() != 0){
+            StatusEvent statusEvent = new StatusEvent();
 
-        statusEvent = mapSelectStatusEventFromDB(queriedOneStatusEvent.get(0));
+            statusEvent = mapSelectStatusEventFromDB(queriedOneStatusEvent.get(0));
 
 
 
-        return statusEvent;
+            return statusEvent;
+        }
+
+        return null;
     }
 
     public int insertStatusEvent(StatusEvent statusEvent){

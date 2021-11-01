@@ -2,15 +2,12 @@ package com.ParkingStatus.ParkingStatus.Controllers;
 
 
 import com.ParkingStatus.ParkingStatus.Models.Lot.Lot;
-import com.ParkingStatus.ParkingStatus.Models.Lot.LotStatusSchedule;
-import com.ParkingStatus.ParkingStatus.Models.Lot.LotStatusScheduleDate;
+
 import com.ParkingStatus.ParkingStatus.Service.LotService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

@@ -3,6 +3,7 @@ package com.ParkingStatus.ParkingStatus.Controllers;
 import com.ParkingStatus.ParkingStatus.Models.Status.Status;
 import com.ParkingStatus.ParkingStatus.Service.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,8 +29,9 @@ public class StatusController {
         return statusService.getStatusById(id);
     }
 
-    @PostMapping
+    @PostMapping(value = "/insertstatus")
     public void createStatus(@RequestBody Status status){
+
         statusService.createStatus(status);
     }
 

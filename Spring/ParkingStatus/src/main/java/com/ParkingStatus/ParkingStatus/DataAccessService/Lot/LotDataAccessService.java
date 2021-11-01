@@ -50,17 +50,35 @@ public class LotDataAccessService {
                 jdbcTemplate.queryForList(queryOneLot);
 
 
+        if(queriedLotObject.size() != 0){
+            Lot queriedLot = mapSelectLotFromDB(queriedLotObject.get(0));
 
-        Lot queriedLot = mapSelectLotFromDB(queriedLotObject.get(0));
+            //TODO: Return one lot
+            return queriedLot;
+        }
 
-        //TODO: Return one lot
-        return queriedLot;
+        return null;
+
     }
 
    public int insertLot(Lot lot){
+        Lot newLot = lot;
 
-       //TODO: Return one id
-        return 0;
+
+        if(selectLotById(newLot.getLotID()) != null){
+            String insertSql = "INSERT INTO LOT VALUES (" +
+                    newLot.getLotID() +"," +
+                    newLot.getLotName() +"," +
+                    newLot.getLotDescription()+","+
+                    newLot.getLotImageName() +
+                    ");";
+
+            jdbcTemplate.update(insertSql);
+            return newLot.getLotID();
+        }
+
+        // returns an already inserted exception
+        return -1;
     }
 
     public int updateLot(int id, Lot lot){

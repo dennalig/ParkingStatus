@@ -27,7 +27,7 @@ public class StatusService {
     }
 
     public void createStatus(Status status){
-
+        statusDataAccessService.insertStatus(status);
     }
 
     public void updateStatus(int id, Status status){
