@@ -81,7 +81,12 @@ https://www.javaguides.net/2019/01/spring-boot-microsoft-sql-server-jpa-hibernat
             <artifactId>xml-apis</artifactId>
             <version>1.3.04</version>
         </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-params</artifactId>
+			<version>5.7.2</version>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>

@@ -1,6 +1,7 @@
 package com.ParkingStatus.ParkingStatus.DataAccessService.Status;
 
 import com.ParkingStatus.ParkingStatus.DataAccessService.GenericClass;
+import com.ParkingStatus.ParkingStatus.DataAccessService.Status.InsertDataMappers.StatusInsertDataMapper;
 import com.ParkingStatus.ParkingStatus.Models.Status.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -16,6 +17,7 @@ public class StatusDataAccessService {
     private final JdbcTemplate jdbcTemplate;
 
     private static final GenericClass genericClass = new GenericClass();
+
 
     @Autowired
     public StatusDataAccessService(JdbcTemplate jdbcTemplate) {
@@ -53,14 +55,37 @@ public class StatusDataAccessService {
     }
 
     public int insertStatus(Status status){
-        Status newStatus = new Status();
+//	  StatusID INT NOT NULL PRIMARY KEY,
+//    StatusName VARCHAR(500) NOT NULL,
+//    StatusColor VARCHAR(50) NULL,
+//    StatusDescription VARCHAR(500) NULL,
+//    StatusImageName VARCHAR(500) NULL
+        if(selectStatusById(status.getStatusId()) == null){ // check for existing status
 
-        newStatus.setStatusId(status.getStatusId());
+            //string values that may cause issues with the database
+            StatusInsertDataMapper statusInsertDataMapper = new StatusInsertDataMapper(
+                    status.getStatusId(),
+                    status.getName(),
+                    status.getColor(),
+                    status.getDescription(),
+                    status.getStatusImageName()
+            );
 
-        if(selectStatusById(newStatus.getStatusId()) == null){
-            return newStatus.getStatusId();
+            String insertSql = "INSERT INTO status VALUES(" +
+                    statusInsertDataMapper.getId() +","+
+                    statusInsertDataMapper.getName() + ","+
+                    statusInsertDataMapper.getColor()+ ","+
+                    statusInsertDataMapper.getDescription() + ","+
+                    statusInsertDataMapper.getImageName()+
+                    ");";
+            System.out.println(insertSql);
+            jdbcTemplate.update(insertSql); // insert into database
+
+            return status.getStatusId();
         }
 
+        System.err.println("Status of " +
+                status.getStatusId() +" Already exists");
         return -1;
 
     }
@@ -88,6 +113,11 @@ public class StatusDataAccessService {
                 (String) map.get("statusimagename"));
 
         return status;
+    }
+
+    public String mapForInsertStringAttr(String attribute){
+        //format string value for sql query
+        return attribute == null ? null : "'"+attribute +"'";
     }
 
 

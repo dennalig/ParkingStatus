@@ -1,6 +1,7 @@
 package com.ParkingStatus.ParkingStatus.DataAccessService.Lot;
 
 import com.ParkingStatus.ParkingStatus.DataAccessService.GenericClass;
+import com.ParkingStatus.ParkingStatus.DataAccessService.Lot.InsertDataMappers.LotInsertDataMapper;
 import com.ParkingStatus.ParkingStatus.Models.Lot.Lot;
 import com.ParkingStatus.ParkingStatus.Models.Lot.LotStatusSchedule;
 import com.ParkingStatus.ParkingStatus.Models.Lot.LotStatusScheduleDate;
@@ -20,6 +21,9 @@ public class LotDataAccessService {
     private final JdbcTemplate jdbcTemplate;
 
     private static final GenericClass genericClass = new GenericClass();
+
+    private LotInsertDataMapper lotInsertDataMapper;
+
 
     @Autowired
     public LotDataAccessService(JdbcTemplate jdbcTemplate) {

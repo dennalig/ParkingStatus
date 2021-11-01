@@ -29,9 +29,9 @@ public class StatusController {
         return statusService.getStatusById(id);
     }
 
-    @PostMapping(value = "/insertstatus")
+    @PostMapping
     public void createStatus(@RequestBody Status status){
-
+//        System.out.println(status.getStatusId());
         statusService.createStatus(status);
     }
 
