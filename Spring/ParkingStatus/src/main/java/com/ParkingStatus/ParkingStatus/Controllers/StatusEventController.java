@@ -44,8 +44,8 @@ public class StatusEventController {
         statusEventService.updateStatusEvent(id, statusEvent);
     }
 
-    @DeleteMapping("{statusId}")
-    public void deleteStatusEvent(@PathVariable("statusId")int id){
+    @DeleteMapping("{statusEventId}")
+    public void deleteStatusEvent(@PathVariable("statusEventId")int id){
         statusEventService.deleteStatusEvent(id);
     }
 }

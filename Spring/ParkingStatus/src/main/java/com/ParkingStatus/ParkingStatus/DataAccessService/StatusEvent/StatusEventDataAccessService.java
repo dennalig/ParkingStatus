@@ -88,7 +88,19 @@ public class StatusEventDataAccessService {
 
     public int removeStatusEvent(int id){
         //TODO: return actual id of created
-        return 0;
+
+        String removeStatusEventDatesSql = "DELETE FROM statuseventdate WHERE "+
+                "statusEventid = "+ id +";";
+
+        jdbcTemplate.update(removeStatusEventDatesSql);
+
+        String removeStatusEventSql = "DELETE FROM statusevent WHERE "+
+                "statusEventid = "+ id +";";
+
+        jdbcTemplate.update(removeStatusEventSql);
+
+
+        return id;
     }
 
 

@@ -32,7 +32,7 @@ public class StatusEventService {
     }
 
     public void createStatusEvent(StatusEvent statusEvent){
-
+ 
     }
 
     public void updateStatusEvent(int id, StatusEvent statusEvent){
@@ -40,6 +40,6 @@ public class StatusEventService {
     }
 
     public void deleteStatusEvent(int id){
-
+        statusEventDataAccessService.removeStatusEvent(id);
     }
 }
