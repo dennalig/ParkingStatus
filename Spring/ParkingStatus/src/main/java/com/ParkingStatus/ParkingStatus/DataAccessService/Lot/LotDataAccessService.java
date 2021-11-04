@@ -2,6 +2,8 @@ package com.ParkingStatus.ParkingStatus.DataAccessService.Lot;
 
 import com.ParkingStatus.ParkingStatus.DataAccessService.GenericClass;
 import com.ParkingStatus.ParkingStatus.DataAccessService.Lot.InsertDataMappers.LotInsertDataMapper;
+import com.ParkingStatus.ParkingStatus.DataAccessService.Lot.InsertDataMappers.LotStatusScheduleDateInsertDataMapper;
+import com.ParkingStatus.ParkingStatus.DataAccessService.Lot.InsertDataMappers.LotStatusScheduleInsertDataMapper;
 import com.ParkingStatus.ParkingStatus.Models.Lot.Lot;
 import com.ParkingStatus.ParkingStatus.Models.Lot.LotStatusSchedule;
 import com.ParkingStatus.ParkingStatus.Models.Lot.LotStatusScheduleDate;
@@ -22,7 +24,6 @@ public class LotDataAccessService {
 
     private static final GenericClass genericClass = new GenericClass();
 
-    private LotInsertDataMapper lotInsertDataMapper;
 
 
     @Autowired
@@ -66,19 +67,76 @@ public class LotDataAccessService {
     }
 
    public int insertLot(Lot lot){
-        Lot newLot = lot;
 
 
-        if(selectLotById(newLot.getLotID()) != null){
-            String insertSql = "INSERT INTO LOT VALUES (" +
-                    newLot.getLotID() +"," +
-                    newLot.getLotName() +"," +
-                    newLot.getLotDescription()+","+
-                    newLot.getLotImageName() +
+        if(selectLotById(lot.getLotID()) == null){
+            LotInsertDataMapper lotInsertDataMapper = new LotInsertDataMapper(
+                    lot.getLotID(), lot.getLotName(), lot.getLotDescription(),
+                    lot.getLotImageName()
+            );
+            System.out.println(lot.getLotID());
+            //Insert the new lot first
+            String insertLotSql = "INSERT INTO lot VALUES("+
+                    lotInsertDataMapper.getId() + ","+
+                    lotInsertDataMapper.getName() +","+
+                    lotInsertDataMapper.getDescription()+","+
+                    lotInsertDataMapper.getImageName()+
                     ");";
+            System.out.println(insertLotSql);
+            jdbcTemplate.update(insertLotSql);
 
-            jdbcTemplate.update(insertSql);
-            return newLot.getLotID();
+            if(lot.getLotStatusSchedule() != null){ // checking for a lotstatusschedule
+                LotStatusSchedule newLotSchedule = lot.getLotStatusSchedule();
+
+                LotStatusScheduleInsertDataMapper lotStatusScheduleInsertDataMapper =
+                        new LotStatusScheduleInsertDataMapper(
+                                newLotSchedule.getLotStatusScheduleId(),
+                                newLotSchedule.getLotId(),
+                                newLotSchedule.getName()
+                        );
+
+                //insert an entry into the lotstatusschedule table
+                String insertScheduleSql = "INSERT INTO lotstatusschedule VALUES("+
+                        lotStatusScheduleInsertDataMapper.getId()+","+
+                        lotStatusScheduleInsertDataMapper.getLotId()+","+
+                        lotStatusScheduleInsertDataMapper.getName()+
+                        ");";
+
+                jdbcTemplate.update(insertScheduleSql);
+            }
+
+            if(lot.getLotStatusSchedule().getLotStatusScheduleDates() != null){
+                // checking for existing lotstatusscheduledates in the schedule
+                 List<LotStatusScheduleDate> newLSSDates = lot.getLotStatusSchedule().
+                         getLotStatusScheduleDates();
+
+                 for(LotStatusScheduleDate date: newLSSDates){
+                     // new insert statement for each date entry
+
+                     LotStatusScheduleDateInsertDataMapper lotStatusScheduleDateInsertDataMapper =
+                             new LotStatusScheduleDateInsertDataMapper(
+                               date.getLotStatusScheduleDateId(),
+                               date.getStartTime(),
+                               date.getEndTime(),
+                               date.getLotStatusScheduleId(),
+                               date.getStatusId()
+                             );
+
+                     String insertNewDateSql = "INSERT INTO lotstatusscheduledate VALUES("+
+                             lotStatusScheduleDateInsertDataMapper.getId()+","+
+                             lotStatusScheduleDateInsertDataMapper.getStartTime()+","+
+                             lotStatusScheduleDateInsertDataMapper.getEndTime()+","+
+                             lotStatusScheduleDateInsertDataMapper.getLotStatusScheduleId()+","+
+                             lotStatusScheduleDateInsertDataMapper.getStatusId()+
+                             ");";
+
+                     jdbcTemplate.update(insertNewDateSql);
+                 }
+
+            }
+
+
+            return lot.getLotID();
         }
 
         // returns an already inserted exception
@@ -93,7 +151,25 @@ public class LotDataAccessService {
 
     public int removeLot(int id){
 
-        String deleteLotQuery = "";
+        //need to make proper reference
+        Lot deleteLot = selectLotById(id);
+
+        //here we match lotstatusschedule id's
+        String deleteLSSDQuery = "DELETE FROM lotstatusscheduledate WHERE "+
+                "lotstatusscheduleid = "+deleteLot.getLotStatusSchedule().getLotStatusScheduleId()
+                +";";
+        jdbcTemplate.update(deleteLSSDQuery);
+
+        String deleteLSSQuery = "DELETE FROM lotstatusschedule WHERE "+
+                "lotid = "+id
+                +";";
+
+        jdbcTemplate.update(deleteLSSQuery);
+
+        String deleteLotQuery = "DELETE FROM lot WHERE "+
+                "lotid = "+id
+                +";";
+        jdbcTemplate.update(deleteLotQuery);
         //TODO: Cascade delete
         return id;
     }

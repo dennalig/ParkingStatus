@@ -8,17 +8,14 @@ public class LotStatusScheduleInsertDataMapper {
 //    FOREIGN KEY (StatusID) REFERENCES STATUS(StatusID)
 
     public int id;
-    public String description;
-    public int statusId;
-    public String statusEventImageName;
+    public int lotId;
+    public String name;
 
-    public LotStatusScheduleInsertDataMapper(int id, String description,
-                                             int statusId, String statusEventImageName) {
+    public LotStatusScheduleInsertDataMapper(int id, int lotId, String name) {
 
         setId(id);
-        setDescription(description);
-        setStatusId(statusId);
-        setStatusEventImageName(statusEventImageName);
+        setLotId(lotId);
+        setName(name);
     }
 
     public int getId() {
@@ -29,32 +26,22 @@ public class LotStatusScheduleInsertDataMapper {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public int getLotId() {
+        return lotId;
     }
 
-    public void setDescription(String description) {
-        if(description != null){
-            this.description = "'"+description +"'";
+    public void setLotId(int lotId) {
+        this.lotId = lotId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        if(name != null){
+            this.name = "'"+name+"'";
         }
 
-    }
-
-    public int getStatusId() {
-        return statusId;
-    }
-
-    public void setStatusId(int statusId) {
-        this.statusId = statusId;
-    }
-
-    public String getStatusEventImageName() {
-        return statusEventImageName;
-    }
-
-    public void setStatusEventImageName(String statusEventImageName) {
-        if(statusEventImageName != null){
-            this.statusEventImageName = "'"+statusEventImageName +"'";
-        }
     }
 }

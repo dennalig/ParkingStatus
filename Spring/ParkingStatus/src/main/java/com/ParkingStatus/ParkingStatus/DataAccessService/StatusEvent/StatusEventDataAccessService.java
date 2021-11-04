@@ -87,7 +87,6 @@ public class StatusEventDataAccessService {
     }
 
     public int removeStatusEvent(int id){
-        //TODO: return actual id of created
 
         String removeStatusEventDatesSql = "DELETE FROM statuseventdate WHERE "+
                 "statusEventid = "+ id +";";

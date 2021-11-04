@@ -31,6 +31,7 @@ public class LotService {
     }
 
     public void createLot(Lot lot){
+
         lotDataAccessService.insertLot(lot);
     }
 
