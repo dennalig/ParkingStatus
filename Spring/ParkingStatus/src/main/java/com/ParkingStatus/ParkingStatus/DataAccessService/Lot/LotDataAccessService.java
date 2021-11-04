@@ -145,8 +145,31 @@ public class LotDataAccessService {
 
     public int updateLot(int id, Lot lot){
 
+        if(selectLotById(id) != null){
+            LotInsertDataMapper lotInsertDataMapper = new LotInsertDataMapper(
+              lot.getLotID(),
+              lot.getLotName(),
+              lot.getLotDescription(),
+              lot.getLotImageName()
+            );
+
+            //update lotString
+            String updateLotSql = "UPDATE lot set "+
+                    "lotid ="+ lotInsertDataMapper.getId() +","+
+                    "lotname ="+ lotInsertDataMapper.getName() +","+
+                    "lotdescription ="+ lotInsertDataMapper.getDescription() +","+
+                    "lotimagename ="+ lotInsertDataMapper.getImageName() + " "+
+
+                    "WHERE lotid ="+id
+                    +";";
+            System.out.println(updateLotSql);
+
+            jdbcTemplate.update(updateLotSql);
+
+            return id;
+        }
         //TODO: Return one id
-        return 0;
+        return -1;
     }
 
     public int removeLot(int id){

@@ -36,7 +36,7 @@ public class LotService {
     }
 
     public void updateLot(int id, Lot lot){
-
+        lotDataAccessService.updateLot(id, lot);
     }
 
     public void deleteLot(int id){
