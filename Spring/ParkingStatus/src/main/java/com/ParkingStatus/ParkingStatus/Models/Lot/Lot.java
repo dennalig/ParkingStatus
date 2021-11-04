@@ -1,8 +1,12 @@
 package com.ParkingStatus.ParkingStatus.Models.Lot;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
 import java.io.File;
 
 //@Entity
+@JsonNaming(PropertyNamingStrategy.UpperCamelCaseStrategy.class)
 public class Lot {
 
 //    @Id

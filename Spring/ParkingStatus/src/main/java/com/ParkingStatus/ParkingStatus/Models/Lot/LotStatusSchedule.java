@@ -1,7 +1,11 @@
 package com.ParkingStatus.ParkingStatus.Models.Lot;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
 import java.util.List;
 
+@JsonNaming(PropertyNamingStrategy.UpperCamelCaseStrategy.class)
 public class LotStatusSchedule {
 
     private int LotStatusScheduleId;

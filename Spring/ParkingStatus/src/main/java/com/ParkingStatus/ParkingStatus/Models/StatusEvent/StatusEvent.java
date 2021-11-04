@@ -1,10 +1,13 @@
 package com.ParkingStatus.ParkingStatus.Models.StatusEvent;
 
 import com.ParkingStatus.ParkingStatus.Models.Status.Status;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.io.File;
 import java.util.List;
 
+@JsonNaming(PropertyNamingStrategy.UpperCamelCaseStrategy.class)
 public class StatusEvent {
 
     private int StatusEventId;
