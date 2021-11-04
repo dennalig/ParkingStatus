@@ -162,9 +162,86 @@ public class LotDataAccessService {
 
                     "WHERE lotid ="+id
                     +";";
-            System.out.println(updateLotSql);
+//            System.out.println(updateLotSql);
 
             jdbcTemplate.update(updateLotSql);
+
+            //new lotSS
+            LotStatusSchedule updateLotStatusSchedule = lot.getLotStatusSchedule();
+
+            //old lss
+            LotStatusSchedule currentLotStatusSchedule = selectLotById(id).getLotStatusSchedule();
+
+            //check for null on schedule
+            if(currentLotStatusSchedule != null){
+                //delete current dates
+                if(currentLotStatusSchedule.getLotStatusScheduleDates() != null){
+                    String deleteLSSDSql = "DELETE FROM lotstatusscheduledate WHERE " +
+                            "lotstatusscheduleid = "+ currentLotStatusSchedule.getLotStatusScheduleId()
+                            +";";
+
+                    jdbcTemplate.update(deleteLSSDSql);
+                }
+
+
+                String deleteLSSSql = "DELETE FROM lotstatusschedule WHERE " +
+                        "lotid ="+ lotInsertDataMapper.getId()
+                        +";";
+                jdbcTemplate.update(deleteLSSSql);
+
+            }
+
+            if(updateLotStatusSchedule != null){
+
+                LotStatusScheduleInsertDataMapper lotStatusScheduleInsertDataMapper =
+                        new LotStatusScheduleInsertDataMapper(
+                                updateLotStatusSchedule.getLotStatusScheduleId(),
+                                updateLotStatusSchedule.getLotId(),
+                                updateLotStatusSchedule.getName()
+                        );
+
+                String insertNewLSS = "INSERT INTO lotstatusschedule VALUES("+
+                        lotStatusScheduleInsertDataMapper.getId()+","+
+                        lotStatusScheduleInsertDataMapper.getLotId()+","+
+                        lotStatusScheduleInsertDataMapper.getName()+
+                        ");";
+
+                System.out.println(insertNewLSS);
+                jdbcTemplate.update(insertNewLSS);
+
+                List<LotStatusScheduleDate> updateLSSDs = updateLotStatusSchedule.getLotStatusScheduleDates();
+
+                if(updateLSSDs != null){
+
+                    for(LotStatusScheduleDate date : updateLSSDs){
+
+                        LotStatusScheduleDateInsertDataMapper lotStatusScheduleDateInsertDataMapper =
+                                new LotStatusScheduleDateInsertDataMapper(
+                                        date.getLotStatusScheduleDateId(),
+                                        date.getStartTime(),
+                                        date.getEndTime(),
+                                        date.getLotStatusScheduleId(),
+                                        date.getStatusId()
+                                );
+
+                        String insertLSSDSql = "INSERT INTO lotstatusscheduledate VALUES("+
+                                lotStatusScheduleDateInsertDataMapper.getId() +","+
+                                lotStatusScheduleDateInsertDataMapper.getStartTime() +","+
+                                lotStatusScheduleDateInsertDataMapper.getEndTime() +","+
+                                lotStatusScheduleDateInsertDataMapper.getLotStatusScheduleId() +","+
+                                lotStatusScheduleDateInsertDataMapper.getStatusId() +
+                                ");";
+
+                        System.out.println(insertLSSDSql);
+
+                        jdbcTemplate.update(insertLSSDSql);
+
+
+                    }
+
+                }
+
+            }
 
             return id;
         }

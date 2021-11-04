@@ -31,7 +31,7 @@ public class StatusService {
     }
 
     public void updateStatus(int id, Status status){
-
+        statusDataAccessService.updateStatus(id,status);
     }
 
     public void deleteStatus(int id){
