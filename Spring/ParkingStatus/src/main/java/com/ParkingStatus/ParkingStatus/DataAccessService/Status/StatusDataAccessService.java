@@ -121,6 +121,10 @@ public class StatusDataAccessService {
     }
 
     public int removeStatus(int id){
+        //remove outer dependencies first
+
+        removeOuterDependencies(id);
+
         String removeSql = "DELETE FROM status WHERE " +
                 "statusId = " + id +";";
 
@@ -150,6 +154,69 @@ public class StatusDataAccessService {
         return attribute == null ? null : "'"+attribute +"'";
     }
 
+    public void removeOuterDependencies(int id){
+        // lotstatusscheduledates and statusevents
 
+        //lotstatusscheduledates
+        String queryLSSDOfStatusId = "SELECT * FROM lotstatusscheduledate "+
+                "WHERE statusid = "+
+                id +";";
+
+        List<Map<String, Object>> queriedLSSDObject =
+                jdbcTemplate.queryForList(queryLSSDOfStatusId);
+
+        if(queriedLSSDObject.size() != 0){
+            String deleteExistingLSSDsOfStatusId = "DELETE FROM lotstatusscheduledate "+
+                    "WHERE statusid ="+id+";";
+
+            jdbcTemplate.update(deleteExistingLSSDsOfStatusId);
+        }
+        // end lotstatusscheduledates
+
+        //statusEvents
+
+        String querySEOfStatusId = "SELECT * FROM statusevent "+
+                "WHERE statusid = "+
+                id +";";
+
+        List<Map<String, Object>> queriedSEObjects =
+                jdbcTemplate.queryForList(querySEOfStatusId);
+
+        if(queriedSEObjects.size() != 0){
+
+            for(Map<String, Object> map : queriedSEObjects){
+
+                int statusEventId = (Integer) map.get("statuseventid");
+                System.out.println(statusEventId);
+                String querySEDOfSEId = "SELECT * FROM statuseventdate "+
+                        "WHERE statuseventid = "+
+                        statusEventId +";";
+
+                //query SED's
+                List<Map<String, Object>> queriedSEDObjects =
+                        jdbcTemplate.queryForList(querySEDOfSEId);
+                System.out.println(queriedSEDObjects.size()+"-->");
+
+                // check if SED's exist
+                if(queriedSEDObjects.size() != 0){
+
+                    String deleteSEDsOfSEId = "DELETE FROM statuseventdate WHERE "+
+                            "statuseventid ="+ statusEventId+
+                            ";";
+                    System.out.println(deleteSEDsOfSEId);
+                    jdbcTemplate.update(deleteSEDsOfSEId);
+                }
+            } // end loop of statusevents
+
+            String deleteStatusEventsSql = "DELETE FROM statusevent WHERE "+
+                    "statusid ="+id+
+                    ";";
+
+            jdbcTemplate.update(deleteStatusEventsSql);
+
+        } // end checking if there are status events
+
+
+    }
 
 }
