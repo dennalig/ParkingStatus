@@ -32,7 +32,7 @@ public class StatusEventService {
     }
 
     public void createStatusEvent(StatusEvent statusEvent){
- 
+        statusEventDataAccessService.insertStatusEvent(statusEvent);
     }
 
     public void updateStatusEvent(int id, StatusEvent statusEvent){

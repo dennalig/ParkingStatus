@@ -1,6 +1,8 @@
 package com.ParkingStatus.ParkingStatus.DataAccessService.StatusEvent;
 
 import com.ParkingStatus.ParkingStatus.DataAccessService.GenericClass;
+import com.ParkingStatus.ParkingStatus.DataAccessService.StatusEvent.InsertDataMappers.StatusEventDateInsertDataMapper;
+import com.ParkingStatus.ParkingStatus.DataAccessService.StatusEvent.InsertDataMappers.StatusEventInsertDataMapper;
 import com.ParkingStatus.ParkingStatus.Models.StatusEvent.StatusEvent;
 import com.ParkingStatus.ParkingStatus.Models.StatusEvent.StatusEventDate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +80,58 @@ public class StatusEventDataAccessService {
 
     public int insertStatusEvent(StatusEvent statusEvent){
         //TODO: return actual id of created
-        return 0;
+
+        if(selectStatusEventById(statusEvent.getStatusEventId()) == null){
+
+            StatusEventInsertDataMapper statusEventInsertDataMapper = new StatusEventInsertDataMapper(
+                 statusEvent.getStatusEventId(), statusEvent.getDescription(),
+                    statusEvent.getStatusId(), statusEvent.getStatusEventImageName()
+            );
+
+            //insert statusevent
+            String insertSESql = "INSERT INTO statusevent VALUES("+
+                    statusEventInsertDataMapper.getId()+","+
+                    statusEventInsertDataMapper.getDescription()+","+
+                    statusEventInsertDataMapper.getStatusId()+","+
+                    statusEventInsertDataMapper.getStatusEventImageName()+
+                    ");";
+
+            System.out.println(insertSESql);
+            jdbcTemplate.update(insertSESql);
+
+            //insert statuseventdates
+            if(statusEvent.getStatusEventDates() != null){
+                List<StatusEventDate> newSEDDates = statusEvent.getStatusEventDates();
+
+                for(StatusEventDate date: newSEDDates){
+
+                    StatusEventDateInsertDataMapper statusEventDateInsertDataMapper =
+                            new StatusEventDateInsertDataMapper(
+                              date.getStatusEventDateId(), date.getStartTime(),
+                                    date.getEndTime(), date.getStatusEventId(),
+                                    date.getLotId()
+                            );
+
+                    String insertSEDSql = "INSERT INTO statuseventdate VALUES("+
+                            statusEventDateInsertDataMapper.getId() +","+
+                            statusEventDateInsertDataMapper.getStartTime()+","+
+                            statusEventDateInsertDataMapper.getEndTime()+","+
+                            statusEventDateInsertDataMapper.getStatusEventId()+","+
+                            statusEventDateInsertDataMapper.getLotId()+
+                            ");";
+
+                    System.out.println(insertSEDSql);
+                    jdbcTemplate.update(insertSEDSql);
+
+
+                } //end loop
+            }// end if statement
+
+
+            return statusEvent.getStatusEventId(); // return new ID of statusevent
+        }
+
+        return -1;
     }
 
     public int updateStatusEvent(int id, StatusEvent statusEvent){
