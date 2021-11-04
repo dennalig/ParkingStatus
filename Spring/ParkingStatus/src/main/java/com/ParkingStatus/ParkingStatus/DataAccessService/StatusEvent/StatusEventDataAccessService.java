@@ -136,7 +136,9 @@ public class StatusEventDataAccessService {
 
     public int updateStatusEvent(int id, StatusEvent statusEvent){
         //TODO: return actual id of created
-        return 0;
+
+
+        return -1;
     }
 
     public int removeStatusEvent(int id){

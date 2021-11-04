@@ -91,7 +91,33 @@ public class StatusDataAccessService {
     }
 
     public int updateStatus(int id, Status status){
-        return 0;
+
+        if(selectStatusById(id) != null){
+
+            StatusInsertDataMapper statusInsertDataMapper =
+                    new StatusInsertDataMapper(
+                        status.getStatusId(),
+                        status.getName(),
+                        status.getColor(),
+                        status.getDescription(),
+                        status.getStatusImageName()
+                    );
+
+            String updateStatusSql = "UPDATE status set "+
+                    "statusid ="+statusInsertDataMapper.getId()+","+
+                    "statusname ="+statusInsertDataMapper.getName()+","+
+                    "statuscolor ="+statusInsertDataMapper.getColor()+","+
+                    "statusdescription ="+statusInsertDataMapper.getDescription()+","+
+                    "statusimagename ="+statusInsertDataMapper.getImageName()+
+                    "WHERE statusid ="+ id+
+                    ";";
+
+            jdbcTemplate.update(updateStatusSql);
+
+            return id;
+        }
+
+        return -1;
     }
 
     public int removeStatus(int id){
