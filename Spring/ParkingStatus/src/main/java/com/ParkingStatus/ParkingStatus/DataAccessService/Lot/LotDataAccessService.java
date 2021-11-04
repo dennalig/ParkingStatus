@@ -256,22 +256,34 @@ public class LotDataAccessService {
         Lot deleteLot = selectLotById(id);
 
         //here we match lotstatusschedule id's
-        String deleteLSSDQuery = "DELETE FROM lotstatusscheduledate WHERE "+
-                "lotstatusscheduleid = "+deleteLot.getLotStatusSchedule().getLotStatusScheduleId()
-                +";";
-        jdbcTemplate.update(deleteLSSDQuery);
 
-        String deleteLSSQuery = "DELETE FROM lotstatusschedule WHERE "+
-                "lotid = "+id
-                +";";
+        if(deleteLot.getLotStatusSchedule() != null){
 
-        jdbcTemplate.update(deleteLSSQuery);
+            if(deleteLot.getLotStatusSchedule().getLotStatusScheduleDates() != null){
+                String deleteLSSDQuery = "DELETE FROM lotstatusscheduledate WHERE "+
+                        "lotstatusscheduleid = "+deleteLot.getLotStatusSchedule().getLotStatusScheduleId()
+                        +";";
+                jdbcTemplate.update(deleteLSSDQuery);
+            }
+            String deleteLSSQuery = "DELETE FROM lotstatusschedule WHERE "+
+                    "lotid = "+id
+                    +";";
+
+            jdbcTemplate.update(deleteLSSQuery);
+
+        }
+
+        // outer dependency deletes
+
+        removeOuterDependencies(id);
 
         String deleteLotQuery = "DELETE FROM lot WHERE "+
                 "lotid = "+id
                 +";";
         jdbcTemplate.update(deleteLotQuery);
         //TODO: Cascade delete
+
+
         return id;
     }
 
@@ -363,5 +375,23 @@ public class LotDataAccessService {
      return lotStatusScheduleDate;
     }
 
+    public void removeOuterDependencies(int id){
+        // statusevent dates to remove
 
+        String querySEDOfLotId = "SELECT * FROM statuseventdate " +
+                "WHERE lotid = " +
+                id+" ;";
+
+        List<Map<String, Object>> queriedSEDObject =
+                jdbcTemplate.queryForList(querySEDOfLotId);
+
+
+        if(queriedSEDObject.size() != 0){
+            String deleteExistingStatusEventDatesOfLotId = "DELETE FROM statuseventdate " +
+                    "WHERE lotid ="+id +";";
+
+            jdbcTemplate.update(deleteExistingStatusEventDatesOfLotId);
+        }
+
+    }
 }
