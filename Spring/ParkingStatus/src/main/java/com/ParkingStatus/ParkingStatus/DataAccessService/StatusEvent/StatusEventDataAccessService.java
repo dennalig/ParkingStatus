@@ -1,6 +1,7 @@
 package com.ParkingStatus.ParkingStatus.DataAccessService.StatusEvent;
 
 import com.ParkingStatus.ParkingStatus.DataAccessService.GenericClass;
+import com.ParkingStatus.ParkingStatus.DataAccessService.Status.InsertDataMappers.StatusInsertDataMapper;
 import com.ParkingStatus.ParkingStatus.DataAccessService.StatusEvent.InsertDataMappers.StatusEventDateInsertDataMapper;
 import com.ParkingStatus.ParkingStatus.DataAccessService.StatusEvent.InsertDataMappers.StatusEventInsertDataMapper;
 import com.ParkingStatus.ParkingStatus.Models.StatusEvent.StatusEvent;
@@ -137,6 +138,76 @@ public class StatusEventDataAccessService {
     public int updateStatusEvent(int id, StatusEvent statusEvent){
         //TODO: return actual id of created
 
+        if(selectStatusEventById(id) != null){
+
+            StatusEventInsertDataMapper statusEventInsertDataMapper =
+                    new StatusEventInsertDataMapper(
+                            statusEvent.getStatusEventId(),
+                            statusEvent.getDescription(),
+                            statusEvent.getStatusId(),
+                            statusEvent.getStatusEventImageName()
+                    );
+
+            String updateStatusEventSql = "UPDATE statusevent set "+
+                    "statuseventid ="+ statusEventInsertDataMapper.getId()+","+
+                    "description ="+ statusEventInsertDataMapper.getDescription()+","+
+                    "statusid ="+ statusEventInsertDataMapper.getStatusId()+","+
+                    "statuseventimagename ="+ statusEventInsertDataMapper.getStatusEventImageName()+" "+
+
+                    "WHERE statuseventid ="+ id;
+
+            System.out.println(updateStatusEventSql);
+
+            //update statusevent entry
+            jdbcTemplate.update(updateStatusEventSql);
+
+            List<StatusEventDate> currentStatusEventDates =
+                    selectStatusEventById(id).getStatusEventDates();
+
+            //check for current dates and delete
+            if(currentStatusEventDates != null){
+                String deleteSEDSql = "DELETE FROM statuseventdate WHERE "+
+                        "statuseventid ="+ id +
+                        ";";
+
+                jdbcTemplate.update(deleteSEDSql);
+            }
+
+            List<StatusEventDate> updateStatusEventDates = statusEvent.getStatusEventDates();
+
+            if(updateStatusEventDates != null){
+
+                for(StatusEventDate date: updateStatusEventDates){
+
+                    StatusEventDateInsertDataMapper statusEventDateInsertDataMapper =
+                            new StatusEventDateInsertDataMapper(
+                                    date.getStatusEventDateId(),
+                                    date.getStartTime(),
+                                    date.getEndTime(),
+                                    date.getStatusEventId(),
+                                    date.getLotId()
+                            );
+
+                    String insertSEDSql = "INSERT INTO statuseventdate VALUES("+
+                            statusEventDateInsertDataMapper.getId() +","+
+                            statusEventDateInsertDataMapper.getStartTime() +","+
+                            statusEventDateInsertDataMapper.getEndTime() +","+
+                            statusEventDateInsertDataMapper.getStatusEventId() +","+
+                            statusEventDateInsertDataMapper.getLotId() +
+                            ");";
+
+                    System.out.println(insertSEDSql);
+
+                    jdbcTemplate.update(insertSEDSql);
+
+
+
+                } //end for
+            }
+
+
+            return id;
+        }
 
         return -1;
     }

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+//TODO: be sure to delete dependencies (ie statusevent dates when lot or status is deleted)
 @Repository
 public class LotDataAccessService {
 
