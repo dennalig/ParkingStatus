@@ -6,10 +6,11 @@ import Title from './Title';
 
 function NavigationBar(){
     return(
+        
     <div className='navigationbar_main'>
        
         <SignUpButton />
-        <Login/>
+        <Login login_status=''/>
         <Title/>
     </div>
     );

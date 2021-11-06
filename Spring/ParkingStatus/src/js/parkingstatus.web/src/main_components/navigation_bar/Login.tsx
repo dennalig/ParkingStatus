@@ -1,12 +1,26 @@
 import React from 'react'
 import './style/navigationbar.css'
 
-export default function Login() {
+type LoginProps={
+    login_status : string
+};
+
+export default function Login(props: LoginProps) {
+
+    let login_value;
+
+    if(props.login_status === ''){
+        login_value = 'Login';
+    }
+    else{
+        login_value = 'Logout';
+    }
+
     return (
         <div>
             <button 
                 className='button'>
-                {'Login'}
+                {login_value}
                 </button>
             
         </div>
