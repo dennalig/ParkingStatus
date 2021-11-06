@@ -1,10 +1,11 @@
-import React from 'react'
+import React from 'react';
+import './style/navigationbar.css';
 
-const NavigationBar = () =>{
+function NavigationBar(){
     return(
-    <div>
+    <div className='navigationbar_main'>
 
-    
+
     </div>
     );
 }
