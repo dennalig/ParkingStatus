@@ -2,18 +2,18 @@ import React from 'react'
 import './style/navigationbar.css'
 
 type LoginProps={
-    login_status : string
+    logged_in: boolean
 };
 
 export default function Login(props: LoginProps) {
 
     let login_value;
 
-    if(props.login_status === ''){
-        login_value = 'Login';
+    if(props.logged_in){
+        login_value = 'Admin Logout';
     }
     else{
-        login_value = 'Logout';
+        login_value = 'Admin Login';
     }
 
     return (

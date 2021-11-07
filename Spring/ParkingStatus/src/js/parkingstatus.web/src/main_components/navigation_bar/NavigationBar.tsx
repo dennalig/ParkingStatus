@@ -4,16 +4,22 @@ import Login from './Login';
 import SignUpButton from './SignUpButton';
 import Title from './Title';
 
-function NavigationBar(){
-    return(
-        
-    <div className='navigationbar_main'>
+interface Props {
+    logged_in : boolean,
+}
+
+const NavigationBar : React.FC<Props> = ({logged_in}) => {
+  
+        return(
        
-        <SignUpButton />
-        <Login login_status=''/>
-        <Title/>
-    </div>
-    );
+            <div className='navigationbar_main'>
+               
+                <SignUpButton />
+                <Login logged_in={logged_in}/>
+                <Title/>
+            </div>
+            );
+
 }
 
 export default NavigationBar;
