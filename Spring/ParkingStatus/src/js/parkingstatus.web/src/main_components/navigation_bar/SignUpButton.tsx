@@ -1,14 +1,17 @@
 import React from 'react'
-import './style/navigationbar.css'
+import './style/navigationbar.css';
+import { Link } from 'react-router-dom';
 
-export default function SignUpButton() {
+const SignUpButton: React.FC = () => {
     return (
         <div>
-            <button className='button'>
-                {'Sign Up'}
+            <Link to='/signup'>
+                <button className='button'> 
+                    {'Sign Up'}
                 </button>
-            
+            </Link>
         </div>
     );
     //TODO: figure out ts props
 }
+export default SignUpButton;

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './style/navigationbar.css';
-import Login from './Login';
+import LoginButton from './LoginButton';
 import SignUpButton from './SignUpButton';
 import Title from './Title';
+
+import { Link } from 'react-router-dom';
 
 interface Props {
     logged_in : boolean,
@@ -10,12 +12,13 @@ interface Props {
 
 const NavigationBar : React.FC<Props> = ({logged_in}) => {
   
+
         return(
        
             <div className='navigationbar_main'>
                
                 <SignUpButton />
-                <Login logged_in={logged_in}/>
+                <LoginButton logged_in={logged_in}/>
                 <Title/>
             </div>
             );

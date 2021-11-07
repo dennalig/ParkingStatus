@@ -1,11 +1,12 @@
 import React from 'react'
 import './style/navigationbar.css'
+import { Link } from 'react-router-dom';
 
 type LoginProps={
     logged_in: boolean
 };
 
-export default function Login(props: LoginProps) {
+export default function LoginButton(props: LoginProps) {
 
     let login_value;
 
@@ -18,10 +19,12 @@ export default function Login(props: LoginProps) {
 
     return (
         <div>
-            <button 
-                className='button'>
-                {login_value}
+            <Link to='/admin/login'>
+                <button 
+                    className='button'>
+                    {login_value}
                 </button>
+            </Link>
             
         </div>
     );
