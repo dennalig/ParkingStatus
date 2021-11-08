@@ -24,8 +24,8 @@ public class AdminUserController {
         return adminUserService.getAllAdminUsers();
     }
 
-    @GetMapping(path ="{admin_email}")
-    public AdminUser getAdminUserByEmail(@PathVariable("admin_email")String email){
+    @GetMapping(path ="{adminemail}")
+    public AdminUser getAdminUserByEmail(@PathVariable("adminemail")String email){
         return adminUserService.getAdminUserByEmail(email);
     }
 
@@ -34,14 +34,14 @@ public class AdminUserController {
         adminUserService.createAdminUser(adminUser);
     }
 
-    @PostMapping(path="{admin_email}")
-    public void updateAdminUser(@PathVariable("admin_email")String email,
+    @PostMapping(path="{adminemail}")
+    public void updateAdminUser(@PathVariable("adminemail")String email,
                                 @RequestBody AdminUser adminUser){
         adminUserService.updateAdminUser(email, adminUser);
     }
 
-    @DeleteMapping("{admin_email}")
-    public void deleteAdminUser(@PathVariable("admin_email")String email){
+    @DeleteMapping("{adminemail}")
+    public void deleteAdminUser(@PathVariable("adminemail")String email){
         adminUserService.deleteAdminUser(email);
     }
 }

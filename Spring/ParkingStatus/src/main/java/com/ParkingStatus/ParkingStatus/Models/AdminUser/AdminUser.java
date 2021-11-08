@@ -10,6 +10,8 @@ public class AdminUser {
     private String email;
     private String password;
 
+    public AdminUser() {}
+
     public AdminUser(String email, String password) {
         this.email = email;
         setPassword(password);
@@ -28,10 +30,21 @@ public class AdminUser {
     }
 
     public void setPassword(String password) {
+
         String passwordSha256Hex = Hashing.sha256()
                 .hashString(password, StandardCharsets.UTF_8)
                 .toString();
+
         this.password = passwordSha256Hex;
+    }
+
+    //TODO: checking password validation
+    public boolean validatePassword(String enteredPassword){
+        String enteredPw = Hashing.sha256()
+                .hashString(enteredPassword, StandardCharsets.UTF_8)
+                .toString();
+
+        return enteredPw.equals(getPassword());
     }
 
     String sha256hex = Hashing.sha256()
