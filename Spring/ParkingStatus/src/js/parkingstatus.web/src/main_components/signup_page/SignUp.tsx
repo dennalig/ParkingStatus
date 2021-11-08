@@ -1,29 +1,43 @@
 import React, {useState} from 'react'
-
+//types
+import type {FormEvent} from 'react'
 import '../general_style/sign_up_login_style.css';
 
 
 type NewUser ={
-    new_email: string,
-    new_password: string
+    new_email: string|null,
+    new_password: string |null
 }
 
 export const SignUp = () => {
 
-    const[user, setUser] = useState<NewUser|null>(null);
+    const[user, setUser] = useState< NewUser | null >(null);
 
     const handleEmailValidation = () => {
         setUser({
-            new_email:'newemail@gmail.com',
-            new_password:'pw'
+            new_email:null,
+            new_password:null
         });
     }
     const handlePwValidation = () => {}
 
-    const handleNewAdminUserSubmission = () => {
-        console.log('here');
-        handleEmailValidation();
+    const handleNewAdminUserSubmission = async (event : FormEvent<HTMLFormElement>) => {
+        //https://www.youtube.com/watch?v=BYsQE3Nh9IE
+        event.preventDefault();
+
+        console.log(user?.new_email);
+
+        const {newemail, newpassword} = event.target as typeof event.target & {
+            newemail: {value: string}
+            newpassword: {value: string}
+        } // values are stored here 
+
+        console.log(newemail.value); 
+        console.log(newpassword.value);
+        // handleEmailValidation();
     }
+
+    // console.log(user?.new_email);
 
         return (
 
@@ -32,30 +46,30 @@ export const SignUp = () => {
                     <h1> Sign Up </h1>
                 </div>
     
-                <form>
-                <div className="input_style">
-    
-                    <label>Email:
-                    <input id="newEmail" type="email"
+                <form onSubmit = {event => {handleNewAdminUserSubmission(event)}}>
+
+                    <fieldset className="input_style">
+                        <label htmlFor="email">Email:</label>
+
+                        <input id="newemail" type="email"
                         placeholder="Enter an email here.">
-                    </input>
-                    </label>
+                         </input>
+                    </fieldset>
+
+                    <fieldset className="input_style">
+                        <label htmlFor="password">Password:</label>
+                        
+                        <input id="newpassword" type="password"
+                        placeholder="Enter a Password here.">
+                         </input>
+                    </fieldset>
+          
+                    <fieldset className="input_style">
+                    <button 
+                        type="submit">Submit</button>
+                    </fieldset>
+         
     
-                </div>
-    
-                <div className="input_style">
-                <label>Password:
-                <input id="newPassword" type="password" 
-                        placeholder="Enter a password here.">
-                    </input>
-                </label>
-                </div>
-    
-                <div className="button_style">
-                    <button onClick={handleNewAdminUserSubmission}>Submit</button>
-                </div>
-    
-    <div> {user?.new_email}</div>
                 </form>
                 
             </div>

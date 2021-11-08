@@ -1,3 +1,5 @@
+
+
 .title_style{
     text-align: center;
 }
@@ -6,6 +8,7 @@
     display: flex;
     justify-content: center;
     padding: 20px;
+    border: none;
 }
 
 .button_style{
