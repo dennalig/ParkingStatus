@@ -14,7 +14,7 @@ public class AdminUser {
 
     public AdminUser(String email, String password) {
         this.email = email;
-        setPassword(password);
+        setPassword(password, false);
     }
 
     public String getEmail() {
@@ -29,13 +29,20 @@ public class AdminUser {
         return password;
     }
 
-    public void setPassword(String password) {
 
-        String passwordSha256Hex = Hashing.sha256()
-                .hashString(password, StandardCharsets.UTF_8)
-                .toString();
+    public void setPassword(String password, boolean alreadyHashed) {
 
-        this.password = passwordSha256Hex;
+        if(!alreadyHashed){
+            String passwordSha256Hex = Hashing.sha256()
+                    .hashString(password, StandardCharsets.UTF_8)
+                    .toString();
+
+            this.password = passwordSha256Hex;
+        }
+        else{
+            this.password = password;
+        }
+
     }
 
     //TODO: checking password validation

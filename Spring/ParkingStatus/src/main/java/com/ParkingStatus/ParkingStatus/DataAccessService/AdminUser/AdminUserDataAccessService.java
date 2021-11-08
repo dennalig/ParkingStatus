@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class AdminUserDataAccessService {
@@ -20,7 +19,19 @@ public class AdminUserDataAccessService {
     }
 
     public List<AdminUser> selectAllAdminUsers(){
-        return null;
+        String queryAdminUsers = "SELECT * FROM adminuser;";
+
+        List<Map<String, Object>> queriedAdminUserObjects =
+                jdbcTemplate.queryForList(queryAdminUsers);
+
+        List<AdminUser> adminUserList = new ArrayList<>();
+
+        for(Map<String, Object> map: queriedAdminUserObjects){
+
+            adminUserList.add(mapSelectAdminUserFromDB(map));
+        }
+
+        return adminUserList;
     }
 
     public AdminUser selectAdminUserByEmail(String email){
@@ -36,8 +47,7 @@ public class AdminUserDataAccessService {
             AdminUser queriedAdminUser = mapSelectAdminUserFromDB(
                     queriedAdminUserObject.get(0));
 
-            System.out.println(queriedAdminUser.getEmail());
-            System.out.println(queriedAdminUser.getPassword());
+
             return queriedAdminUser;
         }
 
@@ -47,6 +57,9 @@ public class AdminUserDataAccessService {
     public String insertAdminUser(AdminUser adminUser){
 
         if(selectAdminUserByEmail(adminUser.getEmail()) == null){
+
+            adminUser.setPassword(adminUser.getPassword(), false);
+
             AdminUserInsertDataMapper adminUserInsertDataMapper =
                     new AdminUserInsertDataMapper(adminUser.getEmail(),
                             adminUser.getPassword());
@@ -66,11 +79,36 @@ public class AdminUserDataAccessService {
     }
 
     public String updateAdminUser(String email, AdminUser adminUser){
-        return null;
+        //TODO: difer from updating email to updating password, both require different protocols
+
+        if(selectAdminUserByEmail(email) != null){
+
+            adminUser.setPassword(adminUser.getPassword(), false);
+            System.out.println(adminUser.getPassword());
+            AdminUserInsertDataMapper adminUserInsertDataMapper =
+                    new AdminUserInsertDataMapper( adminUser.getEmail(), adminUser.getPassword());
+
+            String updateAdminUserSql = "UPDATE adminuser set "+
+                    "email ="+ adminUserInsertDataMapper.getEmail()+","+
+                    "password ="+ adminUserInsertDataMapper.getPassword()+
+                    "WHERE email ='" +email + "'"+
+                    ";";
+
+            jdbcTemplate.update(updateAdminUserSql);
+            return email;
+        }
+        return "ADMIN USER DOES NOT EXIST";
     }
 
     public String removeAdminUser(String email){
-        return null;
+
+        AdminUser deleteAdminUser = selectAdminUserByEmail(email);
+        String deleteAdminUserQuery = "DELETE FROM adminuser WHERE " +
+                "email = '" +email +
+                "' ;";
+
+        jdbcTemplate.update(deleteAdminUserQuery);
+        return "ADMIN USER DOES NOT EXIST";
     }
 
 
@@ -78,9 +116,12 @@ public class AdminUserDataAccessService {
 
     public AdminUser mapSelectAdminUserFromDB(Map<String, Object> dbMap){
         AdminUser adminUser = new AdminUser();
+        List<Object> dbMapVals = new ArrayList(dbMap.values());
 
         adminUser.setEmail((String) dbMap.get("email"));
-        adminUser.setPassword((String) dbMap.get("password"));
+        adminUser.setPassword((String) dbMap.get("password"), true);
+
+
         return adminUser;
     }
 }
