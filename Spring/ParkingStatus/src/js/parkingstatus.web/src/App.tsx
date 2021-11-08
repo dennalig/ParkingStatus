@@ -28,6 +28,7 @@ class App extends React.Component{
       <>
       <Router>
         <NavigationBar logged_in= {this.login_value}/>
+        
         <Switch>
           <Route path='/' exact component={LotAccordion}/>  
           <Route path='/signup' component={SignUp}/>

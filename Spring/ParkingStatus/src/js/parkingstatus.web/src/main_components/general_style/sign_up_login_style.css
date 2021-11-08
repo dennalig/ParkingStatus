@@ -1,0 +1,9 @@
+.title_style{
+    text-align: center;
+}
+
+.input_style{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
