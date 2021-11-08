@@ -86,6 +86,15 @@ https://www.javaguides.net/2019/01/spring-boot-microsoft-sql-server-jpa-hibernat
 			<artifactId>junit-jupiter-params</artifactId>
 			<version>5.7.2</version>
 		</dependency>
+
+<!--Admin User dependency
+https://www.baeldung.com/sha-256-hashing-java-->
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>20.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
