@@ -32,6 +32,7 @@ const NavigationBar : React.FC<Props> = ({logged_in}) => {
                 {/* Conditional Rendering Components */}
                 {/* https://reactjs.org/docs/conditional-rendering.html */}
 
+
                 {logged_in && 
                     <>
                     <StatusEventButton />
