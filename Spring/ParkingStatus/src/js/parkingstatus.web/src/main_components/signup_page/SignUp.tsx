@@ -1,8 +1,12 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 //types
 import type {FormEvent} from 'react'
 import '../general_style/sign_up_login_style.css';
 
+//services
+import AdminUserService from '../../services/AdminUserService';
+
+//TODO: understand the useEffect counterpart to ComponentDidMount
 
 type NewUser ={
     new_email: string| null,
@@ -22,6 +26,8 @@ export const SignUp = () => {
 
     var invalidEmail : boolean = false;
     var invalidPw : boolean = false;
+    
+    
 
     //error messages
     var emailMessage : string = 'The entered email already exists within Parking Status.';
