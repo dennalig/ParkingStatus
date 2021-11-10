@@ -9,9 +9,17 @@ import NavigationBar from './main_components/navigation_bar/NavigationBar';
 //home page
 import LotAccordion from './main_components/front_page/LotAccordion';
 
+//routing purposes
 //other pages
 import SignUp from './main_components/signup_page/SignUp';
 import Login from './main_components/admin_login_page/Login';
+
+//admin other pages
+import LotSelector from './main_components/admin_features/Lot/LotSelector'
+import StatusSelector from './main_components/admin_features/Status/StatusSelector';
+import StatusEventSelector from './main_components/admin_features/StatusEvent/StatusEventSelector'
+
+//end routing purposes
 
 //functional : routing
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -30,9 +38,19 @@ class App extends React.Component{
         <NavigationBar logged_in= {this.login_value}/>
         
         <Switch>
+
+          {/* General Routes */}
           <Route path='/' exact component={LotAccordion}/>  
           <Route path='/signup' component={SignUp}/>
-          <Route path='/admin/login' component={Login}/>    
+          <Route path='/admin/login' component={Login}/> 
+
+          {/* Admin Routes */}
+          {/* TODO: Pass the boolean value to these areas so that admins cannot access */}
+          <Route path='/admin/select/lot' component={LotSelector}/>
+          <Route path='/admin/select/status' component={StatusSelector}/>
+          <Route path='/admin/select/statusevent' component={StatusEventSelector}/>
+
+
           
         </Switch>
       
