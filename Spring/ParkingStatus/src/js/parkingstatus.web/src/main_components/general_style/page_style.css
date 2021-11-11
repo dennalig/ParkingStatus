@@ -1,3 +1,12 @@
 .page{
     background-color: pink;
 }
+
+.unauth_page{
+    background-color: darkgrey;
+    align-items: center;
+    display: flex;
+    height: fit-content;
+    justify-content: center;
+
+}

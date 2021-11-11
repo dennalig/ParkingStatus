@@ -12,7 +12,7 @@ export default function LotButton() {
                     className='button'>
                     Lots
                 </button>
-                </Link>
+            </Link>
         </div>
     )
 }

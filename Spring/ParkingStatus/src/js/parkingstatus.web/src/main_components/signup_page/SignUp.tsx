@@ -31,7 +31,8 @@ export const SignUp = () => {
 
         if(enteredCreds){
             // console.log(user);
-            AdminUserService.createAdminUser(user);
+            var value : any = AdminUserService.createAdminUser(user);
+            console.log(value.status);
         }   
     }, [user]); // whenever array changes,we rerun hook 
     // in this case "user" is changing when we call setUser

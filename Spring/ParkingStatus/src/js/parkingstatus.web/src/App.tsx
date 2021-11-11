@@ -45,8 +45,11 @@ class App extends React.Component{
           <Route path='/admin/login' component={Login}/> 
 
           {/* Admin Routes */}
-          {/* TODO: Pass the boolean value to these areas so that admins cannot access */}
-          <Route path='/admin/select/lot' component={LotSelector}/>
+          {/* TODO: Pass the boolean value to these areas so that non admins cannot access */}
+          {/* https://javascript.plainenglish.io/passing-props-to-components-inside-react-router-3d26165662b1 */}
+          
+          <Route path='/admin/select/lot' 
+                render={() => <LotSelector logged_in={this.login_value}/>}/>
           <Route path='/admin/select/status' component={StatusSelector}/>
           <Route path='/admin/select/statusevent' component={StatusEventSelector}/>
 

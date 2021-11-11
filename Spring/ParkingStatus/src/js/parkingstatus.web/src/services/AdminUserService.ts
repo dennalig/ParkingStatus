@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios  from 'axios';
 import React from 'react';
 
 const ADMINUSERS_REST_API_URL : string = 'http://localhost:8080/api/v1/adminusers';
@@ -13,16 +13,25 @@ class AdminUserService{
 
     }
 
-    createAdminUser(user : any){
+    async createAdminUser(user : any){
         console.log(user);
 
         if(user != null){
-            axios.post('http://localhost:8080/api/v1/adminusers', user)
-            .then(response => console.log(response))
+            await axios.post(ADMINUSERS_REST_API_URL, user)
+            .then((response) => {
+                console.log(response);
+                return response.status;
+                
+                    
+            })
             .catch(error => {
-                console.log(error)
-            }
-            );
+                console.log(error.response);
+                return error.response.status;
+                
+            });
+
+
+
         }
    
     }
