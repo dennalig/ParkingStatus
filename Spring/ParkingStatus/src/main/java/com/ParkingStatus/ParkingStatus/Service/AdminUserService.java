@@ -26,15 +26,15 @@ public class AdminUserService {
         return adminUserDataAccessService.selectAdminUserByEmail(email);
     }
 
-    public void createAdminUser(AdminUser adminUser){
-        adminUserDataAccessService.insertAdminUser(adminUser);
+    public String createAdminUser(AdminUser adminUser){
+        return adminUserDataAccessService.insertAdminUser(adminUser);
     }
 
-    public void updateAdminUser(String email, AdminUser adminUser){
-        adminUserDataAccessService.updateAdminUser(email, adminUser);
+    public String updateAdminUser(String email, AdminUser adminUser){
+        return adminUserDataAccessService.updateAdminUser(email, adminUser);
     }
 
-    public void deleteAdminUser(String email){
-        adminUserDataAccessService.removeAdminUser(email);
+    public String deleteAdminUser(String email){
+        return adminUserDataAccessService.removeAdminUser(email);
     }
 }

@@ -3,6 +3,8 @@ package com.ParkingStatus.ParkingStatus.Controllers;
 import com.ParkingStatus.ParkingStatus.Models.AdminUser.AdminUser;
 import com.ParkingStatus.ParkingStatus.Service.AdminUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,18 +32,39 @@ public class AdminUserController {
     }
 
     @PostMapping
-    public void createAdminUser(@RequestBody AdminUser adminUser){
-        adminUserService.createAdminUser(adminUser);
+    public ResponseEntity<Object> createAdminUser(@RequestBody AdminUser adminUser){
+        String response = adminUserService.createAdminUser(adminUser);
+
+        if(response.equals("ALREADY EXISTS")){
+
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping(path="{adminemail}")
-    public void updateAdminUser(@PathVariable("adminemail")String email,
+    public ResponseEntity<Object> updateAdminUser(@PathVariable("adminemail")String email,
                                 @RequestBody AdminUser adminUser){
-        adminUserService.updateAdminUser(email, adminUser);
+       String response = adminUserService.updateAdminUser(email, adminUser);
+
+        if(response.equals("DOES NOT EXIST")){
+
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @DeleteMapping("{adminemail}")
-    public void deleteAdminUser(@PathVariable("adminemail")String email){
-        adminUserService.deleteAdminUser(email);
+    public ResponseEntity<Object> deleteAdminUser(@PathVariable("adminemail")String email){
+        String response = adminUserService.deleteAdminUser(email);
+
+        if(response.equals("DOES NOT EXIST")){
+
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

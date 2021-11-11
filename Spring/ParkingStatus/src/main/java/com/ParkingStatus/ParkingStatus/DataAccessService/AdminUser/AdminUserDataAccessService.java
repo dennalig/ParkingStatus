@@ -97,18 +97,23 @@ public class AdminUserDataAccessService {
             jdbcTemplate.update(updateAdminUserSql);
             return email;
         }
-        return "ADMIN USER DOES NOT EXIST";
+        return "DOES NOT EXIST";
     }
 
     public String removeAdminUser(String email){
 
-        AdminUser deleteAdminUser = selectAdminUserByEmail(email);
-        String deleteAdminUserQuery = "DELETE FROM adminuser WHERE " +
-                "email = '" +email +
-                "' ;";
+        if(selectAdminUserByEmail(email) != null){
+            AdminUser deleteAdminUser = selectAdminUserByEmail(email);
+            String deleteAdminUserQuery = "DELETE FROM adminuser WHERE " +
+                    "email = '" +email +
+                    "' ;";
 
-        jdbcTemplate.update(deleteAdminUserQuery);
-        return "ADMIN USER DOES NOT EXIST";
+            jdbcTemplate.update(deleteAdminUserQuery);
+
+            return email;
+        }
+
+        return "DOES NOT EXIST";
     }
 
 
