@@ -1,4 +1,5 @@
 import axios from 'axios';
+import React from 'react';
 
 const ADMINUSERS_REST_API_URL : string = 'http://localhost:8080/api/v1/adminusers';
 
@@ -8,18 +9,35 @@ class AdminUserService{
         axios.get(ADMINUSERS_REST_API_URL);
     }
 
-    getAdminUserOfEmail(inputEmail : string){
+    getAdminUserByEmail(email : string){
 
     }
 
-    inputEmailIsValid(inputEmail: string){
+    createAdminUser(user : any){
+        // console.log(user);
 
-    return false;
+        if(user != null){
+            axios.post('http://localhost:8080/api/v1/adminusers', user)
+            .then(response => console.log(response))
+            .catch(error => {
+                console.log(error)
+            }
+            );
+        }
+   
     }
 
-    inputPasswordIsValid(inputPassword: string){
-        return false;
+    updateAdminUser(email : string, user: any){
+
     }
+
+    deleteAdminUser(email : string){
+
+    }
+
+
+
+
 
 
 

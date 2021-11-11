@@ -8,9 +8,10 @@ import AdminUserService from '../../services/AdminUserService';
 
 //TODO: understand the useEffect counterpart to ComponentDidMount
 
+import axios from 'axios';
 type NewUser ={
-    new_email: string| null,
-    new_password: string |null
+    email: string| null,
+    password: string |null
 }
 
 type InvalidCredentials = {
@@ -24,28 +25,35 @@ export const SignUp = () => {
     const[user, setUser] = useState< NewUser | null >(null);
     const[creds, setInvalidCreds] = useState< InvalidCredentials | null>(null);
 
+    //user useEffect hook
+    useEffect(() => {
+
+        if(user != null){
+            console.log(user);
+            AdminUserService.createAdminUser(user);
+        }
+ 
+        
+    }, [user]); // whenever array changes,we rerun hook 
+    // in this case "user" is changing when we call setUser
+    //[] (empty) is onmount
+
     var invalidEmail : boolean = false;
     var invalidPw : boolean = false;
     
-    
+
 
     //error messages
     var emailMessage : string = 'The entered email already exists within Parking Status.';
     var pwMessage : string = 'The password entered is invalid.';
 
-    const handleEmailValidation = (email: string) => {
+    const handleEmailValidation = async (email: string) => {
         //check that email does not already exist
 
-     
-        if(email === 'a@a'){
-            invalidEmail = true;
-        }
-        else{
             invalidEmail = false;
-        }
     }
 
-    const handlePwValidation =  (password: string) => {
+    const handlePwValidation =  async (password: string) => {
         // check that password != null
         // console.log(password === '')
 
@@ -59,6 +67,7 @@ export const SignUp = () => {
         }
     }
 
+
     const handleNewAdminUserSubmission = async (event : FormEvent<HTMLFormElement>) => {
         //https://www.youtube.com/watch?v=BYsQE3Nh9IE
         event.preventDefault();
@@ -70,9 +79,6 @@ export const SignUp = () => {
         handleEmailValidation(newemail.value);
         handlePwValidation(newpassword.value);
 
-        // console.log(invalidEmail);
-        // console.log(invalidPw);
-
         setInvalidCreds({
             invalid_email: invalidEmail,
             invalid_password : invalidPw
@@ -81,10 +87,12 @@ export const SignUp = () => {
         if(!invalidEmail && !invalidPw){
 
             setUser({
-                new_email: newemail.value,
-                new_password: newpassword.value
+                email: newemail.value,
+                password: newpassword.value
             });
 
+
+            AdminUserService.createAdminUser(user);
         }
 
     }
