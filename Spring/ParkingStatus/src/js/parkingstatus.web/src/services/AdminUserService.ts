@@ -14,7 +14,7 @@ class AdminUserService{
     }
 
     createAdminUser(user : any){
-        // console.log(user);
+        console.log(user);
 
         if(user != null){
             axios.post('http://localhost:8080/api/v1/adminusers', user)

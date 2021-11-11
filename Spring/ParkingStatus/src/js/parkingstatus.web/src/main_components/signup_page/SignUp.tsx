@@ -24,16 +24,15 @@ export const SignUp = () => {
 
     const[user, setUser] = useState< NewUser | null >(null);
     const[creds, setInvalidCreds] = useState< InvalidCredentials | null>(null);
+    const[enteredCreds, setCredStatus] = useState<boolean>(false);
 
     //user useEffect hook
     useEffect(() => {
 
-        if(user != null){
-            console.log(user);
+        if(enteredCreds){
+            // console.log(user);
             AdminUserService.createAdminUser(user);
-        }
- 
-        
+        }   
     }, [user]); // whenever array changes,we rerun hook 
     // in this case "user" is changing when we call setUser
     //[] (empty) is onmount
@@ -91,8 +90,10 @@ export const SignUp = () => {
                 password: newpassword.value
             });
 
+            setCredStatus((true));
 
-            AdminUserService.createAdminUser(user);
+
+            // AdminUserService.createAdminUser(user);
         }
 
     }
