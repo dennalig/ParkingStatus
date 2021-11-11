@@ -75,7 +75,7 @@ public class AdminUserDataAccessService {
             return adminUserInsertDataMapper.getEmail();
         }
 
-        return "ALREADY EXISTS";
+        return "INVALID INPUT";
     }
 
     public String updateAdminUser(String email, AdminUser adminUser){
@@ -97,7 +97,7 @@ public class AdminUserDataAccessService {
             jdbcTemplate.update(updateAdminUserSql);
             return email;
         }
-        return "DOES NOT EXIST";
+        return "INVALID INPUT";
     }
 
     public String removeAdminUser(String email){
@@ -113,7 +113,7 @@ public class AdminUserDataAccessService {
             return email;
         }
 
-        return "DOES NOT EXIST";
+        return "INVALID INPUT";
     }
 
 

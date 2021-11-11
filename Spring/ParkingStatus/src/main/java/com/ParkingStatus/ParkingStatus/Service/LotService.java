@@ -30,16 +30,16 @@ public class LotService {
         return lotDataAccessService.selectLotById(id);
     }
 
-    public void createLot(Lot lot){
+    public int createLot(Lot lot){
 
-        lotDataAccessService.insertLot(lot);
+        return lotDataAccessService.insertLot(lot);
     }
 
-    public void updateLot(int id, Lot lot){
-        lotDataAccessService.updateLot(id, lot);
+    public int updateLot(int id, Lot lot){
+        return lotDataAccessService.updateLot(id, lot);
     }
 
-    public void deleteLot(int id){
-        lotDataAccessService.removeLot(id);
+    public int deleteLot(int id){
+        return lotDataAccessService.removeLot(id);
     }
 }

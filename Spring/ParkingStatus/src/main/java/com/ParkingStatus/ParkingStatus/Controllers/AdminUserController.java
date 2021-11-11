@@ -1,6 +1,7 @@
 package com.ParkingStatus.ParkingStatus.Controllers;
 
 import com.ParkingStatus.ParkingStatus.Models.AdminUser.AdminUser;
+import com.ParkingStatus.ParkingStatus.ResponseEntities.ResponseEntityForController;
 import com.ParkingStatus.ParkingStatus.Service.AdminUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,9 @@ public class AdminUserController {
 
     @Autowired
     private final AdminUserService adminUserService;
+
+    private ResponseEntityForController responseEntityForController =
+            new ResponseEntityForController();
 
     @Autowired
     public AdminUserController(AdminUserService adminUserService) {
@@ -35,12 +39,7 @@ public class AdminUserController {
     public ResponseEntity<Object> createAdminUser(@RequestBody AdminUser adminUser){
         String response = adminUserService.createAdminUser(adminUser);
 
-        if(response.equals("ALREADY EXISTS")){
-
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity(HttpStatus.OK);
+        return responseEntityForController.responseForAdminUsers(response);
     }
 
     @PostMapping(path="{adminemail}")
@@ -48,23 +47,13 @@ public class AdminUserController {
                                 @RequestBody AdminUser adminUser){
        String response = adminUserService.updateAdminUser(email, adminUser);
 
-        if(response.equals("DOES NOT EXIST")){
-
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity(HttpStatus.OK);
+       return responseEntityForController.responseForAdminUsers(response);
     }
 
     @DeleteMapping("{adminemail}")
     public ResponseEntity<Object> deleteAdminUser(@PathVariable("adminemail")String email){
         String response = adminUserService.deleteAdminUser(email);
 
-        if(response.equals("DOES NOT EXIST")){
-
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity(HttpStatus.OK);
+        return responseEntityForController.responseForAdminUsers(response);
     }
 }

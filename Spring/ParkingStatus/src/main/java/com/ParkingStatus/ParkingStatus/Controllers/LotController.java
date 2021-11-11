@@ -3,9 +3,12 @@ package com.ParkingStatus.ParkingStatus.Controllers;
 
 import com.ParkingStatus.ParkingStatus.Models.Lot.Lot;
 
+import com.ParkingStatus.ParkingStatus.ResponseEntities.ResponseEntityForController;
 import com.ParkingStatus.ParkingStatus.Service.LotService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +20,10 @@ public class LotController {
     @Autowired
     private final LotService lotService;
 
+    private ResponseEntityForController responseEntityForController =
+            new ResponseEntityForController();
+
+
 
     @Autowired
     public LotController(LotService lotService) {
@@ -27,36 +34,34 @@ public class LotController {
      public List<Lot> getAllLots(){
 //        System.out.println(lotService.getAllLots().get(0).getLotID());
         return lotService.getAllLots();
-//        List<Lot> lots = new ArrayList<Lot>();
-//        List<LotStatusScheduleDate> schedDates = new ArrayList<LotStatusScheduleDate>();
-//
-//        schedDates.add(new LotStatusScheduleDate(1, null, null, 1, 1) );
-//        schedDates.add(new LotStatusScheduleDate(2, null, null, 2, 1));
-//
-//        lots.add(new Lot(1, "", "", "", null,
-//                new LotStatusSchedule(1, "name", 1, schedDates
-//                        )));
-//        return lots;
+
      }
 
      @GetMapping(path = "{lotId}")
      public Lot getLotByID(@PathVariable("lotId") int id){
         return lotService.getLotByID(id);
+        // returns 404 if invalid
      }
 
      @PostMapping
-     public void createLot(@RequestBody Lot lot){
-        lotService.createLot(lot);
+     public ResponseEntity<Object> createLot(@RequestBody Lot lot){
+        int response = lotService.createLot(lot);
+
+         return responseEntityForController.responseForObjects(response);
      }
 
      @PostMapping(path ="{lotId}")
-     public void updateLot(@PathVariable("lotId")int id, @RequestBody Lot lot){
-        lotService.updateLot(id, lot);
+     public ResponseEntity<Object> updateLot(@PathVariable("lotId")int id, @RequestBody Lot lot){
+        int response = lotService.updateLot(id, lot);
+
+        return responseEntityForController.responseForObjects(response);
      }
 
      @DeleteMapping("{lotId}")
-     public void deleteLot(@PathVariable("lotId")int id){
-        lotService.deleteLot(id);
+     public ResponseEntity<Object> deleteLot(@PathVariable("lotId")int id){
+        int response = lotService.deleteLot(id);
+
+         return responseEntityForController.responseForObjects(response);
      }
 
 

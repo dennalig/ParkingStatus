@@ -71,6 +71,7 @@ public class LotDataAccessService {
 
 
         if(selectLotById(lot.getLotID()) == null){
+            System.out.println("Here: " + selectLotById(lot.getLotID()));
             LotInsertDataMapper lotInsertDataMapper = new LotInsertDataMapper(
                     lot.getLotID(), lot.getLotName(), lot.getLotDescription(),
                     lot.getLotImageName()
@@ -257,34 +258,37 @@ public class LotDataAccessService {
 
         //here we match lotstatusschedule id's
 
-        if(deleteLot.getLotStatusSchedule() != null){
+        if(deleteLot != null) {
+            if(deleteLot.getLotStatusSchedule() != null){
 
-            if(deleteLot.getLotStatusSchedule().getLotStatusScheduleDates() != null){
-                String deleteLSSDQuery = "DELETE FROM lotstatusscheduledate WHERE "+
-                        "lotstatusscheduleid = "+deleteLot.getLotStatusSchedule().getLotStatusScheduleId()
+                if(deleteLot.getLotStatusSchedule().getLotStatusScheduleDates() != null){
+                    String deleteLSSDQuery = "DELETE FROM lotstatusscheduledate WHERE "+
+                            "lotstatusscheduleid = "+deleteLot.getLotStatusSchedule().getLotStatusScheduleId()
+                            +";";
+                    jdbcTemplate.update(deleteLSSDQuery);
+                }
+                String deleteLSSQuery = "DELETE FROM lotstatusschedule WHERE "+
+                        "lotid = "+id
                         +";";
-                jdbcTemplate.update(deleteLSSDQuery);
+
+                jdbcTemplate.update(deleteLSSQuery);
+
             }
-            String deleteLSSQuery = "DELETE FROM lotstatusschedule WHERE "+
+
+            // outer dependency deletes
+
+            removeOuterDependencies(id);
+
+            String deleteLotQuery = "DELETE FROM lot WHERE "+
                     "lotid = "+id
                     +";";
+            jdbcTemplate.update(deleteLotQuery);
+            //TODO: Cascade delete
 
-            jdbcTemplate.update(deleteLSSQuery);
-
+            return id;
         }
 
-        // outer dependency deletes
-
-        removeOuterDependencies(id);
-
-        String deleteLotQuery = "DELETE FROM lot WHERE "+
-                "lotid = "+id
-                +";";
-        jdbcTemplate.update(deleteLotQuery);
-        //TODO: Cascade delete
-
-
-        return id;
+        return -1;
     }
 
     //mapping methods
