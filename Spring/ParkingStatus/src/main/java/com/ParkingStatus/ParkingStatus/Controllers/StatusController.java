@@ -1,9 +1,11 @@
 package com.ParkingStatus.ParkingStatus.Controllers;
 
 import com.ParkingStatus.ParkingStatus.Models.Status.Status;
+import com.ParkingStatus.ParkingStatus.ResponseEntities.ResponseEntityForController;
 import com.ParkingStatus.ParkingStatus.Service.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +14,9 @@ import java.util.List;
 @RequestMapping(path ="api/v1/status")
 public class StatusController {
     private final StatusService statusService;
+
+    private ResponseEntityForController responseEntityForController =
+            new ResponseEntityForController();
 
     @Autowired
     public StatusController(StatusService statusService) {
@@ -25,24 +30,33 @@ public class StatusController {
     }
 
     @GetMapping(path = "{statusId}")
-    public Status getStatusById(@PathVariable("statusId")int id){
-        return statusService.getStatusById(id);
+    public ResponseEntity<Object> getStatusById(@PathVariable("statusId")int id){
+         Status response = statusService.getStatusById(id);
+
+         return responseEntityForController.responseForObjectModels(response);
+
     }
 
     @PostMapping
-    public void createStatus(@RequestBody Status status){
+    public ResponseEntity<Object> createStatus(@RequestBody Status status){
 //        System.out.println(status.getStatusId());
-        statusService.createStatus(status);
+        int response = statusService.createStatus(status);
+
+        return responseEntityForController.responseForObjects(response);
     }
 
     @PostMapping(path ="{statusId}")
-    public void updateStatus(@PathVariable("statusId")int id, @RequestBody Status status){
-        statusService.updateStatus(id, status);
+    public ResponseEntity<Object> updateStatus(@PathVariable("statusId")int id, @RequestBody Status status){
+        int response = statusService.updateStatus(id, status);
+
+        return responseEntityForController.responseForObjects(response);
     }
 
     @DeleteMapping("{statusId}")
-    public void deleteStatus(@PathVariable("statusId")int id){
-        statusService.deleteStatus(id);
+    public ResponseEntity<Object> deleteStatus(@PathVariable("statusId")int id){
+        int response = statusService.deleteStatus(id);
+
+        return responseEntityForController.responseForObjects(response);
     }
 
 }

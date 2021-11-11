@@ -26,16 +26,16 @@ public class StatusService {
         return statusDataAccessService.selectStatusById(id);
     }
 
-    public void createStatus(Status status){
-        statusDataAccessService.insertStatus(status);
+    public int createStatus(Status status){
+       return statusDataAccessService.insertStatus(status);
     }
 
-    public void updateStatus(int id, Status status){
-        statusDataAccessService.updateStatus(id,status);
+    public int updateStatus(int id, Status status){
+       return statusDataAccessService.updateStatus(id,status);
     }
 
-    public void deleteStatus(int id){
-        statusDataAccessService.removeStatus(id);
+    public int deleteStatus(int id){
+       return statusDataAccessService.removeStatus(id);
     }
 
 

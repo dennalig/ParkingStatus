@@ -24,4 +24,14 @@ public class ResponseEntityForController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    public ResponseEntity<Object> responseForObjectModels(Object response){
+
+        if(response == null){
+
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
 }
