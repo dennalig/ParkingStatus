@@ -1,7 +1,7 @@
 package com.ParkingStatus.ParkingStatus.DataAccessService.StatusEvent;
 
 import com.ParkingStatus.ParkingStatus.DataAccessService.GenericClass;
-import com.ParkingStatus.ParkingStatus.DataAccessService.Status.InsertDataMappers.StatusInsertDataMapper;
+import com.ParkingStatus.ParkingStatus.DataAccessService.Status.StatusDataAccessService;
 import com.ParkingStatus.ParkingStatus.DataAccessService.StatusEvent.InsertDataMappers.StatusEventDateInsertDataMapper;
 import com.ParkingStatus.ParkingStatus.DataAccessService.StatusEvent.InsertDataMappers.StatusEventInsertDataMapper;
 import com.ParkingStatus.ParkingStatus.Models.StatusEvent.StatusEvent;
@@ -22,8 +22,12 @@ public class StatusEventDataAccessService {
     private static final GenericClass genericClass = new GenericClass();
 
     @Autowired
-    public StatusEventDataAccessService(JdbcTemplate jdbcTemplate) {
+    private final StatusDataAccessService statusDataAccessService;
+
+    @Autowired
+    public StatusEventDataAccessService(JdbcTemplate jdbcTemplate, StatusDataAccessService statusDataAccessService) {
         this.jdbcTemplate = jdbcTemplate;
+        this.statusDataAccessService = statusDataAccessService;
     }
 
     public List<StatusEvent> selectAllStatusEvents(){
@@ -42,6 +46,11 @@ public class StatusEventDataAccessService {
 
 
     public List<StatusEvent> selectAllStatusEventsOfStatus(int statusId){
+
+        if(statusDataAccessService.selectStatusById(statusId) == null ){
+            return null;
+        }
+
         String queryForStatus = "SELECT * FROM StatusEvent" +
                 " WHERE statusId = " +
                 statusId +
@@ -214,18 +223,23 @@ public class StatusEventDataAccessService {
 
     public int removeStatusEvent(int id){
 
-        String removeStatusEventDatesSql = "DELETE FROM statuseventdate WHERE "+
-                "statusEventid = "+ id +";";
+        if(selectStatusEventById(id) != null){
+            String removeStatusEventDatesSql = "DELETE FROM statuseventdate WHERE "+
+                    "statusEventid = "+ id +";";
 
-        jdbcTemplate.update(removeStatusEventDatesSql);
+            jdbcTemplate.update(removeStatusEventDatesSql);
 
-        String removeStatusEventSql = "DELETE FROM statusevent WHERE "+
-                "statusEventid = "+ id +";";
+            String removeStatusEventSql = "DELETE FROM statusevent WHERE "+
+                    "statusEventid = "+ id +";";
 
-        jdbcTemplate.update(removeStatusEventSql);
+            jdbcTemplate.update(removeStatusEventSql);
 
 
-        return id;
+            return id;
+        }
+
+        return -1;
+
     }
 
 

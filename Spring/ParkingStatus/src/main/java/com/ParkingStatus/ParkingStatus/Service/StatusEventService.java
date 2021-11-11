@@ -31,15 +31,15 @@ public class StatusEventService {
         return statusEventDataAccessService.selectStatusEventById(id);
     }
 
-    public void createStatusEvent(StatusEvent statusEvent){
-        statusEventDataAccessService.insertStatusEvent(statusEvent);
+    public int createStatusEvent(StatusEvent statusEvent){
+        return statusEventDataAccessService.insertStatusEvent(statusEvent);
     }
 
-    public void updateStatusEvent(int id, StatusEvent statusEvent){
-        statusEventDataAccessService.updateStatusEvent(id, statusEvent);
+    public int updateStatusEvent(int id, StatusEvent statusEvent){
+        return statusEventDataAccessService.updateStatusEvent(id, statusEvent);
     }
 
-    public void deleteStatusEvent(int id){
-        statusEventDataAccessService.removeStatusEvent(id);
+    public int deleteStatusEvent(int id){
+       return statusEventDataAccessService.removeStatusEvent(id);
     }
 }

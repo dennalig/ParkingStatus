@@ -1,8 +1,10 @@
 package com.ParkingStatus.ParkingStatus.Controllers;
 
 import com.ParkingStatus.ParkingStatus.Models.StatusEvent.StatusEvent;
+import com.ParkingStatus.ParkingStatus.ResponseEntities.ResponseEntityForController;
 import com.ParkingStatus.ParkingStatus.Service.StatusEventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +15,9 @@ public class StatusEventController {
 
     @Autowired
     private final StatusEventService statusEventService;
+
+    private ResponseEntityForController responseEntityForController =
+            new ResponseEntityForController();
 
     @Autowired
     public StatusEventController(StatusEventService statusEventService) {
@@ -25,27 +30,37 @@ public class StatusEventController {
     }
 
     @GetMapping(path ="status/{statusId}")
-    public List<StatusEvent> getAllStatusEventsOfStatus(@PathVariable("statusId") int statusId){
-        return statusEventService.getAllStatusEventsOfStatus(statusId);
+    public ResponseEntity<Object> getAllStatusEventsOfStatus(@PathVariable("statusId") int statusId){
+        List<StatusEvent> response =  statusEventService.getAllStatusEventsOfStatus(statusId);
+
+        return responseEntityForController.responseForObjectModels(response);
     }
 
     @GetMapping(path ="{statusEventId}")
-    public StatusEvent getStatusEventById(@PathVariable("statusEventId") int id){
-        return statusEventService.getStatusEventById(id);
+    public ResponseEntity<Object> getStatusEventById(@PathVariable("statusEventId") int id){
+        StatusEvent response = statusEventService.getStatusEventById(id);
+
+        return responseEntityForController.responseForObjectModels(response);
     }
 
     @PostMapping
-    public void createStatusEvent(@RequestBody StatusEvent statusEvent){
-        statusEventService.createStatusEvent(statusEvent);
+    public ResponseEntity<Object> createStatusEvent(@RequestBody StatusEvent statusEvent){
+        int response = statusEventService.createStatusEvent(statusEvent);
+
+        return responseEntityForController.responseForObjects(response);
     }
 
     @PostMapping(path ="{statusEventId}")
-    public void updateStatusEvent(@PathVariable("statusEventId")int id, @RequestBody StatusEvent statusEvent){
-        statusEventService.updateStatusEvent(id, statusEvent);
+    public ResponseEntity<Object> updateStatusEvent(@PathVariable("statusEventId")int id, @RequestBody StatusEvent statusEvent){
+        int response = statusEventService.updateStatusEvent(id, statusEvent);
+
+        return responseEntityForController.responseForObjects(response);
     }
 
     @DeleteMapping("{statusEventId}")
-    public void deleteStatusEvent(@PathVariable("statusEventId")int id){
-        statusEventService.deleteStatusEvent(id);
+    public ResponseEntity<Object> deleteStatusEvent(@PathVariable("statusEventId")int id){
+        int response = statusEventService.deleteStatusEvent(id);
+
+        return responseEntityForController.responseForObjects(response);
     }
 }
