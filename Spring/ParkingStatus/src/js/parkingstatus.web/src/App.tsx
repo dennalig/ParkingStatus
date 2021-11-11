@@ -29,7 +29,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 class App extends React.Component{
 
-  login_value: boolean = false;
+  login_value: boolean = true;
   
   render(){
     return (
@@ -49,9 +49,11 @@ class App extends React.Component{
           {/* https://javascript.plainenglish.io/passing-props-to-components-inside-react-router-3d26165662b1 */}
           
           <Route path='/admin/select/lot' 
-                render={() => <LotSelector logged_in={this.login_value}/>}/>
-          <Route path='/admin/select/status' component={StatusSelector}/>
-          <Route path='/admin/select/statusevent' component={StatusEventSelector}/>
+                  render={() => <LotSelector logged_in={this.login_value}/>}/>
+          <Route path='/admin/select/status' 
+                  render={() => <StatusSelector logged_in={this.login_value}/>}/>
+          <Route path='/admin/select/statusevent' 
+                  render={() => <StatusEventSelector logged_in={this.login_value}/>}/>
 
 
           
