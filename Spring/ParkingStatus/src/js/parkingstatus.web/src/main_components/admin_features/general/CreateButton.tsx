@@ -1,9 +1,11 @@
 import React from 'react'
 
 import { Link } from 'react-router-dom';
+
 interface Props {
     create_type : string,
 }
+
 const CreateButton : React.FC<Props> = ({create_type}) => {
 
 
