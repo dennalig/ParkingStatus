@@ -17,15 +17,15 @@ class AdminUserService{
         console.log(user);
 
         if(user != null){
-            await axios.post(ADMINUSERS_REST_API_URL, user)
+            axios.post(ADMINUSERS_REST_API_URL, user)
             .then((response) => {
-                console.log(response);
-                return response.status;
+                console.log('response: ', response)
+                return response;
                 
                     
             })
             .catch(error => {
-                console.log(error.response);
+                console.log('error: ', error.response)
                 return error.response.status;
                 
             });
