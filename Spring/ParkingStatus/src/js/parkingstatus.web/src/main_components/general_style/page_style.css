@@ -1,5 +1,9 @@
 .page{
-    background-color: pink;
+    background-color: rgb(255, 255, 255);
+    align-items: center;
+    display: flex;
+    height: fit-content;
+    justify-content: center;
 }
 
 .unauth_page{
@@ -9,4 +13,13 @@
     height: fit-content;
     justify-content: center;
 
+}
+
+.create_button{
+    background-color:blue;
+    align-items: left;
+    display: block;
+    color:white;
+    border-radius: 8px;
+    
 }

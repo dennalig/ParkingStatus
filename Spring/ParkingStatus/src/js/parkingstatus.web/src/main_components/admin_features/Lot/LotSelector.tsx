@@ -1,5 +1,8 @@
 import React from 'react'
 import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
+
+import CreateButton from "../../admin_features/general/CreateButton";
+
 interface Props {
     logged_in : boolean,
 }
@@ -15,7 +18,19 @@ const LotSelector : React.FC<Props> = ({logged_in}) => {
 
             {logged_in &&
 
-                <div>Lot Selector</div>
+                <>
+
+                <CreateButton create_type="lot"/>
+                <div className="page">
+                    Lot Selector
+                    </div>
+
+               
+
+              
+                
+                </>
+
             }
           
         </div>

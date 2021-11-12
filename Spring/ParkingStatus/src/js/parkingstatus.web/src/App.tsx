@@ -16,9 +16,15 @@ import Login from './main_components/admin_login_page/Login';
 
 //admin other pages
 import LotSelector from './main_components/admin_features/Lot/LotSelector'
-import StatusSelector from './main_components/admin_features/Status/StatusSelector';
-import StatusEventSelector from './main_components/admin_features/StatusEvent/StatusEventSelector'
+import LotEditor from './main_components/admin_features/Lot/LotEditor';
 
+
+import StatusSelector from './main_components/admin_features/Status/StatusSelector';
+import StatusEditor from './main_components/admin_features/Status/StatusEditor';
+
+
+import StatusEventSelector from './main_components/admin_features/StatusEvent/StatusEventSelector'
+import StatusEventEditor from './main_components/admin_features/StatusEvent/StatusEventEditor';
 //end routing purposes
 
 //functional : routing
@@ -50,10 +56,24 @@ class App extends React.Component{
           
           <Route path='/admin/select/lot' 
                   render={() => <LotSelector logged_in={this.login_value}/>}/>
+          
+          <Route path='/admin/create/lot'
+                  render={() => <LotEditor logged_in={this.login_value}/>}/>
+
+
+
           <Route path='/admin/select/status' 
                   render={() => <StatusSelector logged_in={this.login_value}/>}/>
+
+          <Route path='/admin/create/status'
+                  render={() => <StatusEditor logged_in={this.login_value}/>}/>
+
+
           <Route path='/admin/select/statusevent' 
                   render={() => <StatusEventSelector logged_in={this.login_value}/>}/>
+
+          <Route path='/admin/create/statusevent'
+                  render={() => <StatusEventEditor logged_in={this.login_value}/>}/>
 
 
           

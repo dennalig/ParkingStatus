@@ -1,5 +1,8 @@
 import React from 'react'
 import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
+
+import CreateButton from "../../admin_features/general/CreateButton";
+
 interface Props {
     logged_in : boolean,
 }
@@ -15,7 +18,14 @@ const StatusEventSelector : React.FC<Props> = ({logged_in}) => {
 
             {logged_in &&
 
-                <div>Status Event Selector</div>
+            <>
+            
+            <CreateButton create_type="statusevent" />
+                <div className="page">
+                Status Selector
+                </div>
+    
+            </>
             }
           
         </div>
