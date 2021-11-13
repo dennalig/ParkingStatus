@@ -1,0 +1,27 @@
+
+.form_style{
+    width:100%;
+    justify-content:center;
+}
+.object_id{
+    width: 3%;
+
+    
+}
+.object_name{
+    width: 25%;
+    padding: 5px;
+
+}
+
+.object_description{
+    width: 50%;
+    height: 300%;
+    padding: 5px;
+
+}
+
+.object_image{
+    width: 30%;
+    justify-content:center;
+}

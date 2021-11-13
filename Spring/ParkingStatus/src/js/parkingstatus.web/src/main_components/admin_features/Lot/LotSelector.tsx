@@ -23,12 +23,18 @@ const LotSelector : React.FC<any> = (props) => {
                 <CreateButton create_type="lot"/>
                 <div className="page">
                     Lot Selector
-                    </div>
 
                
+                </div>
 
-              
-                
+                <div className="scroller">
+                    scroller
+                </div>
+
+                <div className="element_clicked">
+                    element_clicked
+                </div>
+
                 </>
 
             }

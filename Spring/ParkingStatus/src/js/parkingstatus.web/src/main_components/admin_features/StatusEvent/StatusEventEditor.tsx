@@ -2,6 +2,7 @@ import React from 'react'
 
 import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
 
+import '../../general_style/input_style.css';
 
 const StatusEventEditor: React.FC<any> =(props) => {
     return (
@@ -12,9 +13,38 @@ const StatusEventEditor: React.FC<any> =(props) => {
             }
 
             {props.logged_in && 
-                <div> 
-                    Status Event Editor
-                </div>
+                <div className="page"> 
+                <form className="form_style">
+
+                    <fieldset className="input_style">
+                    <label htmlFor="statuseventid">Id:</label>
+                    <input id="statuseventid" type="number" min="0"
+                    className="object_id">
+                    </input>
+                    </fieldset>
+
+                    <fieldset className="input_style">
+                    <label >Description:</label>
+                    <textarea className="object_description">
+                    </textarea>
+                    </fieldset>
+
+                    <fieldset className="input_style">
+                    <label htmlFor="statusid">Status Id:</label>
+                    <select id="statusid" 
+                    className="object_id">
+                    </select>
+                    </fieldset>
+
+                    <fieldset className="input_style">
+                    <label >Status Event Image:</label>
+                    <input id="statusimage" type="file" className="object_image">
+                    </input>
+                    </fieldset>
+                    
+                </form>
+
+            </div>
             }
         </div>
     )
