@@ -1,9 +1,9 @@
 .page{
     background-color: rgb(255, 255, 255);
-    align-items: center;
     display: flex;
     height: fit-content;
     justify-content: center;
+    padding-top: 45px;
 }
 
 .unauth_page{
@@ -26,8 +26,27 @@
 }
 
 .legend_popup{
-    align-items: left;
-    display: block;
+    display: flex;
+    height: fit-content;
+    justify-content: left; 
+}
+
+.legend_popup_window{
+    display: flex;
+    height: fit-content;
+    justify-content: center; 
+    z-index: 1;
     
 }
+
+
+
+.legend_pop_button{
+    
+    border-radius: 90px;
+
+}
+
+
+
 

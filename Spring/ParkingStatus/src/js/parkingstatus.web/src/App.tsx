@@ -39,25 +39,6 @@ interface LoginProps {
 
 function App (){
 
-      
-
-// constructor(props : object){
-//         super(props);
-
-//         this.state = {
-//                 login_value: true,
-//         };
-
-//         this.setLogoutValue = this.setLogoutValue.bind(this);
-        
-// }
-
-//    setLogoutValue = (isLoggedIn : any) => {
-//         this.setState({login_value : isLoggedIn});
-
-//    }
-   
-
   const [login_value, setLoginValue] = useState(true);
 
 //   useEffect(() => {
@@ -65,8 +46,7 @@ function App (){
 //   }, [login_value]);
 
    const handleLogin = () => {
-        // console.log(logged_in);
-        // loginState.changeLoginStatus(logged_in);
+
         setLoginValue(!login_value);
         // console.log(login_value);
 
@@ -74,11 +54,11 @@ function App (){
 
     return (
       <>
+      <div >
       <Router>
-        {/* <NavigationBar changeLoginStatus={(value: boolean)=> setLoginValue(!login_value)}
-                loginState={login_value}/> */}
-        <NavigationBar loginState={login_value} 
+              <NavigationBar loginState={login_value} 
                 handleLogin={handleLogin} />
+
 
         
         <Switch>
@@ -114,11 +94,10 @@ function App (){
                   render={() => <StatusEventEditor logged_in={login_value}/>}/> 
 
 
-          
         </Switch>
-      
-
         </Router>
+
+        </div>
         
         </>
     );
