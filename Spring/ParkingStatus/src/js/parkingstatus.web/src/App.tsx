@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
 //style
 import './App.css';
@@ -32,16 +32,54 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 //https://create-react-app.dev/docs/adding-typescript/
 
+interface LoginProps {
+        logged_in : boolean,
+    }
+    
 
-class App extends React.Component{
+function App (){
 
-  login_value: boolean = true;
-  
-  render(){
+      
+
+// constructor(props : object){
+//         super(props);
+
+//         this.state = {
+//                 login_value: true,
+//         };
+
+//         this.setLogoutValue = this.setLogoutValue.bind(this);
+        
+// }
+
+//    setLogoutValue = (isLoggedIn : any) => {
+//         this.setState({login_value : isLoggedIn});
+
+//    }
+   
+
+  const [login_value, setLoginValue] = useState(true);
+
+//   useEffect(() => {
+//           console.log(login_value);
+//   }, [login_value]);
+
+   const handleLogin = () => {
+        // console.log(logged_in);
+        // loginState.changeLoginStatus(logged_in);
+        setLoginValue(!login_value);
+        // console.log(login_value);
+
+    }
+
     return (
       <>
       <Router>
-        <NavigationBar logged_in= {this.login_value}/>
+        {/* <NavigationBar changeLoginStatus={(value: boolean)=> setLoginValue(!login_value)}
+                loginState={login_value}/> */}
+        <NavigationBar loginState={login_value} 
+                handleLogin={handleLogin} />
+
         
         <Switch>
 
@@ -55,9 +93,9 @@ class App extends React.Component{
           {/* https://javascript.plainenglish.io/passing-props-to-components-inside-react-router-3d26165662b1 */}
           
           <Route path='/admin/select/lot' 
-                  render={() => <LotSelector logged_in={this.login_value}/>}/>
+                  render={() => <LotSelector loginState={login_value} run={() => console.log(login_value)}/>}/>
           
-          <Route path='/admin/create/lot'
+          {/* <Route path='/admin/create/lot'
                   render={() => <LotEditor logged_in={this.login_value}/>}/>
 
 
@@ -73,7 +111,7 @@ class App extends React.Component{
                   render={() => <StatusEventSelector logged_in={this.login_value}/>}/>
 
           <Route path='/admin/create/statusevent'
-                  render={() => <StatusEventEditor logged_in={this.login_value}/>}/>
+                  render={() => <StatusEventEditor logged_in={this.login_value}/>}/> */}
 
 
           
@@ -84,7 +122,7 @@ class App extends React.Component{
         
         </>
     );
-  }
+  
 
 }
 

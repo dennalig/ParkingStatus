@@ -13,19 +13,23 @@ import StatusEventButton from './admin_buttons/StatusEventButton';
 import { Link } from 'react-router-dom';
 
 
-interface Props {
-    logged_in : boolean,
-}
 
-const NavigationBar : React.FC<Props> = ({logged_in}) => {
+
+const NavigationBar : React.FC<any> = (props) => {
   
 
+    // const[loginStatus, setLoginStatus] = useState<any>(loginState);
+    
+
+    // console.log(props.loginState);
         return(
        
             <div className='navigationbar_main'>
                
                 <SignUpButton />
-                <LoginButton logged_in={logged_in}/>
+                
+                <LoginButton loginState={props.loginState}
+                    handleLogin={props.handleLogin}/>
             
                 <Title />
 
@@ -33,7 +37,7 @@ const NavigationBar : React.FC<Props> = ({logged_in}) => {
                 {/* https://reactjs.org/docs/conditional-rendering.html */}
 
 
-                {logged_in && 
+                {props.loginState && 
                     <>
                     <StatusEventButton />
                     <StatusButton />

@@ -2,21 +2,21 @@ import React from 'react'
 import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
 
 import CreateButton from "../../admin_features/general/CreateButton";
+import { parentPort } from 'worker_threads';
 
-interface Props {
-    logged_in : boolean,
-}
 
-const LotSelector : React.FC<Props> = ({logged_in}) => {
+const LotSelector : React.FC<any> = (props) => {
+
+    console.log(props.loginState);
 
     return (
         <div>
 
-            {!logged_in &&
+            {!props.loginState &&
                 <DefaultNoAccess/>
             }
 
-            {logged_in &&
+            {props.loginState  &&
 
                 <>
 
