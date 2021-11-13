@@ -16,13 +16,18 @@
 }
 
 
-
 .create_button{
     background-color:blue;
     align-items: left;
     display: block;
     color:white;
     border-radius: 8px;
+    
+}
+
+.legend_popup{
+    align-items: left;
+    display: block;
     
 }
 

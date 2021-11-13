@@ -2,19 +2,17 @@ import React from 'react'
 
 import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
 
-interface Props {
-    logged_in : boolean,
-}
 
-const StatusEditor: React.FC<Props> =({logged_in}) => {
+
+const StatusEditor: React.FC<any> =(props) => {
     return (
         <div>
             
-            {!logged_in &&
+            {!props.logged_in &&
                 <DefaultNoAccess/>
             }
 
-            {logged_in && 
+            {props.logged_in && 
                 <div> 
                     Status Editor
                 </div>

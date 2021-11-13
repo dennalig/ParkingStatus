@@ -93,25 +93,25 @@ function App (){
           {/* https://javascript.plainenglish.io/passing-props-to-components-inside-react-router-3d26165662b1 */}
           
           <Route path='/admin/select/lot' 
-                  render={() => <LotSelector loginState={login_value} run={() => console.log(login_value)}/>}/>
+                  render={() => <LotSelector loginState={login_value}/>}/>
           
-          {/* <Route path='/admin/create/lot'
-                  render={() => <LotEditor logged_in={this.login_value}/>}/>
+        <Route path='/admin/create/lot'
+                  render={() => <LotEditor logged_in={login_value}/>}/>
 
 
 
           <Route path='/admin/select/status' 
-                  render={() => <StatusSelector logged_in={this.login_value}/>}/>
+                  render={() => <StatusSelector logged_in={login_value}/>}/>
 
           <Route path='/admin/create/status'
-                  render={() => <StatusEditor logged_in={this.login_value}/>}/>
+                  render={() => <StatusEditor logged_in={login_value}/>}/>
 
 
           <Route path='/admin/select/statusevent' 
-                  render={() => <StatusEventSelector logged_in={this.login_value}/>}/>
+                  render={() => <StatusEventSelector logged_in={login_value}/>}/>
 
           <Route path='/admin/create/statusevent'
-                  render={() => <StatusEventEditor logged_in={this.login_value}/>}/> */}
+                  render={() => <StatusEventEditor logged_in={login_value}/>}/> 
 
 
           

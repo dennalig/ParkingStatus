@@ -27,8 +27,7 @@ const LoginButton : React.FC<any> = (props) => {
             props.handleLogin();
             
         }
-
-
+        
         // console.log(props.loginState);
 
         // props.handleLogin()

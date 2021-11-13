@@ -1,5 +1,7 @@
 import React from 'react'
 import ColorLegend from './ColorLegend';
+
+
 export default function LotAccordion() {
     return (
         <div >
@@ -15,8 +17,7 @@ export default function LotAccordion() {
         </div>
       
 
-   
-     
+
         </div>
 
         

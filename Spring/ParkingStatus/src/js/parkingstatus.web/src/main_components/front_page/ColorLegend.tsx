@@ -1,17 +1,12 @@
 import React from 'react'
 
-interface Props {
-     status_list: Status[],
-}
 
-interface Status {
-    color_value :string,
-    status_name : string
-}
 
-const ColorLegend : React.FC<Props> =(status_list) => {
+const ColorLegend : React.FC<any> =() => {
+
+    
     return (
-        <div>
+        <div className="legend_popup">
             ColorLegend
         </div>
     )

@@ -3,20 +3,17 @@ import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
 
 import CreateButton from "../../admin_features/general/CreateButton";
 
-interface Props {
-    logged_in : boolean,
-}
 
-const StatusEventSelector : React.FC<Props> = ({logged_in}) => {
+const StatusEventSelector : React.FC<any> = (props) => {
 
     return (
         <div>
 
-            {!logged_in &&
+            {!props.logged_in &&
                 <DefaultNoAccess/>
             }
 
-            {logged_in &&
+            {props.logged_in &&
 
             <>
             
