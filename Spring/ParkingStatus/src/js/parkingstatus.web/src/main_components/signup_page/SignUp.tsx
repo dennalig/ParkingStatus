@@ -8,7 +8,6 @@ import AdminUserService from '../../services/AdminUserService';
 
 //TODO: understand the useEffect counterpart to ComponentDidMount
 
-import axios from 'axios';
 type NewUser ={
     email: string| null,
     password: string |null
@@ -47,8 +46,6 @@ export const SignUp = () => {
                 return error.response.status;
                 
             });
-;
-
         }   
     }, [user]); // whenever array changes,we rerun hook 
     // in this case "user" is changing when we call setUser

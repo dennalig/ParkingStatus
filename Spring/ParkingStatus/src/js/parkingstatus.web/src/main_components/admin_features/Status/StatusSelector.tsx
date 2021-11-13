@@ -1,10 +1,34 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
 
 import CreateButton from "../../admin_features/general/CreateButton";
 
+import StatusService from '../../../services/StatusService';
+
+//type importd
+import  type {Status} from '../types/Types';
 
 const StatusSelector : React.FC<any> = (props) => {
+
+const [statusList, setStatusList] = useState<Array<any>>([]);
+const [displayStatus, setDisplayStatus] = useState<any>(null);
+
+
+
+useEffect(() => {
+    StatusService.getAllStatuses()
+    .then(res => setStatusList(res.data));
+}, []);
+
+
+
+const handleClick = (status: any, event: any) =>{
+    // console.log(status.statusId);
+    setDisplayStatus(status);
+    console.log(status);
+}
+
+// console.log(statusList);
 
     return (
         <div>
@@ -21,6 +45,32 @@ const StatusSelector : React.FC<any> = (props) => {
             <div className="page">
                     Status Selector
             </div>
+
+            <div className="scroller">
+
+                <ul>
+                    {
+                        statusList.map(status =>
+                            <li key={status.statusId}>
+                                <button
+                                    onClick={(e) => handleClick(status, e)}>{status.name}</button>
+                            </li>)
+                    }
+
+                </ul>
+
+            </div>
+            {displayStatus && 
+
+            <div className="element_clicked">
+            {displayStatus.statusId} : {displayStatus.name}
+            <br />
+            Description: {displayStatus.description}
+            <br />
+            
+            </div>
+            }
+
                 
             </>
             }

@@ -16,7 +16,7 @@
 .element_clicked{
     display: flex;
     height: fit-content;
-    justify-content: right;
+    justify-content: center;
 }
 
 .unauth_page{

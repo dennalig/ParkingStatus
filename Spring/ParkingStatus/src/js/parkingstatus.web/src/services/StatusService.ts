@@ -4,7 +4,9 @@ const STATUSES_REST_API_URL : string = 'http://localhost:8080/api/v1/status';
 
 class StatusService{
 
-    getAllStatuses(){}
+    async getAllStatuses(){
+       return axios.get(STATUSES_REST_API_URL);
+    }
 
     getStatusById(id: number){}
 
@@ -15,3 +17,5 @@ class StatusService{
     deleteStatus(id: number){}
 
 }
+
+export default new StatusService();
