@@ -26,13 +26,29 @@ export const SignUp = () => {
     const[creds, setInvalidCreds] = useState< InvalidCredentials | null>(null);
     const[enteredCreds, setCredStatus] = useState<boolean>(false);
 
+    const run= () => {
+        console.log("ran");
+    }
+
     //user useEffect hook
     useEffect(() => {
 
         if(enteredCreds){
             // console.log(user);
-            var value : any = AdminUserService.createAdminUser(user);
-            console.log(value.status);
+            AdminUserService.createAdminUser(user)
+                .then((response) => {
+                    console.log('response: ', response)
+                    return response;     
+            })
+            .catch(error => {
+                console.log('error: ', error.response)
+
+                run();
+                return error.response.status;
+                
+            });
+;
+
         }   
     }, [user]); // whenever array changes,we rerun hook 
     // in this case "user" is changing when we call setUser

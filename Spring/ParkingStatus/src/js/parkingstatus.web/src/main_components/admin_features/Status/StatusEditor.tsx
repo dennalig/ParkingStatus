@@ -1,4 +1,7 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import type {FormEvent} from 'react'
+
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
 
@@ -35,7 +38,7 @@ const StatusEditor: React.FC<any> =(props) => {
                         
                         <fieldset className="input_style">
                         <label htmlFor="statuscolor">Status Color:</label>
-                        <input type="color" id="colorpicker" value="#0000ff">
+                        <input type="color" id="colorpicker" >
                         </input>
                         </fieldset>
 
@@ -51,6 +54,16 @@ const StatusEditor: React.FC<any> =(props) => {
                         <input id="statusimage" type="file" className="object_image">
                         </input>
                         </fieldset>
+
+                        <fieldset className="input_style">
+                        <Link to="/admin/select/lot">
+                        <button >Cancel
+                        </button>
+                        </Link>
+                    <button 
+                        type="submit">Save</button>
+                    </fieldset>
+                        
                         
                     </form>
 

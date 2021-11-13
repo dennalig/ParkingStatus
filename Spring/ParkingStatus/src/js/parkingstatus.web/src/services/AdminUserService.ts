@@ -16,23 +16,9 @@ class AdminUserService{
     async createAdminUser(user : any){
         console.log(user);
 
-        if(user != null){
-            axios.post(ADMINUSERS_REST_API_URL, user)
-            .then((response) => {
-                console.log('response: ', response)
-                return response;
-                
-                    
-            })
-            .catch(error => {
-                console.log('error: ', error.response)
-                return error.response.status;
-                
-            });
 
+           return axios.post(ADMINUSERS_REST_API_URL, user);
 
-
-        }
    
     }
 

@@ -1,4 +1,7 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import type {FormEvent} from 'react'
+
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
 
@@ -41,6 +44,16 @@ const StatusEventEditor: React.FC<any> =(props) => {
                     <input id="statusimage" type="file" className="object_image">
                     </input>
                     </fieldset>
+
+                    <fieldset className="input_style">
+                        <Link to="/admin/select/lot">
+                        <button >Cancel
+                        </button>
+                        </Link>
+                    <button 
+                        type="submit">Save</button>
+                    </fieldset>
+                        
                     
                 </form>
 
