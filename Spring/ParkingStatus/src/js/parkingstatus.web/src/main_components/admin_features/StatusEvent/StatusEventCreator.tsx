@@ -7,7 +7,7 @@ import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
 
 import '../../general_style/input_style.css';
 
-const StatusEventEditor: React.FC<any> =(props) => {
+const StatusEventCreator: React.FC<any> =(props) => {
     return (
         <div>
             
@@ -63,4 +63,4 @@ const StatusEventEditor: React.FC<any> =(props) => {
     )
 }
 
-export default StatusEventEditor;
+export default StatusEventCreator;

@@ -4,11 +4,17 @@ const STATUSEVENT_REST_API_URL : string = 'http://localhost:8080/api/v1/statusev
 
 class StatusEventService{
 
-    getAllStatusEvents(){}
+    async getAllStatusEvents(){
+        return axios.get(STATUSEVENT_REST_API_URL);
+    }
 
-    getAllStatusEventsOfStatus(statusId : number){}
+    async getAllStatusEventsOfStatus(statusId : number){
+        return axios.get(STATUSEVENT_REST_API_URL+"/status/"+ statusId);
+    }
 
-    getStatusEventById(id: number){}
+    async getStatusEventById(id: number){
+        return axios.get(STATUSEVENT_REST_API_URL+"/"+ id);
+    }
 
     createStatusEvent(statusEvent: any){}
 
@@ -18,3 +24,5 @@ class StatusEventService{
 
     
 }
+
+export default new StatusEventService();

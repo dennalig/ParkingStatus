@@ -8,7 +8,7 @@ import StatusEdit from '../Status/StatusEdit';
 
 //type importd
 
-import {  Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 const StatusSelector : React.FC<any> = (props) => {

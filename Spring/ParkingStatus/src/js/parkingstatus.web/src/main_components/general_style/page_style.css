@@ -67,12 +67,13 @@
 
 .edit_button{
     background-color:aqua;
+    color:white;
     border-radius: 5px;
-
 }
 
 .delete_button{
     background-color:crimson;
+    color:white;
     border-radius: 5px;
 }
 

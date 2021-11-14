@@ -8,7 +8,7 @@ class StatusService{
        return axios.get(STATUSES_REST_API_URL);
     }
 
-    getStatusById(id: number){
+    async getStatusById(id: number){
         return axios.get(STATUSES_REST_API_URL + '/'+ id);
     }
 

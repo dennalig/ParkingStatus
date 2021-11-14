@@ -5,12 +5,16 @@
 }
 .object_id{
     width: 5%;
-
-    
+   
 }
 .object_name{
     width: 25%;
     padding: 5px;
+
+}
+
+.reference_object_id{
+    width: 20%;
 
 }
 

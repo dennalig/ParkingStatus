@@ -25,7 +25,8 @@ import StatusEdit from './main_components/admin_features/Status/StatusEdit';
 
 
 import StatusEventSelector from './main_components/admin_features/StatusEvent/StatusEventSelector'
-import StatusEventEditor from './main_components/admin_features/StatusEvent/StatusEventEditor';
+import StatusEventCreator from './main_components/admin_features/StatusEvent/StatusEventCreator';
+import StatusEventEdit from './main_components/admin_features/StatusEvent/StatusEventEdit';
 //end routing purposes
 
 //functional : routing
@@ -99,7 +100,10 @@ function App (){
                   render={() => <StatusEventSelector logged_in={login_value}/>}/>
 
           <Route path='/admin/create/statusevent'
-                  render={() => <StatusEventEditor logged_in={login_value}/>}/> 
+                  render={() => <StatusEventCreator logged_in={login_value}/>}/> 
+
+          <Route path='/admin/edit/statusevent/:id' 
+                component={StatusEventEdit}/>
 
 
         </Switch>

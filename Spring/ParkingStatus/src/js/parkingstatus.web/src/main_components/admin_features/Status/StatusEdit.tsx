@@ -28,6 +28,7 @@ const StatusEdit: React.FC<Props> =({match}) => {
 // console.log(status);
     return (
         <div>
+
             {status && 
                 <>
                 <div className="page"> 
@@ -87,6 +88,8 @@ const StatusEdit: React.FC<Props> =({match}) => {
                 </div>
                 </>
             }
+
+            TODO: Render a 'item does not exist component if there is not one of the given id'
                 
         </div>
     )
