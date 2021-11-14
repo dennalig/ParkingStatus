@@ -52,13 +52,31 @@
     
 }
 
-
-
 .legend_pop_button{
     
     border-radius: 90px;
 
 }
+
+.edit{
+    display: flex;
+    height: fit-content;
+    justify-content: center; 
+    margin: 5px;
+}
+
+.edit_button{
+    background-color:aqua;
+    border-radius: 5px;
+
+}
+
+.delete_button{
+    background-color:crimson;
+    border-radius: 5px;
+}
+
+
 
 
 

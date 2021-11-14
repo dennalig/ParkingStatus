@@ -4,15 +4,17 @@ import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
 import CreateButton from "../../admin_features/general/CreateButton";
 
 import StatusService from '../../../services/StatusService';
+import StatusEdit from '../Status/StatusEdit';
 
 //type importd
 import  type {Status} from '../types/Types';
+import {  Link , RouteComponentProps} from 'react-router-dom';
+
 
 const StatusSelector : React.FC<any> = (props) => {
 
 const [statusList, setStatusList] = useState<Array<any>>([]);
 const [displayStatus, setDisplayStatus] = useState<any>(null);
-
 
 
 useEffect(() => {
@@ -60,15 +62,35 @@ const handleClick = (status: any, event: any) =>{
                 </ul>
 
             </div>
+
+
             {displayStatus && 
 
+            <>
             <div className="element_clicked">
+
             {displayStatus.statusId} : {displayStatus.name}
             <br />
             Description: {displayStatus.description}
             <br />
+            Color: {displayStatus.color}
+            <br />
             
             </div>
+
+            <div className="edit">
+
+                <Link to={'/admin/edit/status/' + displayStatus.statusId}> 
+                <button className="edit_button">
+                        Edit 
+                </button>
+                </Link>
+                
+                <button className="delete_button"> Delete </button>
+            </div>
+            </>
+            
+            
             }
 
                 

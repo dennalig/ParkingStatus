@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from 'react'
 import type {FormEvent} from 'react'
 
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Link, useLocation } from 'react-router-dom';
 
 import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
 
 import '../../general_style/input_style.css';
 
 
-const StatusEditor: React.FC<any> =(props) => {
+const StatusCreator: React.FC<any> =(props) => {
+
     return (
         <div>
             
@@ -56,7 +57,8 @@ const StatusEditor: React.FC<any> =(props) => {
                         </fieldset>
 
                         <fieldset className="input_style">
-                        <Link to="/admin/select/lot">
+                            
+                        <Link to="/admin/select/status">
                         <button >Cancel
                         </button>
                         </Link>
@@ -73,4 +75,4 @@ const StatusEditor: React.FC<any> =(props) => {
     )
 }
 
-export default StatusEditor;
+export default StatusCreator;

@@ -1,5 +1,7 @@
 .navigationbar_main{
-    background-color: white;
+    background-color: #e5e5f7;
+    opacity: 0.8;
+    background: repeating-linear-gradient( -45deg, #d07b94, #d07b94 5px, #e5e5f7 5px, #e5e5f7 25px );
     border: 2px;
     border-style: outset;
     border-color: grey;
@@ -22,6 +24,6 @@ button:hover{
     font-family: sans-serif;
     font-weight: bold;
     font-size: 30px;
-    color: grey;
+    color: black;
 }
 

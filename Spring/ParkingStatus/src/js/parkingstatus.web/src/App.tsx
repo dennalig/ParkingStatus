@@ -20,7 +20,8 @@ import LotEditor from './main_components/admin_features/Lot/LotEditor';
 
 
 import StatusSelector from './main_components/admin_features/Status/StatusSelector';
-import StatusEditor from './main_components/admin_features/Status/StatusEditor';
+import StatusCreator from './main_components/admin_features/Status/StatusCreator';
+import StatusEdit from './main_components/admin_features/Status/StatusEdit';
 
 
 import StatusEventSelector from './main_components/admin_features/StatusEvent/StatusEventSelector'
@@ -84,8 +85,10 @@ function App (){
                   render={() => <StatusSelector logged_in={login_value}/>}/>
 
           <Route path='/admin/create/status'
-                  render={() => <StatusEditor logged_in={login_value}/>}/>
+                  render={() => <StatusCreator logged_in={login_value}/>}/>
 
+          <Route path='/admin/edit/status/:id' 
+                component={StatusEdit}/>
 
           <Route path='/admin/select/statusevent' 
                   render={() => <StatusEventSelector logged_in={login_value}/>}/>
