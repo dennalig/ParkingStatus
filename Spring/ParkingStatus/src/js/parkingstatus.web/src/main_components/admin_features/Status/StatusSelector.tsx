@@ -7,8 +7,8 @@ import StatusService from '../../../services/StatusService';
 import StatusEdit from '../Status/StatusEdit';
 
 //type importd
-import  type {Status} from '../types/Types';
-import {  Link , RouteComponentProps} from 'react-router-dom';
+
+import {  Link } from 'react-router-dom';
 
 
 const StatusSelector : React.FC<any> = (props) => {
@@ -19,7 +19,7 @@ const [displayStatus, setDisplayStatus] = useState<any>(null);
 
 useEffect(() => {
     StatusService.getAllStatuses()
-    .then(res => setStatusList(res.data));
+        .then(res => setStatusList(res.data));
 }, []);
 
 
@@ -55,7 +55,8 @@ const handleClick = (status: any, event: any) =>{
                         statusList.map(status =>
                             <li key={status.statusId}>
                                 <button
-                                    onClick={(e) => handleClick(status, e)}>{status.name}</button>
+                                    onClick={(e) =>
+                                     handleClick(status, e)}>{status.name}</button>
                             </li>)
                     }
 

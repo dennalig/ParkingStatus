@@ -16,8 +16,8 @@ import Login from './main_components/admin_login_page/Login';
 
 //admin other pages
 import LotSelector from './main_components/admin_features/Lot/LotSelector'
-import LotEditor from './main_components/admin_features/Lot/LotEditor';
-
+import LotCreator from './main_components/admin_features/Lot/LotCreator';
+import LotEdit from './main_components/admin_features/Lot/LotEdit';
 
 import StatusSelector from './main_components/admin_features/Status/StatusSelector';
 import StatusCreator from './main_components/admin_features/Status/StatusCreator';
@@ -73,14 +73,18 @@ function App (){
           {/* TODO: Pass the boolean value to these areas so that non admins cannot access */}
           {/* https://javascript.plainenglish.io/passing-props-to-components-inside-react-router-3d26165662b1 */}
           
+          {/* Lot Routes */}
           <Route path='/admin/select/lot' 
-                  render={() => <LotSelector loginState={login_value}/>}/>
+                  render={() => <LotSelector logged_in={login_value}/>}/>
           
         <Route path='/admin/create/lot'
-                  render={() => <LotEditor logged_in={login_value}/>}/>
+                  render={() => <LotCreator logged_in={login_value}/>}/>
 
+        
+        <Route path='/admin/edit/lot/:id' 
+                component={LotEdit}/>
 
-
+        {/* Status Routes */}
           <Route path='/admin/select/status' 
                   render={() => <StatusSelector logged_in={login_value}/>}/>
 
@@ -90,6 +94,7 @@ function App (){
           <Route path='/admin/edit/status/:id' 
                 component={StatusEdit}/>
 
+        {/* StatusEvent Routes */}
           <Route path='/admin/select/statusevent' 
                   render={() => <StatusEventSelector logged_in={login_value}/>}/>
 

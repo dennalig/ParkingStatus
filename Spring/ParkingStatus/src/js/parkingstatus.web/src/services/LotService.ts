@@ -5,9 +5,13 @@ const LOTS_REST_API_URL : string = 'http://localhost:8080/api/v1/lots';
 class LotService{
 
 
-    getAllLots(){}
+    async getAllLots(){
+        return axios.get(LOTS_REST_API_URL);
+    }
     
-    getLotById(id :number){}
+    getLotById(id :number){
+        return axios.get(LOTS_REST_API_URL+'/'+ id);
+    }
 
     createLot(lot: any){}
 
@@ -16,3 +20,5 @@ class LotService{
     deleteLot(id: number){}
 
 }
+
+export default new LotService();

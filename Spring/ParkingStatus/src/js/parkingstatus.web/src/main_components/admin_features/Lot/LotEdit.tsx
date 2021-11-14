@@ -1,28 +1,37 @@
 import React, {useState, useEffect} from 'react'
 import type {FormEvent} from 'react'
 
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import {  Link, RouteComponentProps } from 'react-router-dom';
+
+import LotService from "../../../services/LotService";
 
 import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
 
 import '../../general_style/input_style.css';
 
+interface Props extends RouteComponentProps<{id: string}>{}
 
+const LotEdit: React.FC<any> =({match}) => {
 
-const LotEditor: React.FC<any> =(props) => {
+    const [idValue, setIdValue]= useState<number>(parseInt(match.params.id));
+    const [lot, setLot] = useState<any>(null);
+
+    useEffect(() => {
+        LotService.getLotById(idValue)
+            .then(res => setLot(res.data));
+
+    }, []);
 
     const handleSubmit = () =>{
         console.log("lot submitted");
     }
     
+    // console.log(lot.LotStatusSchedule);
+
     return (
         <div>
-            
-            {!props.logged_in &&
-                <DefaultNoAccess/>
-            }
 
-            {props.logged_in && 
+            {lot && 
                 <div className="page"> 
                     <form className="form_style"
                         onSubmit={handleSubmit}>
@@ -30,42 +39,49 @@ const LotEditor: React.FC<any> =(props) => {
                         <fieldset className="input_style">
                         <label htmlFor="lotid">Id:</label>
                         <input id="lotid" type="number" min="0"
-                        className="object_id">
+                        className="object_id"
+                        defaultValue={lot.LotID}>
                         </input>
                         </fieldset>
 
 
                         <fieldset className="input_style">
                         <label htmlFor="lotname">Lot Name:</label>
-                        <input id="lotname" type="text" className="object_name">
+                        <input id="lotname" type="text" className="object_name"
+                            defaultValue={lot.LotName}>
                         </input>
                         </fieldset>
 
                         
                         <fieldset className="input_style">
                         <label >Description:</label>
-                        <textarea className="object_description">
+                        <textarea className="object_description"
+                        defaultValue={lot.LotDescription}>
+
                         </textarea>
                         </fieldset>
 
                         <fieldset className="input_style">
-                        <label >Status Image:</label>
-                        <input id="lotimage" type="file" className="object_image">
+                        <label >Lot Image:</label>
+                        <input id="lotimage" type="file" className="object_image"
+                            defaultValue={lot.LotImage}>
                         </input>
                         </fieldset>
 
                         <fieldset className="input_style">
-                        <label >Lot Status Schedule ID: {"number"}</label>
+                        <label >Lot Status Schedule ID: {lot.
+                            LotStatusSchedule.
+                                LotStatusScheduleId}</label>
  
                         </fieldset>
 
                         
                         <fieldset className="input_style">
                         <label >Lot Status Schedule Name: </label>
-                        <input id="lotname" type="text" className="object_name">
+                        <input id="lotname" type="text" className="object_name"
+                            defaultValue={lot.LotStatusSchedule.Name}>
                         </input>
                         </fieldset>
-
 
                     <fieldset className="input_style">
                         <Link to="/admin/select/lot">
@@ -83,4 +99,4 @@ const LotEditor: React.FC<any> =(props) => {
         </div>
     )
 }
-export default LotEditor;
+export default LotEdit;
