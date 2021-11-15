@@ -30,16 +30,27 @@ useEffect(() => {
 
 }, []);
 
-
+//delete effect
 useEffect(()=>{
 
     if(deleteSelected){
         // console.log(displayStatus);
         // console.log(deleteSelected);
 
+        StatusService.deleteStatus(displayStatus.statusId)
+            .then(res => console.log(res.data))
+            .catch(error =>{
+                console.log(error);
+            })
+
         //reset back to false
         setDeleteSelected(false);
         setDisplayDeleteSure(false);
+
+        //referesh page
+        //https://upmostly.com/tutorials/how-to-refresh-a-page-or-component-in-react
+
+        window.location.reload();
 
     }
 

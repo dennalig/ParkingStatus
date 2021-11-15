@@ -20,7 +20,9 @@ class StatusService{
 
     async updateStatus(id:number, status:any){}
 
-    async deleteStatus(id: number){}
+    async deleteStatus(id: number){
+        return axios.delete(STATUSES_REST_API_URL + '/'+id);
+    }
 
 }
 
