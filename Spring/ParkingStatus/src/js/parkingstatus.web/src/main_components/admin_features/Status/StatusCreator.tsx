@@ -22,7 +22,7 @@ const StatusCreator: React.FC<any> = (props) => {
     //for subitting new status
     useEffect( ()=>{
 
-        if(enteredValues){
+        if(enteredValues){ // detects that submit has been clicked 
             // console.log(createdStatus);
             StatusService.createStatus(createdStatus)
                 .then(res => console.log(res.data))

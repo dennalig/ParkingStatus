@@ -8,6 +8,25 @@ import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
 import '../../general_style/input_style.css';
 
 const StatusEventCreator: React.FC<any> =(props) => {
+
+    const handleStatusEventSubmission = async (event: FormEvent<HTMLFormElement>)=>{
+        event.preventDefault();
+    }
+
+    //JSON structure for STATUSEVENT
+    // {
+    //     StatusEventDates : [
+    //         {
+    //             startTime, statusEventDateId, 
+    //                 lotId, endTime, 
+    //                     statusEventId, statusId
+    //         } --> statusEventDate values
+    //     ]
+
+    //     Description, StatusEventImage, StatusEventImageName,   
+    //         StatusEventId, StatusId    --> StatusEvent attributes
+    // }
+
     return (
         <div>
             
@@ -17,12 +36,13 @@ const StatusEventCreator: React.FC<any> =(props) => {
 
             {props.logged_in && 
                 <div className="page"> 
-                <form className="form_style">
+                <form className="form_style"
+                    onSubmit={e => handleStatusEventSubmission(e)}>
 
                     <fieldset className="input_style">
                     <label htmlFor="statuseventid">Id:</label>
                     <input id="statuseventid" type="number" min="0"
-                    className="object_id">
+                        className="object_id">
                     </input>
                     </fieldset>
 
