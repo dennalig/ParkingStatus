@@ -77,6 +77,24 @@
     border-radius: 5px;
 }
 
+.delete_sure{
+    display: flex;
+    height: fit-content;
+    justify-content: center; 
+    color:red
+}
+
+.yes_delete{
+    background-color:chartreuse;
+    border-color: red;
+    font-size: 16px;
+}
+
+.no_delete{
+    background-color:aliceblue;
+    font-size: 16px;
+}
+
 
 
 

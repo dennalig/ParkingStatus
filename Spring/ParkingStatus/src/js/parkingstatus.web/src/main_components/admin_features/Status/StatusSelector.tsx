@@ -16,18 +16,59 @@ const StatusSelector : React.FC<any> = (props) => {
 const [statusList, setStatusList] = useState<Array<any>>([]);
 const [displayStatus, setDisplayStatus] = useState<any>(null);
 
+//deletion value 
+const [deleteSelected, setDeleteSelected] = useState<boolean>(false);
+
+//asck the use before confirming
+const[displayDeleteSure, setDisplayDeleteSure] = useState<boolean>(false);
+
 
 useEffect(() => {
     StatusService.getAllStatuses()
         .then(res => setStatusList(res.data));
+
+
 }, []);
+
+
+useEffect(()=>{
+
+    if(deleteSelected){
+        // console.log(displayStatus);
+        // console.log(deleteSelected);
+
+        //reset back to false
+        setDeleteSelected(false);
+        setDisplayDeleteSure(false);
+
+    }
+
+    // on delete set the displayStatus back to null
+}, [deleteSelected]);
 
 
 
 const handleClick = (status: any, event: any) =>{
     // console.log(status.statusId);
     setDisplayStatus(status);
-    console.log(status);
+    setDisplayDeleteSure(false);
+    // console.log(status);
+}
+
+const displaySure = async (event : any) =>{
+
+    setDisplayDeleteSure(true);
+    
+    // console.log(deleteSelected);
+
+}
+
+const yesDeleteSure = async (event : any) =>{
+    setDeleteSelected(true);
+}
+
+const noDeleteSure = async (event: any) => {
+    setDisplayDeleteSure(false);
 }
 
 // console.log(statusList);
@@ -87,8 +128,31 @@ const handleClick = (status: any, event: any) =>{
                 </button>
                 </Link>
                 
-                <button className="delete_button"> Delete </button>
+                <button className="delete_button"
+                    onClick={e => displaySure(e)}> Delete </button>
             </div>
+
+            {displayDeleteSure &&
+
+                <div>
+                <div className="delete_sure">
+                    <b>Are you sure you want to delete status of {displayStatus.statusId}?</b>  
+                </div>
+
+                <div className="delete_sure">
+                    <button className="yes_delete"
+                      onClick={e => yesDeleteSure(e)}>
+                          Yes
+                    </button>
+                    <button className="no_delete"
+                        onClick={e => noDeleteSure(e)}>
+                            No
+                    </button>
+                </div>
+
+
+                </div>
+            }
             </>
             
             
