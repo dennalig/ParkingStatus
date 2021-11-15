@@ -82,7 +82,7 @@ const LotEdit: React.FC<any> =({match}) => {
                         <label >Lot Status Schedule Name: </label>
                         <input id="lotname" type="text" className="object_name"
                             defaultValue={lot.LotStatusSchedule ? 
-                                lot.lotStatusSchedule.Name : null}>
+                                lot.LotStatusSchedule.Name : null}>
                         </input>
                         </fieldset>
 

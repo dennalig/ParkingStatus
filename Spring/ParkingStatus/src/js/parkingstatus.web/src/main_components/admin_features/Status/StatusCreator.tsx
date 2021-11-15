@@ -10,6 +10,9 @@ import '../../general_style/input_style.css';
 
 const StatusCreator: React.FC<any> = (props) => {
 
+    var nameMessage : string = 'The Status name must not be empty.';
+    var idMessage : string = 'This Id is already assigned to a status.';
+
     const [createdStatus, setCreatedStatus] = useState<any>(null);// status state
 
     const [validName, setValidName] = useState<boolean>(true);
@@ -80,8 +83,7 @@ const StatusCreator: React.FC<any> = (props) => {
     //             color, statusimage, 
     //                 statusimagename, statusid
 
-    var nameMessage : string = 'The Status name must not be empty.';
-    var idMessage : string = 'This Id is already assigned to a status.';
+
 
     return (
         <div>
@@ -117,10 +119,7 @@ const StatusCreator: React.FC<any> = (props) => {
                         </input>
                         </fieldset>
 
-                        {!validName && 
-                        <div className="error_message_style">
-                            {nameMessage}</div>
-                        }
+                        {!validName && <div className="error_message_style">{nameMessage}</div>}
 
                         
                         <fieldset className="input_style">

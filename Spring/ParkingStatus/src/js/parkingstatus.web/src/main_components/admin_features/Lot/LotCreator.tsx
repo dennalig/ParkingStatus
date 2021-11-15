@@ -12,11 +12,14 @@ import '../../general_style/input_style.css';
 
 
 const LotCreator: React.FC<any> =(props) => {
+
+    var nameMessage : string = 'The Lot name must not be empty.';
+    var idMessage : string = 'This Id is already assigned to a Lot.';
     
     const[createdLot, setCreatedLot] = useState<any>(null);
 
     const[validName, setValidName] = useState<boolean>(true);
-    const[validId, setValidId] = useState<boolean>(false);
+    const[validId, setValidId] = useState<boolean>(true);
     const[enteredValues, setValidValues] = useState<any>(false);
 
     useEffect( () =>{
@@ -25,13 +28,14 @@ const LotCreator: React.FC<any> =(props) => {
             // console.log(createdLot);
 
             if(createdLot.LotName ===''){
-                console.log('empty name');
+                setValidName(false);
                 return;
             }
             LotService.createLot(createdLot)
                 .then(res => console.log(res.data))
                 .catch(error =>{
                     console.log(error);
+                    setValidId(false);
                 });
         }
 
@@ -105,12 +109,16 @@ const LotCreator: React.FC<any> =(props) => {
                         </input>
                         </fieldset>
 
+                        {!validId && <div className="error_message_style">{idMessage}</div>}
+
 
                         <fieldset className="input_style">
                         <label htmlFor="lotname">Lot Name:</label>
                         <input id="lotname" type="text" className="object_name">
                         </input>
                         </fieldset>
+
+                        {!validName && <div className="error_message_style">{nameMessage}</div>}
 
                         
                         <fieldset className="input_style">

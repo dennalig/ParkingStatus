@@ -12,6 +12,8 @@ import '../../general_style/input_style.css';
 
 const StatusEventCreator: React.FC<any> =(props) => {
 
+    var idMessage : string = 'This Id is already assigned to a status event.';
+
     const[createdStatusEvent, setCreatedStatusEvent]= useState<any>(null);
 
     const[validId, setValidId] = useState<boolean>(true);
@@ -104,6 +106,8 @@ const StatusEventCreator: React.FC<any> =(props) => {
                         className="object_id">
                     </input>
                     </fieldset>
+
+                    {!validId && <div className="error_message_style">{idMessage}</div>}
 
                     <fieldset className="input_style">
                     <label >Description:</label>
