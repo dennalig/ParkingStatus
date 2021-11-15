@@ -69,9 +69,11 @@ const LotEdit: React.FC<any> =({match}) => {
                         </fieldset>
 
                         <fieldset className="input_style">
-                        <label >Lot Status Schedule ID: {lot.
-                            LotStatusSchedule.
-                                LotStatusScheduleId}</label>
+                        <label >Lot Status Schedule ID: 
+                                {lot.LotStatusSchedule &&
+                                 lot.LotStatusSchedule.LotStatusScheduleId
+                                }
+                        </label>
  
                         </fieldset>
 
@@ -79,7 +81,8 @@ const LotEdit: React.FC<any> =({match}) => {
                         <fieldset className="input_style">
                         <label >Lot Status Schedule Name: </label>
                         <input id="lotname" type="text" className="object_name"
-                            defaultValue={lot.LotStatusSchedule.Name}>
+                            defaultValue={lot.LotStatusSchedule ? 
+                                lot.lotStatusSchedule.Name : null}>
                         </input>
                         </fieldset>
 

@@ -16,7 +16,9 @@ class StatusEventService{
         return axios.get(STATUSEVENT_REST_API_URL+"/"+ id);
     }
 
-    createStatusEvent(statusEvent: any){}
+    async createStatusEvent(statusEvent: any){
+        return axios.post(STATUSEVENT_REST_API_URL, statusEvent);
+    }
 
     updateStatusEvent(id: number, statusEvent: any){}
 

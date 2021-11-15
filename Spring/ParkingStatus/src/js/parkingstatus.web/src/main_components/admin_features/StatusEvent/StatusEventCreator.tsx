@@ -12,9 +12,63 @@ import '../../general_style/input_style.css';
 
 const StatusEventCreator: React.FC<any> =(props) => {
 
+    const[createdStatusEvent, setCreatedStatusEvent]= useState<any>(null);
+
+    const[validId, setValidId] = useState<boolean>(true);
+    const[validStatusId, setValidStatusId] = useState<boolean>(true);
+    const[enteredValues, setValidValues] = useState<any>(false);
+
+
+    //secondary states
+    const [storedStatuses, setStoredStatuses] = useState<Array<any>>([]);
+
+    useEffect ( () =>{
+
+        // console.log(createdStatusEvent);
+        
+        //main request
+        if(enteredValues){
+            StatusEventService.createStatusEvent(createdStatusEvent)
+                .then(res => console.log(res.data))
+                .catch(error => {
+                    console.log(error);
+
+                    setValidId(false);
+                });
+        }
+
+
+        //secondary object requests 
+        StatusService.getAllStatuses()
+            .then(res => setStoredStatuses(res.data));
+    }, [createdStatusEvent]);
+
     const handleStatusEventSubmission = async (event: FormEvent<HTMLFormElement>)=>{
         event.preventDefault();
-    }
+
+        const{ description, statuseventimage,
+                statuseventid, statusid } = event.target as typeof event.target &
+            {
+                description : {value : string}
+                statuseventimage : {value : null}
+                // statuseventimagename :  {value : string}
+                statuseventid : {value : number}
+                statusid : {value : number}
+            }
+
+            setCreatedStatusEvent({
+                StatusEventDates : null,
+        
+                Description: description.value,
+                StatusEventImage : null,
+                StatusEventImageName : null,
+                StatusEventId : statuseventid.value,
+                StatusId : statusid.value
+            });
+
+            setValidId(true);
+            setValidValues(true);
+    } //end handle submission
 
     //JSON structure for STATUSEVENT
     // {
@@ -44,21 +98,30 @@ const StatusEventCreator: React.FC<any> =(props) => {
 
                     <fieldset className="input_style">
                     <label htmlFor="statuseventid">Id:</label>
-                    <input id="statuseventid" type="number" min="0"
+                    <input id="statuseventid" type="number" 
+                        min="1"
+                        defaultValue="1"
                         className="object_id">
                     </input>
                     </fieldset>
 
                     <fieldset className="input_style">
                     <label >Description:</label>
-                    <textarea className="object_description">
+                    <textarea className="object_description"
+                        id="description">
                     </textarea>
                     </fieldset>
 
                     <fieldset className="input_style">
                     <label htmlFor="statusid">Status Id:</label>
                     <select id="statusid" 
-                    className="object_id">
+                        className="object_id">
+                            {
+                                storedStatuses.map(status => 
+                                    <option key={status.statusId}
+                                        value={status.statusId}>({status.statusId}) {status.name}</option>
+                                        )
+                            }
                     </select>
                     </fieldset>
 

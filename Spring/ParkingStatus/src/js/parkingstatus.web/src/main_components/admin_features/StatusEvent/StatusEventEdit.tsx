@@ -80,7 +80,7 @@ const StatusEventEdit: React.FC<Props> =({ match }) => {
                     <fieldset className="input_style">
                     <label htmlFor="statusid">Status Id:</label>
                     <select id="statusid" className="reference_object_id">
-                        <option id="def" key ={statusEvent.StatusId} 
+                        <option id="default" key ={statusEvent.StatusId} 
                             value={statusEvent.StatusId} selected>
                             ({statusEvent.StatusId }) 
                                 {(selectedStatus != null ? 

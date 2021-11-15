@@ -49,7 +49,9 @@ const LotCreator: React.FC<any> =(props) => {
                         lotid : {value: number}
                         lotimage : {value : null}
                         // lotimagename : {value : string}
-                    }
+                }
+
+            //TODO : insert lotstatusschedule and lotstatusschedue configs here 
 
         setCreatedLot({
             LotStatusSchedule: null,
