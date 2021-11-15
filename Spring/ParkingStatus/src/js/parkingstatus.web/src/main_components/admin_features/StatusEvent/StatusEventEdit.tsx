@@ -5,6 +5,8 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 
 import StatusEventService from '../../../services/StatusEventService';
 import StatusService from '../../../services/StatusService';
+import LotService from '../../../services/LotService';
+
 import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
 
 import '../../general_style/input_style.css';
@@ -27,8 +29,22 @@ const StatusEventEdit: React.FC<Props> =({ match }) => {
         //secondary setting
         StatusService.getAllStatuses()
             .then(res => setStoredStatuses(res.data));
+        
             // take this and loop through until we found ours
+
     }, []);
+
+    //secondary querying for statuses we will need to do lots too --> passes in changed statusEvent
+    useEffect(() => {
+
+        if(statusEvent !=null){
+            // console.log(statusEvent);
+            StatusService.getStatusById(statusEvent.StatusId)
+                    .then(res => setSelectedStatus(res.data));
+            
+        }
+
+    }, [statusEvent]);
 
 
     // useEffect(() =>{
@@ -63,15 +79,17 @@ const StatusEventEdit: React.FC<Props> =({ match }) => {
 
                     <fieldset className="input_style">
                     <label htmlFor="statusid">Status Id:</label>
-                    <select id="statusid" className="reference_object_id"
-                      >
+                    <select id="statusid" className="reference_object_id">
                         <option id="def" key ={statusEvent.StatusId} 
                             value={statusEvent.StatusId} selected>
-                            {statusEvent.StatusId }</option>
+                            ({statusEvent.StatusId }) 
+                                {(selectedStatus != null ? 
+                                    selectedStatus.name: '')}</option>
 
                         {
                         storedStatuses.map(status => 
-                                <option key={status.statusId} value={status.statusId}>{status.name} </option>
+                                <option key={status.statusId} 
+                                    value={status.statusId}>({status.statusId}){status.name} </option>
                                 )
                             
                         }
