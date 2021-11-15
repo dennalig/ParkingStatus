@@ -5,17 +5,67 @@ import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
 
+import LotService from '../../../services/LotService';
+import StatusService from '../../../services/StatusService';
+
 import '../../general_style/input_style.css';
 
 
 const LotCreator: React.FC<any> =(props) => {
     
-    const[createdLot, setcreatedLot] = useState<any>(null);
+    const[createdLot, setCreatedLot] = useState<any>(null);
+
+    const[validName, setValidName] = useState<boolean>(true);
+    const[validId, setValidId] = useState<boolean>(false);
+    const[enteredValues, setValidValues] = useState<any>(false);
+
+    useEffect( () =>{
+
+        if(enteredValues){
+            // console.log(createdLot);
+
+            if(createdLot.LotName ===''){
+                console.log('empty name');
+                return;
+            }
+            LotService.createLot(createdLot)
+                .then(res => console.log(res.data))
+                .catch(error =>{
+                    console.log(error);
+                });
+        }
+
+    }, [createdLot]);
 
     const handleLotSubmission = async (event : FormEvent<HTMLFormElement>) =>{
         // https://stackoverflow.com/questions/50193227/basic-react-form-submit-refreshes-entire-page
         event.preventDefault(); // stops page from reloading
-        console.log("lot submitted");
+       
+        const{ lotname, lotdescription, lotid, 
+                lotimage} = event.target as typeof event.target &
+                {
+                        lotname : {value : string}
+                        lotdescription : {value: string}
+                        lotid : {value: number}
+                        lotimage : {value : null}
+                        // lotimagename : {value : string}
+                    }
+
+        setCreatedLot({
+            LotStatusSchedule: null,
+            
+            LotName : lotname.value,
+            LotDescription : lotdescription.value,
+            LotID : lotid.value,
+            LotImage : null,
+            // LotImageName : lotimagename.value
+
+        });
+
+        setValidName(true);
+        setValidId(true);
+
+        setValidValues(true);
     }
 
     //JSON Structure for LOT
@@ -46,16 +96,17 @@ const LotCreator: React.FC<any> =(props) => {
                         onSubmit={event=> {handleLotSubmission(event)}}>
 
                         <fieldset className="input_style">
-                        <label htmlFor="LotID_">Id:</label>
-                        <input id="LotID_" type="number" min="1"
+                        <label htmlFor="lotid">Id:</label>
+                        <input id="lotid" type="number" min="1"
+                            defaultValue="1"
                             className="object_id">
                         </input>
                         </fieldset>
 
 
                         <fieldset className="input_style">
-                        <label htmlFor="LotName_">Lot Name:</label>
-                        <input id="LotName_" type="text" className="object_name">
+                        <label htmlFor="lotname">Lot Name:</label>
+                        <input id="lotname" type="text" className="object_name">
                         </input>
                         </fieldset>
 
@@ -63,13 +114,13 @@ const LotCreator: React.FC<any> =(props) => {
                         <fieldset className="input_style">
                         <label >Description:</label>
                         <textarea className="object_description"
-                            id="LotDescription_">
+                            id="lotdescription">
                         </textarea>
                         </fieldset>
 
                         <fieldset className="input_style">
                         <label >Lot Image:</label>
-                        <input id="LotImage_" type="file" className="object_image">
+                        <input id="lotimage" type="file" className="object_image">
                         </input>
                         </fieldset>
 
@@ -81,7 +132,7 @@ const LotCreator: React.FC<any> =(props) => {
                         
                         <fieldset className="input_style">
                         <label >Lot Status Schedule Name: </label>
-                        <input id="Name_" type="text" className="object_name">
+                        <input id="lotstatusschedulename" type="text" className="object_name">
                         </input>
                         </fieldset>
 

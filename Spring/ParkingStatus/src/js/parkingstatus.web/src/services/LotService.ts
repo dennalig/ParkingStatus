@@ -9,11 +9,13 @@ class LotService{
         return axios.get(LOTS_REST_API_URL);
     }
     
-    getLotById(id :number){
+    async getLotById(id :number){
         return axios.get(LOTS_REST_API_URL+'/'+ id);
     }
 
-    createLot(lot: any){}
+    async createLot(lot: any){
+        return axios.post(LOTS_REST_API_URL, lot)
+    }
 
     updateLot(id: number, lot: any){}
 

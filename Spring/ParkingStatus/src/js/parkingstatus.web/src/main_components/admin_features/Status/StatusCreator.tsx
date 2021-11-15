@@ -7,9 +7,6 @@ import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
 import StatusService from "../../../services/StatusService";
 
 import '../../general_style/input_style.css';
-import { createAdd } from 'typescript';
-import { create } from 'domain';
-
 
 const StatusCreator: React.FC<any> = (props) => {
 
