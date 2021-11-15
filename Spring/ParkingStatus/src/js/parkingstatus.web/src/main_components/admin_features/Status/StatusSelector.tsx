@@ -69,7 +69,6 @@ const handleClick = (status: any, event: any) =>{
 
             <>
             <div className="element_clicked">
-
             {displayStatus.statusId} : {displayStatus.name}
             <br />
             Description: {displayStatus.description}

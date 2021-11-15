@@ -12,11 +12,15 @@ class StatusService{
         return axios.get(STATUSES_REST_API_URL + '/'+ id);
     }
 
-    createStatus(status: any){}
+    async createStatus(status: any){
+        // console.log(status);
 
-    updateStatus(id:number, status:any){}
+        return axios.post(STATUSES_REST_API_URL, status);
+    }
 
-    deleteStatus(id: number){}
+    async updateStatus(id:number, status:any){}
+
+    async deleteStatus(id: number){}
 
 }
 
