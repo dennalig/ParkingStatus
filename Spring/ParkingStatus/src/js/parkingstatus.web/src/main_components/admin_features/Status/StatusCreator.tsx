@@ -76,7 +76,7 @@ const StatusCreator: React.FC<any> = (props) => {
         setValidValues(true);
 
         // console.log(createdStatus);
-    }
+    };
 
 //json order
     // name, description, 

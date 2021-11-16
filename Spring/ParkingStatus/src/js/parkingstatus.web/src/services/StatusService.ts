@@ -18,7 +18,9 @@ class StatusService{
         return axios.post(STATUSES_REST_API_URL, status);
     }
 
-    async updateStatus(id:number, status:any){}
+    async updateStatus(id:number, status:any){
+        return axios.post(STATUSES_REST_API_URL +'/'+ id, status);
+    }
 
     async deleteStatus(id: number){
         return axios.delete(STATUSES_REST_API_URL + '/'+id);
