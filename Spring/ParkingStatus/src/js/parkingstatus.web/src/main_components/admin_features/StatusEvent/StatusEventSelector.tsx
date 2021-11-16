@@ -31,6 +31,17 @@ const StatusEventSelector : React.FC<any> = (props) => {
 
         if(deleteSelected){
             //delete statusevent
+
+            StatusEventService.deleteStatusEvent(displayStatusEvent.StatusEventId)
+                .then(res => console.log(res.data))
+                .catch(error => {
+                    console.log(error);
+                });
+
+                setDeleteSelected(false);
+                setDisplayDeleteSure(false);
+
+                window.location.reload();
         }
 
     },[deleteSelected]);
@@ -107,7 +118,8 @@ const StatusEventSelector : React.FC<any> = (props) => {
                     </button>
                     </Link>
 
-                <button className="delete_button"> Delete </button>
+                <button className="delete_button"
+                    onClick={e => displaySure(e)}> Delete </button>
 
                 </div>
 

@@ -103,7 +103,7 @@ const StatusEventEdit: React.FC<Props> =({ match }) => {
                     </fieldset>
 
                     <fieldset className="input_style">
-                        <Link to="/admin/select/lot">
+                        <Link to="/admin/select/statusevent">
                         <button >Cancel
                         </button>
                         </Link>
