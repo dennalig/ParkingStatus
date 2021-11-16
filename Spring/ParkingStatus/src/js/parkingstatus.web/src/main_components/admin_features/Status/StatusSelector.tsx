@@ -88,7 +88,7 @@ const noDeleteSure = async (event: any) => {
                 <DefaultNoAccess/>
             }
 
-            {props.logged_in &&
+        {props.logged_in &&
 
             <>
             
@@ -160,15 +160,15 @@ const noDeleteSure = async (event: any) => {
 
 
             </div>
-            }
+            } {/* end displayDeleteSure portion */}
             </>
             
             
-            }
+            } {/* end display object section */}
 
                 
             </>
-            }
+        }
           
         </div>
 

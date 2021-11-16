@@ -20,9 +20,11 @@ class StatusEventService{
         return axios.post(STATUSEVENT_REST_API_URL, statusEvent);
     }
 
-    updateStatusEvent(id: number, statusEvent: any){}
+    async updateStatusEvent(id: number, statusEvent: any){}
 
-    deleteStatusEvent(id: number){}
+    deleteStatusEvent(id: number){
+        return axios.delete(STATUSEVENT_REST_API_URL + '/' +id);
+    }
 
     
 }

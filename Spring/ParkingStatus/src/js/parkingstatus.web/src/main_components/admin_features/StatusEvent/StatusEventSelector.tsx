@@ -12,6 +12,13 @@ const StatusEventSelector : React.FC<any> = (props) => {
 
     const [statusEventList, setStatusEventList] = useState<Array<any>>([]);
     const [displayStatusEvent, setDisplayStatusEvent] = useState<any>(null);
+    
+    //deletion value 
+    const [deleteSelected, setDeleteSelected] = useState<boolean>(false);
+
+    //asck the use before confirming
+    const[displayDeleteSure, setDisplayDeleteSure] = useState<boolean>(false);
+
 
     useEffect(() =>{
         StatusEventService.getAllStatusEvents()
@@ -19,12 +26,37 @@ const StatusEventSelector : React.FC<any> = (props) => {
 
     }, []);
 
+    //delete effect
+    useEffect(() => {
+
+        if(deleteSelected){
+            //delete statusevent
+        }
+
+    },[deleteSelected]);
+
     const handleClick = (statusevent: any, event: any) =>{
         // console.log(status.statusId);
         setDisplayStatusEvent(statusevent);
+        setDisplayDeleteSure(false);
         // console.log(statusevent.Description);
     }
 
+    const displaySure = async (event : any) =>{
+
+        setDisplayDeleteSure(true);
+        
+        // console.log(deleteSelected);
+    
+    }
+    
+    const yesDeleteSure = async (event : any) =>{
+        setDeleteSelected(true);
+    }
+    
+    const noDeleteSure = async (event: any) => {
+        setDisplayDeleteSure(false);
+    }
     // console.log(statusEventList[0].StatusEventDates[0].startTime);
 
     return (
@@ -79,12 +111,35 @@ const StatusEventSelector : React.FC<any> = (props) => {
 
                 </div>
 
+                {displayDeleteSure &&
+
+            <div>
+<               div className="delete_sure">
+                    <b>Are you sure you want to delete status of {displayStatusEvent.StatusId}?</b>  
+            </div>
+
+            <div className="delete_sure">
+                <button className="yes_delete"
+                    onClick={e => yesDeleteSure(e)}>
+                     Yes
+                </button>
+                <button className="no_delete"
+                    onClick={e => noDeleteSure(e)}>
+                     No
+                </button>
+            </div>
+
+
+            </div>
+} {/* end displayDeleteSure portion */}
+
                 </>
             }
 
     
             </>
-            }
+        }
+
           
         </div>
 

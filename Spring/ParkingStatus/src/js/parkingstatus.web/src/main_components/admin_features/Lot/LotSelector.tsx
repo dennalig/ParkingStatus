@@ -64,7 +64,7 @@ const LotSelector : React.FC<any> = (props) => {
     }
 
     const noDeleteSure = async (event: any) => {
-        setDeleteSelected(false);
+        setDisplayDeleteSure(false);
     }
 
 
