@@ -19,7 +19,10 @@ const StatusEdit: React.FC<Props> =({match}) => {
     const [idValue, setIdValue]= useState<number>(parseInt(match.params.id));
     const[status, setStatus] = useState<any>(null);
 
+    //updatedStatus
+
     useEffect(() => {
+        //gets the status that we selected
         StatusService.getStatusById(idValue)
             .then(res => setStatus(res.data));
 
