@@ -4,9 +4,8 @@ import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
 import CreateButton from "../../admin_features/general/CreateButton";
 
 import StatusService from '../../../services/StatusService';
-import StatusEdit from '../Status/StatusEdit';
 
-//type importd
+//type imports
 
 import { Link } from 'react-router-dom';
 
@@ -26,8 +25,6 @@ const[displayDeleteSure, setDisplayDeleteSure] = useState<boolean>(false);
 useEffect(() => {
     StatusService.getAllStatuses()
         .then(res => setStatusList(res.data));
-
-
 }, []);
 
 //delete effect
@@ -162,7 +159,7 @@ const noDeleteSure = async (event: any) => {
                 </div>
 
 
-                </div>
+            </div>
             }
             </>
             
