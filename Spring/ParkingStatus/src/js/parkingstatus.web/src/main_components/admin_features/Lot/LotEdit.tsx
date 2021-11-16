@@ -40,7 +40,7 @@ const LotEdit: React.FC<any> =({match}) => {
                         <label htmlFor="lotid">Id:</label>
                         <input id="lotid" type="number" min="0"
                         className="object_id"
-                        defaultValue={lot.LotID}>
+                        value={lot.LotID}>
                         </input>
                         </fieldset>
 

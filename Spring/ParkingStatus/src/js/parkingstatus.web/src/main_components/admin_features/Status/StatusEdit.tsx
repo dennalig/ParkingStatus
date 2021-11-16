@@ -23,6 +23,7 @@ const StatusEdit: React.FC<Props> =({match}) => {
         StatusService.getStatusById(idValue)
             .then(res => setStatus(res.data));
 
+
     }, []);
 
 // console.log(status);
@@ -38,7 +39,7 @@ const StatusEdit: React.FC<Props> =({match}) => {
                         <label htmlFor="statusid">Id:</label>
                         <input id="statusid" type="number" min="0"
                         className="object_id"
-                        defaultValue={status.statusId}>
+                        value={status.statusId}>
                         </input>
                         </fieldset>
 

@@ -14,9 +14,10 @@ import '../../general_style/input_style.css';
 interface Props extends RouteComponentProps<{id: string}>{}
 
 const StatusEventEdit: React.FC<Props> =({ match }) => {
+    var idMessage : string = 'This Id is already assigned to a status event.';
 
     const [idValue, setIdValue] = useState<number>(parseInt(match.params.id));
-    const [statusEvent, setStatusEvent] = useState<any>(null);
+    const [updatedStatusEvent, setUpdatedStatusEvent] = useState<any>(null);
 
     //secondary states
     const [storedStatuses, setStoredStatuses] = useState<Array<any>>([]);
@@ -24,7 +25,7 @@ const StatusEventEdit: React.FC<Props> =({ match }) => {
 
     useEffect(()=>{
         StatusEventService.getStatusEventById(idValue)
-            .then(res => setStatusEvent(res.data));
+            .then(res => setUpdatedStatusEvent(res.data));
 
         //secondary setting
         StatusService.getAllStatuses()
@@ -37,14 +38,19 @@ const StatusEventEdit: React.FC<Props> =({ match }) => {
     //secondary querying for statuses we will need to do lots too --> passes in changed statusEvent
     useEffect(() => {
 
-        if(statusEvent !=null){
+        if(updatedStatusEvent !=null){
             // console.log(statusEvent);
-            StatusService.getStatusById(statusEvent.StatusId)
+            StatusService.getStatusById(updatedStatusEvent.StatusId)
                     .then(res => setSelectedStatus(res.data));
+
+
+        //query lots
+
+        // make conditional for if we are doing an update post 
             
         }
 
-    }, [statusEvent]);
+    }, [updatedStatusEvent]);
 
 
     // useEffect(() =>{
@@ -58,7 +64,7 @@ const StatusEventEdit: React.FC<Props> =({ match }) => {
     return (
         <div>
             
-            {statusEvent && 
+            {updatedStatusEvent && 
                 <div className="page"> 
                 <form className="form_style">
 
@@ -66,23 +72,23 @@ const StatusEventEdit: React.FC<Props> =({ match }) => {
                     <label htmlFor="statuseventid">Id:</label>
                     <input id="statuseventid" type="number" min="0"
                     className="object_id"
-                    defaultValue={statusEvent.StatusEventId}>
+                    value={updatedStatusEvent.StatusEventId}>
                     </input>
                     </fieldset>
 
                     <fieldset className="input_style">
                     <label >Description:</label>
                     <textarea className="object_description"
-                    defaultValue={statusEvent.Description}>
+                    defaultValue={updatedStatusEvent.Description}>
                     </textarea>
                     </fieldset>
 
                     <fieldset className="input_style">
                     <label htmlFor="statusid">Status Id:</label>
                     <select id="statusid" className="reference_object_id">
-                        <option id="default" key ={statusEvent.StatusId} 
-                            value={statusEvent.StatusId} selected>
-                            ({statusEvent.StatusId }) 
+                        <option id="default" key ={updatedStatusEvent.StatusId} 
+                            value={updatedStatusEvent.StatusId} selected>
+                            ({updatedStatusEvent.StatusId }) 
                                 {(selectedStatus != null ? 
                                     selectedStatus.name: '')}</option>
 

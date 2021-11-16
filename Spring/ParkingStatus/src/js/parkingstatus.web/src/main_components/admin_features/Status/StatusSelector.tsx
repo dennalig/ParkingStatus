@@ -18,7 +18,7 @@ const [displayStatus, setDisplayStatus] = useState<any>(null);
 //deletion value 
 const [deleteSelected, setDeleteSelected] = useState<boolean>(false);
 
-//asck the use before confirming
+//ask the use before confirming
 const[displayDeleteSure, setDisplayDeleteSure] = useState<boolean>(false);
 
 
@@ -38,7 +38,7 @@ useEffect(()=>{
             .then(res => console.log(res.data))
             .catch(error =>{
                 console.log(error);
-            })
+            });
 
         //reset back to false
         setDeleteSelected(false);
