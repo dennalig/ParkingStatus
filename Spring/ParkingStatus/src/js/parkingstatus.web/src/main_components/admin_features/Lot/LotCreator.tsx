@@ -4,6 +4,7 @@ import type { FormEvent } from 'react'
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
+import DateCalendar from "../Lot/Date/DateCalendar";
 
 import LotService from '../../../services/LotService';
 import StatusService from '../../../services/StatusService';
@@ -13,6 +14,7 @@ import '../../general_style/input_style.css';
 
 const LotCreator: React.FC<any> =(props) => {
 
+    //TODO: Check if sub ids already exist on frontend 
     var nameMessage : string = 'The Lot name must not be empty.';
     var idMessage : string = 'This Id is already assigned to a Lot.';
     
@@ -146,6 +148,8 @@ const LotCreator: React.FC<any> =(props) => {
                         </input>
                         </fieldset>
 
+                        <DateCalendar />
+
 
                     <fieldset className="input_style">
                         <Link to="/admin/select/lot">
@@ -160,6 +164,8 @@ const LotCreator: React.FC<any> =(props) => {
 
                 </div>
             }
+
+       
         </div>
     )
 }
