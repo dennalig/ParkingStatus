@@ -1,26 +1,43 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, FormEvent } from 'react'
 
 import '../../../general_style/calendar_style.css'
 
 import StatusService from '../../../../services/StatusService';
 
 import { LSSContext } from '../LSSContext';
-import {LSSIDContext} from '../LSSIDContext';
+import { LSSIDContext } from '../LSSIDContext';
 
-type Date = {
-  startDate: string,
-  endDate: string,
-  statusId: number,
-  lotStatusScheduleId: number
+//for ui array storage
+type DateRow = {// parse day from time on the dates
+  startDate: string | null,
+  endDate: string | null,
+  statusId: number | null,
+  lotStatusScheduleId: number,
+
+  reactId: number
 }
+
+//storage of actual lot status schedule date
+type LSSDate ={
+  startDate: string | null,
+  endDate: string | null,
+  statusId: number | null,
+  lotStatusScheduleId: number,
+
+  reactId: number
+}
+
+//TODO: store the reactId also in the stored 
 
 const DateCalendar: React.FC<any> = (props) => {
 
   const [storedStatuses, setStoredStatuses] = useState<Array<any>>([]);
 
-  const [dateRows, setDateRows] = useState<Array<any>>([]);
+  const [dateRows, setDateRows] = useState<Array<DateRow>>([]); // ui date rows
+  const [dateRowCount, setDateRowCount] = useState<number>(0);
 
 
+  const[createdLSSDates, setCreatedLSSDates] = useState<Array<LSSDate>>([]);
 
   useEffect(() => { // queries storedstatuses on start
 
@@ -30,13 +47,35 @@ const DateCalendar: React.FC<any> = (props) => {
   }, []);
 
 
+  //Add new Date button trigger (nothing  --> new UI Date row)
   const renderNewRow = (event: any) => {
-      let currDates = dateRows;
-      currDates.push(1);
-      setDateRows(currDates);
+    let currDateRows = dateRows;
+    const newDateRow: DateRow = {
+      startDate: null,
+      endDate: null,
+      statusId: null,
+      lotStatusScheduleId: idInLotCreator,
+      reactId: dateRowCount
+    };
+
+    currDateRows.push(newDateRow);
+    setDateRows(currDateRows);
+
+    setDateRowCount(dateRowCount + 1);
   }
 
-  console.log(dateRows);
+  //each date row's save button (ui date row --> new lotstatusscheduledate)
+  const handleSaveRowToDate = (event : FormEvent<HTMLFormElement>, reactId : number)=> {
+    event.preventDefault();
+    console.log("Save row of : " + reactId);
+  }
+
+  //deletes a current date row and checks to see if there is a corresponding
+  const handleDeleteDateRow = (event : any) => {
+
+  }
+
+  // console.log(dateRows);
 
 
   const validIdInLotCreator = useContext(LSSContext); // boolean context
@@ -53,10 +92,12 @@ const DateCalendar: React.FC<any> = (props) => {
             <button onClick={e => renderNewRow(e)}>Add New Date</button>
           </div>
 
-          {dateRows.map(row => {
-            <div className="date_row" key={row}>
+{/* iterorates through date row */}
+          {dateRows.map(row =>
 
-              <form>
+            <div className="date_row" key={row.reactId}>
+
+              <form onSubmit={e => handleSaveRowToDate(e, row.reactId)}>
 
                 <label htmlFor="startday">Start Day:
                   <select id="startday" name="startday" >
@@ -104,23 +145,25 @@ const DateCalendar: React.FC<any> = (props) => {
                     }
                   </select>
                 </label>
-                <button className="date_row_button" >X</button>
+                <button className="date_row_button_delete" >X</button>
                 <button className="date_row_button" type="submit">Save</button>
 
               </form>
             </div>
-          })
+
+          )
 
           }
+
         </>
 
-      } 
+      }
       {/* end valid LSSId section */}
 
       {!validIdInLotCreator &&
-          <div className="calendar_error_message_style">
-              Provide a Valid Lot Status Schedule ID in order to edit the Lot Status Schedule.
-          </div>
+        <div className="calendar_error_message_style">
+          Provide a Valid Lot Status Schedule ID in order to edit the Lot Status Schedule.
+        </div>
       }
 
 
