@@ -21,4 +21,11 @@
     color: white;
 }
 
+.calendar_error_message_style{
+    display: flex;
+    justify-content: center;
+    color: white;
+    background-color: gray;
+}
+
 

@@ -9,6 +9,10 @@ import DateCalendar from "../Lot/Date/DateCalendar";
 import LotService from '../../../services/LotService';
 import StatusService from '../../../services/StatusService';
 
+//contexts for the DateCalendar Child component
+import {LSSContext} from '../Lot/LSSContext';
+import {LSSIDContext} from '../Lot/LSSIDContext';
+
 import '../../general_style/input_style.css';
 
 
@@ -30,8 +34,9 @@ const LotCreator: React.FC<any> =(props) => {
     //for any use state where we may alter lots
     const[ranFirstStoredLots, setRanFirstStoredLots] = useState<boolean>(false);
 
-    //valid new lotstatusschedule id
+    //valid new lotstatusschedule id 
     const[validLssId, isValidLssId] = useState<boolean>(true);
+    const[currentLSSId, setCurrentLSSId] = useState<number>(1);
     //new Lot Status Schedule /Dates which we will recieve from the Date Calendar component or from input here
     const [newLSS, setNewLSS] = useState<any>(null);
     const [newLSSDates, setNewLotSSDates]= useState<Array<any>>([]);
@@ -55,7 +60,7 @@ const LotCreator: React.FC<any> =(props) => {
             });
 
             setRanFirstStoredLots(true);
-            isValidLssId(!storedLSSchedules.includes(1))
+            isValidLssId(!storedLSSchedules.includes(1));
             // console.log(storedLots);
 
         }
@@ -121,10 +126,11 @@ const LotCreator: React.FC<any> =(props) => {
         setValidValues(true);
     }
 
-    //message to user
+    //message to user for lot status schedule id
     const handleLSSIdChange = (event: any)=>{
         // console.log(!storedLSSchedules.includes(parseInt(event.target.value)));
         isValidLssId(!storedLSSchedules.includes(parseInt(event.target.value)));
+        setCurrentLSSId(parseInt(event.target.value));
     }
 
     //JSON Structure for LOT
@@ -218,7 +224,13 @@ const LotCreator: React.FC<any> =(props) => {
                 </div>
                 
                 <div>
-                    <DateCalendar hasLSSId={false}/>
+
+                <LSSContext.Provider value={validLssId}>
+                    <LSSIDContext.Provider value={currentLSSId} >
+                    <DateCalendar />
+                    </LSSIDContext.Provider>
+                </LSSContext.Provider>
+
                 </div>
 
             </div>
