@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins ="http://localhost:3000")
 @RestController
 @RequestMapping(path ="api/v1/status")
 public class StatusController {
@@ -30,10 +31,10 @@ public class StatusController {
     }
 
     @GetMapping(path = "{statusId}")
-    public ResponseEntity<Object> getStatusById(@PathVariable("statusId")int id){
-         Status response = statusService.getStatusById(id);
+    public Status getStatusById(@PathVariable("statusId")int id){
+         Status foundStatus = statusService.getStatusById(id);
 
-         return responseEntityForController.responseForObjectModels(response);
+        return foundStatus;
 
     }
 

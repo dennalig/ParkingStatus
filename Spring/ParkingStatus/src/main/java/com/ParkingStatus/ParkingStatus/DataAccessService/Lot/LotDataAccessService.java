@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 //TODO: be sure to delete dependencies (ie statusevent dates when lot or status is deleted)
+
 @Repository
 public class LotDataAccessService {
 
@@ -97,6 +98,7 @@ public class LotDataAccessService {
                                 newLotSchedule.getName()
                         );
 
+                System.out.println("---:"+lotStatusScheduleInsertDataMapper.getId());
                 //insert an entry into the lotstatusschedule table
                 String insertScheduleSql = "INSERT INTO lotstatusschedule VALUES("+
                         lotStatusScheduleInsertDataMapper.getId()+","+
@@ -105,35 +107,34 @@ public class LotDataAccessService {
                         ");";
 
                 jdbcTemplate.update(insertScheduleSql);
-            }
 
-            if(lot.getLotStatusSchedule().getLotStatusScheduleDates() != null){
-                // checking for existing lotstatusscheduledates in the schedule
-                 List<LotStatusScheduleDate> newLSSDates = lot.getLotStatusSchedule().
-                         getLotStatusScheduleDates();
+                if(lot.getLotStatusSchedule().getLotStatusScheduleDates() != null){
+                    // checking for existing lotstatusscheduledates in the schedule
+                    List<LotStatusScheduleDate> newLSSDates = lot.getLotStatusSchedule().
+                            getLotStatusScheduleDates();
 
-                 for(LotStatusScheduleDate date: newLSSDates){
-                     // new insert statement for each date entry
+                    for(LotStatusScheduleDate date: newLSSDates){
+                        // new insert statement for each date entry
 
-                     LotStatusScheduleDateInsertDataMapper lotStatusScheduleDateInsertDataMapper =
-                             new LotStatusScheduleDateInsertDataMapper(
-                               date.getLotStatusScheduleDateId(),
-                               date.getStartTime(),
-                               date.getEndTime(),
-                               date.getLotStatusScheduleId(),
-                               date.getStatusId()
-                             );
+                        LotStatusScheduleDateInsertDataMapper lotStatusScheduleDateInsertDataMapper =
+                                new LotStatusScheduleDateInsertDataMapper(
+                                        date.getLotStatusScheduleDateId(),
+                                        date.getStartTime(),
+                                        date.getEndTime(),
+                                        date.getLotStatusScheduleId(),
+                                        date.getStatusId()
+                                );
 
-                     String insertNewDateSql = "INSERT INTO lotstatusscheduledate VALUES("+
-                             lotStatusScheduleDateInsertDataMapper.getId()+","+
-                             lotStatusScheduleDateInsertDataMapper.getStartTime()+","+
-                             lotStatusScheduleDateInsertDataMapper.getEndTime()+","+
-                             lotStatusScheduleDateInsertDataMapper.getLotStatusScheduleId()+","+
-                             lotStatusScheduleDateInsertDataMapper.getStatusId()+
-                             ");";
+                        String insertNewDateSql = "INSERT INTO lotstatusscheduledate VALUES(Default,"+
+                                lotStatusScheduleDateInsertDataMapper.getStartTime()+","+
+                                lotStatusScheduleDateInsertDataMapper.getEndTime()+","+
+                                lotStatusScheduleDateInsertDataMapper.getLotStatusScheduleId()+","+
+                                lotStatusScheduleDateInsertDataMapper.getStatusId()+
+                                ");";
 
-                     jdbcTemplate.update(insertNewDateSql);
-                 }
+                        jdbcTemplate.update(insertNewDateSql);
+                    }
+                }
 
             }
 
@@ -154,6 +155,13 @@ public class LotDataAccessService {
               lot.getLotDescription(),
               lot.getLotImageName()
             );
+
+//TODO: Check if an exissting lostatusschedule, lotstatusscheduledate, or a statuseventdate already exists and return accordingly
+// 1. check if we have
+
+
+            // make conditional and if everything checks out then we will  start the
+            // update query
 
             //update lotString
             String updateLotSql = "UPDATE lot set "+
@@ -226,8 +234,7 @@ public class LotDataAccessService {
                                         date.getStatusId()
                                 );
 
-                        String insertLSSDSql = "INSERT INTO lotstatusscheduledate VALUES("+
-                                lotStatusScheduleDateInsertDataMapper.getId() +","+
+                        String insertLSSDSql = "INSERT INTO lotstatusscheduledate VALUES(Default,"+
                                 lotStatusScheduleDateInsertDataMapper.getStartTime() +","+
                                 lotStatusScheduleDateInsertDataMapper.getEndTime() +","+
                                 lotStatusScheduleDateInsertDataMapper.getLotStatusScheduleId() +","+
@@ -398,4 +405,6 @@ public class LotDataAccessService {
         }
 
     }
+
+
 }

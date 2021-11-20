@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins ="http://localhost:3000")
 @RestController
 @RequestMapping(path ="api/v1/statusevents")
 public class StatusEventController {
@@ -30,17 +31,15 @@ public class StatusEventController {
     }
 
     @GetMapping(path ="status/{statusId}")
-    public ResponseEntity<Object> getAllStatusEventsOfStatus(@PathVariable("statusId") int statusId){
-        List<StatusEvent> response =  statusEventService.getAllStatusEventsOfStatus(statusId);
+    public List<StatusEvent> getAllStatusEventsOfStatus(@PathVariable("statusId") int statusId){
+        return statusEventService.getAllStatusEventsOfStatus(statusId);
 
-        return responseEntityForController.responseForObjectModels(response);
     }
 
     @GetMapping(path ="{statusEventId}")
-    public ResponseEntity<Object> getStatusEventById(@PathVariable("statusEventId") int id){
-        StatusEvent response = statusEventService.getStatusEventById(id);
+    public StatusEvent getStatusEventById(@PathVariable("statusEventId") int id){
+        return statusEventService.getStatusEventById(id);
 
-        return responseEntityForController.responseForObjectModels(response);
     }
 
     @PostMapping

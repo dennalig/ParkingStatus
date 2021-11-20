@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins ="http://localhost:3000")
 @RestController
 @RequestMapping(path ="api/v1/lots")
 public class LotController {
@@ -46,7 +47,7 @@ public class LotController {
      @PostMapping
      public ResponseEntity<Object> createLot(@RequestBody Lot lot){
         int response = lotService.createLot(lot);
-
+        //TODO : Edit response body to return the invalid field
          return responseEntityForController.responseForObjects(response);
      }
 

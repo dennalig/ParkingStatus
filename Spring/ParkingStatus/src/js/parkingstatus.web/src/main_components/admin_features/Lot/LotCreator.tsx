@@ -99,6 +99,7 @@ const LotCreator: React.FC<any> =(props) => {
             }
 
             {props.logged_in && 
+            <div>
                 <div className="page"> 
                     <form className="form_style"
                         onSubmit={event=> {handleLotSubmission(event)}}>
@@ -148,9 +149,6 @@ const LotCreator: React.FC<any> =(props) => {
                         </input>
                         </fieldset>
 
-                        <DateCalendar />
-
-
                     <fieldset className="input_style">
                         <Link to="/admin/select/lot">
                         <button >Cancel
@@ -163,6 +161,13 @@ const LotCreator: React.FC<any> =(props) => {
                     </form>
 
                 </div>
+                
+                <div>
+                    <DateCalendar />
+                </div>
+
+            </div>
+                
             }
 
        

@@ -122,8 +122,7 @@ public class StatusEventDataAccessService {
                                     date.getLotId()
                             );
 
-                    String insertSEDSql = "INSERT INTO statuseventdate VALUES("+
-                            statusEventDateInsertDataMapper.getId() +","+
+                    String insertSEDSql = "INSERT INTO statuseventdate VALUES(Default,"+
                             statusEventDateInsertDataMapper.getStartTime()+","+
                             statusEventDateInsertDataMapper.getEndTime()+","+
                             statusEventDateInsertDataMapper.getStatusEventId()+","+
@@ -156,6 +155,8 @@ public class StatusEventDataAccessService {
                             statusEvent.getStatusId(),
                             statusEvent.getStatusEventImageName()
                     );
+
+            //TODO: Validate new StatusEventDate Id's in conditional then call the update query
 
             String updateStatusEventSql = "UPDATE statusevent set "+
                     "statuseventid ="+ statusEventInsertDataMapper.getId()+","+
@@ -197,8 +198,7 @@ public class StatusEventDataAccessService {
                                     date.getLotId()
                             );
 
-                    String insertSEDSql = "INSERT INTO statuseventdate VALUES("+
-                            statusEventDateInsertDataMapper.getId() +","+
+                    String insertSEDSql = "INSERT INTO statuseventdate VALUES(Default,"+
                             statusEventDateInsertDataMapper.getStartTime() +","+
                             statusEventDateInsertDataMapper.getEndTime() +","+
                             statusEventDateInsertDataMapper.getStatusEventId() +","+

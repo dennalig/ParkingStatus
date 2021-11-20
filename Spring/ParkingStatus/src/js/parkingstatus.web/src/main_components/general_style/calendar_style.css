@@ -1,5 +1,8 @@
-.week_calendar{
-    
+.week_selection{
+    display: flex;
+    height: fit-content;
+    justify-content: center;
+
 }
 
 

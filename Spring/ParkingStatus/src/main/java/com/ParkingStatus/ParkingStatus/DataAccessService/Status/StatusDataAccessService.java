@@ -50,7 +50,6 @@ public class StatusDataAccessService {
             return queriedStatus;
         }
 
-
         return null;
     }
 
@@ -108,9 +107,12 @@ public class StatusDataAccessService {
                     "statusname ="+statusInsertDataMapper.getName()+","+
                     "statuscolor ="+statusInsertDataMapper.getColor()+","+
                     "statusdescription ="+statusInsertDataMapper.getDescription()+","+
-                    "statusimagename ="+statusInsertDataMapper.getImageName()+
+                    "statusimagename ="+statusInsertDataMapper.getImageName()+" "+
                     "WHERE statusid ="+ id+
                     ";";
+
+            System.out.println(updateStatusSql);
+//            System.out.println("here");
 
             jdbcTemplate.update(updateStatusSql);
 
