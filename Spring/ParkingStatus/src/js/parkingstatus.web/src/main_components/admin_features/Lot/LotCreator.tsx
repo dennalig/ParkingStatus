@@ -16,6 +16,13 @@ import {LSSIDContext} from '../Lot/LSSIDContext';
 import '../../general_style/input_style.css';
 
 
+type APILSSDate ={
+    startTime: string | null,
+    statusId: number | null,
+    endTime: string | null,
+    lotStatusScheduleId: number
+  }
+
 const LotCreator: React.FC<any> =(props) => {
 
     var nameMessage : string = 'The Lot name must not be empty.';
@@ -39,7 +46,11 @@ const LotCreator: React.FC<any> =(props) => {
     const[currentLSSId, setCurrentLSSId] = useState<number>(1);
     //new Lot Status Schedule /Dates which we will recieve from the Date Calendar component or from input here
     const [newLSS, setNewLSS] = useState<any>(null);
-    const [newLSSDates, setNewLotSSDates]= useState<Array<any>>([]);
+    const [newLSSDates, setNewLotSSDates]= useState<Array<APILSSDate>>([]);
+
+
+    //
+    const apiDates : Array<APILSSDate> = [];
 
     useEffect(() => {
         //at the very beginning we will query all lots
@@ -107,8 +118,10 @@ const LotCreator: React.FC<any> =(props) => {
 
             //TODO : insert lotstatusschedule and lotstatusschedue configs here 
 
+        console.log(apiDates);
+
         setCreatedLot({
-            LotStatusSchedule: null,
+            LotStatusSchedule: apiDates,
             
             LotName : lotname.value,
             LotDescription : lotdescription.value,
@@ -118,6 +131,8 @@ const LotCreator: React.FC<any> =(props) => {
 
         });
 
+        // console.log(createdLot);
+
         // validate lot status schedule id input here before sending it off to be posted.
 
         setValidName(true);
@@ -125,6 +140,8 @@ const LotCreator: React.FC<any> =(props) => {
 
         setValidValues(true);
     }
+
+    console.log(createdLot);
 
     //message to user for lot status schedule id
     const handleLSSIdChange = (event: any)=>{
@@ -134,14 +151,28 @@ const LotCreator: React.FC<any> =(props) => {
     }
 
     //function to retrieve info from child components
-    const pullLSSDates = (dates : any)=>{
+    const pullLSSDates = (dates : Array<any>)=>{
+
         if(dates.length !==0){ // we dont want to convert if it is null
             console.log(dates);
 
+            apiDates.splice(0, apiDates.length); // this allows no duplicates in the array
+            dates.map(reactDate => apiDates.push({
+                startTime : reactDate.startTime,
+                statusId : reactDate.statusId,
+                endTime : reactDate.endTime,
+                lotStatusScheduleId : reactDate.lotStatusScheduleId
+                
+            }));
+
+            // console.log(apiDates);
+            
             //convert from react LSSDate w/ react Id to no api LSSDate with no react id
         }
 
     }
+
+
 
     //JSON Structure for LOT
     //  LotStatusSchedule: {
