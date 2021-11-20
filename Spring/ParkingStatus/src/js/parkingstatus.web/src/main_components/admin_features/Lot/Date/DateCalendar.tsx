@@ -19,12 +19,14 @@ type DateRow = {// parse day from time on the dates
 
 //storage of actual lot status schedule date
 type LSSDate ={
-  startDate: string | null,
-  endDate: string | null,
+  startTime: string | null,
+  endTime: string | null,
   statusId: number | null,
   lotStatusScheduleId: number,
 
-  reactId: number
+  reactId: number // TODO : sort out removing this value when posting to backend 
+                  // on lot creator component convert this to LSSD without react id so that it will
+                  //successfully post to backend
 }
 
 //TODO: store the reactId also in the stored 
@@ -65,24 +67,59 @@ const DateCalendar: React.FC<any> = (props) => {
   }
 
   //each date row's save button (ui date row --> new lotstatusscheduledate)
-  const handleSaveRowToDate = (event : FormEvent<HTMLFormElement>, reactId : number)=> {
+  const handleSaveRowToDate = (event : FormEvent<HTMLFormElement>, ReactId : number)=> {
     event.preventDefault();
+
+    const {Startday, Starttime, Endday, Endtime, StatusId} =
+      event.target as typeof event.target & {
+        Startday : {value : string}
+        Starttime : {value : string}
+        Endday : {value : string}
+        Endtime : {value : string}
+        StatusId : {value : number}
+      }
+
+      // new lSSDate in our array
+      let currLSSDates = createdLSSDates;
+      console.log(StatusId.value);
+      const newLSSDate : LSSDate = {
+        startTime : Startday.value +' '+Starttime.value,
+        endTime : Endday.value +' '+Endtime.value,
+        statusId: StatusId.value,
+        lotStatusScheduleId : idInLotCreator,
+        reactId : ReactId
+      };
+
+      currLSSDates.push(newLSSDate);
+      setCreatedLSSDates(currLSSDates);
     // console.log("Save row of : " + reactId);
   }
 
   //deletes a current date row and checks to see if there is a corresponding
   const handleDeleteDateRow = (event : any, reactId : number) => {
       console.log(reactId);
-      //delete stored LSS first
+      //delete stored LSS first if it exists 
+      const arrIndexFound = createdLSSDates.findIndex(lssdate => lssdate.reactId === reactId);
+      // console.log(arrIndexFound);
+
+      //if we already saved that one that we deleted
+      if(arrIndexFound !== -1){ // -1 is default for if it is not found
+        let currLSSDates = createdLSSDates;
+        currLSSDates.splice(arrIndexFound, 1);
+        setCreatedLSSDates(currLSSDates);
+      }
+
+      //delete ui element in array 
       const indexFound = dateRows.findIndex(dateRow => dateRow.reactId === reactId);
       let currDateRows = dateRows;
-      currDateRows.splice(indexFound, 1) // delete operator --> https://love2dev.com/blog/javascript-remove-from-array/
+      currDateRows.splice(indexFound, 1) // splice operator --> https://love2dev.com/blog/javascript-remove-from-array/
       setDateRowCount(dateRowCount-1);
       setDateRows(currDateRows);
 
   }
 
-  console.log(dateRows);
+  // console.log(dateRows);
+  console.log(createdLSSDates);
 
 
   const validIdInLotCreator = useContext(LSSContext); // boolean context
@@ -106,8 +143,8 @@ const DateCalendar: React.FC<any> = (props) => {
 
               <form onSubmit={e => handleSaveRowToDate(e, row.reactId)}>
 
-                <label htmlFor="startday">Start Day:
-                  <select id="startday" name="startday" >
+                <label htmlFor="Startday">Start Day:
+                  <select id="Startday" name="Startday" >
                     <option value="Sun" selected={true}>Sun</option>
                     <option value="Mon">Mon</option>
                     <option value="Tue">Tue</option>
@@ -119,13 +156,13 @@ const DateCalendar: React.FC<any> = (props) => {
                 </label>
 
                 &nbsp;&nbsp;&nbsp;
-                <label htmlFor="starttime">Start Time
-                  <input type="time" id="starttime" name="starttime" />
+                <label htmlFor="Starttime">Start Time
+                  <input type="time" id="Starttime" name="Starttime" />
                 </label>
 
                 &nbsp;&nbsp;&nbsp;
-                <label htmlFor="endday">End Day:
-                  <select id="endday" name="endday" >
+                <label htmlFor="Endday">End Day:
+                  <select id="Endday" name="Endday" >
                     <option value="Sun" selected>Sun</option>
                     <option value="Mon">Mon</option>
                     <option value="Tue">Tue</option>
@@ -137,13 +174,13 @@ const DateCalendar: React.FC<any> = (props) => {
                 </label>
 
                 &nbsp;&nbsp;&nbsp;
-                <label htmlFor="endtime">End Time
-                  <input type="time" id="endtime" name="endtime" />
+                <label htmlFor="Endtime">End Time
+                  <input type="time" id="Endtime" name="Endtime" />
                 </label>
 
                 &nbsp;&nbsp;&nbsp;
-                <label htmlFor="statusid">Status Id:
-                  <select id="statusid" name="statusid" className="object_name">
+                <label htmlFor="StatusId">Status Id:
+                  <select id="StatusId" name="StatusId" className="object_name">
                     {storedStatuses &&
                       storedStatuses.map(status =>
                         <option key={status.statusId}
