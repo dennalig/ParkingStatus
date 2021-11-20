@@ -48,6 +48,9 @@ const DateCalendar: React.FC<any> = (props) => {
 
   }, []);
 
+  //parent component function to send the dates to the LotCreator
+  props.retrieveDates(createdLSSDates);
+
 
   //Add new Date button trigger (nothing  --> new UI Date row)
   const renderNewRow = (event: any) => {
@@ -119,7 +122,7 @@ const DateCalendar: React.FC<any> = (props) => {
   }
 
   // console.log(dateRows);
-  console.log(createdLSSDates);
+  // console.log(createdLSSDates);
 
 
   const validIdInLotCreator = useContext(LSSContext); // boolean context

@@ -133,6 +133,16 @@ const LotCreator: React.FC<any> =(props) => {
         setCurrentLSSId(parseInt(event.target.value));
     }
 
+    //function to retrieve info from child components
+    const pullLSSDates = (dates : any)=>{
+        if(dates.length !==0){ // we dont want to convert if it is null
+            console.log(dates);
+
+            //convert from react LSSDate w/ react Id to no api LSSDate with no react id
+        }
+
+    }
+
     //JSON Structure for LOT
     //  LotStatusSchedule: {
     //     LotStatusScheduleDates:[
@@ -227,7 +237,7 @@ const LotCreator: React.FC<any> =(props) => {
 
                 <LSSContext.Provider value={validLssId}>
                     <LSSIDContext.Provider value={currentLSSId} >
-                    <DateCalendar />
+                    <DateCalendar retrieveDates={pullLSSDates}/>
                     </LSSIDContext.Provider>
                 </LSSContext.Provider>
 
