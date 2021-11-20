@@ -67,15 +67,22 @@ const DateCalendar: React.FC<any> = (props) => {
   //each date row's save button (ui date row --> new lotstatusscheduledate)
   const handleSaveRowToDate = (event : FormEvent<HTMLFormElement>, reactId : number)=> {
     event.preventDefault();
-    console.log("Save row of : " + reactId);
+    // console.log("Save row of : " + reactId);
   }
 
   //deletes a current date row and checks to see if there is a corresponding
-  const handleDeleteDateRow = (event : any) => {
+  const handleDeleteDateRow = (event : any, reactId : number) => {
+      console.log(reactId);
+      //delete stored LSS first
+      const indexFound = dateRows.findIndex(dateRow => dateRow.reactId === reactId);
+      let currDateRows = dateRows;
+      currDateRows.splice(indexFound, 1) // delete operator --> https://love2dev.com/blog/javascript-remove-from-array/
+      setDateRowCount(dateRowCount-1);
+      setDateRows(currDateRows);
 
   }
 
-  // console.log(dateRows);
+  console.log(dateRows);
 
 
   const validIdInLotCreator = useContext(LSSContext); // boolean context
@@ -145,7 +152,8 @@ const DateCalendar: React.FC<any> = (props) => {
                     }
                   </select>
                 </label>
-                <button className="date_row_button_delete" >X</button>
+                <button className="date_row_button_delete" type="button"
+                  onClick={e => handleDeleteDateRow(e, row.reactId)}>X</button>
                 <button className="date_row_button" type="submit">Save</button>
 
               </form>
