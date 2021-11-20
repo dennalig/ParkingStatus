@@ -5,4 +5,20 @@
 
 }
 
+.date_row{
+    background-color: rgb(206, 255, 127);
+    border: 1px solid;
+    border-color: rgb(122, 139, 113);
+    padding: 10px;
+}
+
+.date_row_button{
+    float: right;
+}
+.date_row_button_delete{
+    float: right;
+    background-color: red;
+    color: white;
+}
+
 

@@ -14,9 +14,9 @@ import '../../general_style/input_style.css';
 
 const LotCreator: React.FC<any> =(props) => {
 
-    //TODO: Check if sub ids already exist on frontend 
     var nameMessage : string = 'The Lot name must not be empty.';
     var idMessage : string = 'This Id is already assigned to a Lot.';
+    var lssIdMessage : string = 'This Id is already assigned to a Lot Status Schedule.'
     
     const[createdLot, setCreatedLot] = useState<any>(null);
 
@@ -24,9 +24,17 @@ const LotCreator: React.FC<any> =(props) => {
     const[validId, setValidId] = useState<boolean>(true);
     const[enteredValues, setValidValues] = useState<any>(false);
 
+    //previously stored lots for lot status schedule id validation
     const[storedLots, setStoredLots] = useState<Array<any>>([]);
     const[storedLSSchedules, setStoredLSSchedules] = useState<Array<number>>([]);
+    //for any use state where we may alter lots
     const[ranFirstStoredLots, setRanFirstStoredLots] = useState<boolean>(false);
+
+    //valid new lotstatusschedule id
+    const[validLssId, isValidLssId] = useState<boolean>(true);
+    //new Lot Status Schedule /Dates which we will recieve from the Date Calendar component or from input here
+    const [newLSS, setNewLSS] = useState<any>(null);
+    const [newLSSDates, setNewLotSSDates]= useState<Array<any>>([]);
 
     useEffect(() => {
         //at the very beginning we will query all lots
@@ -35,19 +43,28 @@ const LotCreator: React.FC<any> =(props) => {
     }, []);
 
     useEffect(() => { // once storedLots is changed we will 
-        if(storedLots.length !=0 && !ranFirstStoredLots){ // store the lotstatusschedule ids into an array
+        if(storedLots.length !== 0 && !ranFirstStoredLots){ // store the lotstatusschedule ids into an array
             storedLots.forEach( e=> {
                 if(e.LotStatusSchedule != null){
-                    setStoredLSSchedules(storedLSSchedules.concat(
-                        e.LotStatusSchedule.LotStatusScheduleId
-                        ));
+                    // console.log(e);
+                    let currentStoredLSS = storedLSSchedules;
+                    // console.log(currentStoredLSS);
+                    currentStoredLSS.push(e.LotStatusSchedule.LotStatusScheduleId);
+                    setStoredLSSchedules(currentStoredLSS);
                     }
             });
 
             setRanFirstStoredLots(true);
+            isValidLssId(!storedLSSchedules.includes(1))
+            // console.log(storedLots);
+
         }
 
     }, [storedLots]);
+
+
+    //renders error message
+
 
 
     useEffect( () =>{
@@ -67,8 +84,6 @@ const LotCreator: React.FC<any> =(props) => {
         }
 
     }, [createdLot]);
-
-    const checkLSSId = (id : number) =>{ }
 
 
     const handleLotSubmission = async (event : FormEvent<HTMLFormElement>) =>{
@@ -98,10 +113,18 @@ const LotCreator: React.FC<any> =(props) => {
 
         });
 
+        // validate lot status schedule id input here before sending it off to be posted.
+
         setValidName(true);
         setValidId(true);
 
         setValidValues(true);
+    }
+
+    //message to user
+    const handleLSSIdChange = (event: any)=>{
+        // console.log(!storedLSSchedules.includes(parseInt(event.target.value)));
+        isValidLssId(!storedLSSchedules.includes(parseInt(event.target.value)));
     }
 
     //JSON Structure for LOT
@@ -169,8 +192,11 @@ const LotCreator: React.FC<any> =(props) => {
                         <input id="lotstatusscheduleid" type="number" 
                             className="object_id"
                             min="1"
-                            defaultValue="1" />
+                            defaultValue="1" 
+                            onChange={e => handleLSSIdChange(e)}/>
                         </fieldset>
+
+                        {!validLssId && <div className="error_message_style">{lssIdMessage}</div>}
 
                         <fieldset className="input_style">
                         <label >Lot Status Schedule Name: </label>
@@ -192,7 +218,7 @@ const LotCreator: React.FC<any> =(props) => {
                 </div>
                 
                 <div>
-                    <DateCalendar />
+                    <DateCalendar hasLSSId={false}/>
                 </div>
 
             </div>
