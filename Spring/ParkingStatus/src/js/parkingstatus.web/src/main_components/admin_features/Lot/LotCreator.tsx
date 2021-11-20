@@ -16,12 +16,21 @@ import {LSSIDContext} from '../Lot/LSSIDContext';
 import '../../general_style/input_style.css';
 
 
-type APILSSDate ={
+type APILSSDate = {
     startTime: string | null,
     statusId: number | null,
     endTime: string | null,
     lotStatusScheduleId: number
   }
+
+type LotStatusScheduleobj = { 
+    LotStatusScheduleDates : Array<APILSSDate> | null,
+    Name : string | null,
+    LotId : number,
+    LotStatusScheduleId : number
+}
+
+
 
 const LotCreator: React.FC<any> =(props) => {
 
@@ -107,21 +116,39 @@ const LotCreator: React.FC<any> =(props) => {
         event.preventDefault(); // stops page from reloading
        
         const{ lotname, lotdescription, lotid, 
-                lotimage} = event.target as typeof event.target &
+                lotimage, lotstatusschedulename ,
+                    lotstatusscheduleid} = event.target as typeof event.target &
                 {
                         lotname : {value : string}
                         lotdescription : {value: string}
                         lotid : {value: number}
                         lotimage : {value : null}
+
+                        lotstatusschedulename : {value : string}
+                        lotstatusscheduleid : {value : number}
                         // lotimagename : {value : string}
                 }
 
             //TODO : insert lotstatusschedule and lotstatusschedue configs here 
 
-        console.log(apiDates);
+        // console.log(apiDates);
+
+        let newLSSObj : any = null; // conditionally sets the lotstatusschedule obj
+
+        if(validLssId){ // only stores non null if valid
+            newLSSObj = { 
+                LotStatusScheduleDates : apiDates,
+                Name : lotstatusschedulename.value,
+                LotId : lotid.value,
+                LotStatusScheduleId : lotstatusscheduleid.value
+    
+            }
+        }
+
+        console.log(newLSSObj);
 
         setCreatedLot({
-            LotStatusSchedule: apiDates,
+            LotStatusSchedule: newLSSObj,
             
             LotName : lotname.value,
             LotDescription : lotdescription.value,
@@ -165,7 +192,7 @@ const LotCreator: React.FC<any> =(props) => {
                 
             }));
 
-            // console.log(apiDates);
+            console.log(apiDates);
             
             //convert from react LSSDate w/ react Id to no api LSSDate with no react id
         }

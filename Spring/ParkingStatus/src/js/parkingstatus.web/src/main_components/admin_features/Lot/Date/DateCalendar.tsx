@@ -84,7 +84,7 @@ const DateCalendar: React.FC<any> = (props) => {
 
       // new lSSDate in our array
       let currLSSDates = createdLSSDates;
-      console.log(StatusId.value);
+      // console.log(StatusId.value);
       const newLSSDate : LSSDate = {
         startTime : Startday.value +' '+Starttime.value,
         endTime : Endday.value +' '+Endtime.value,
@@ -95,6 +95,7 @@ const DateCalendar: React.FC<any> = (props) => {
 
       currLSSDates.push(newLSSDate);
       setCreatedLSSDates(currLSSDates);
+      props.retrieveDates(createdLSSDates); // call props function if we are saving a date
     // console.log("Save row of : " + reactId);
   }
 
@@ -110,6 +111,7 @@ const DateCalendar: React.FC<any> = (props) => {
         let currLSSDates = createdLSSDates;
         currLSSDates.splice(arrIndexFound, 1);
         setCreatedLSSDates(currLSSDates);
+        props.retrieveDates(createdLSSDates);
       }
 
       //delete ui element in array 
