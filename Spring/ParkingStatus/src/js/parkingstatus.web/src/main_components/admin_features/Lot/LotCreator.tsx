@@ -24,8 +24,33 @@ const LotCreator: React.FC<any> =(props) => {
     const[validId, setValidId] = useState<boolean>(true);
     const[enteredValues, setValidValues] = useState<any>(false);
 
-    useEffect( () =>{
+    const[storedLots, setStoredLots] = useState<Array<any>>([]);
+    const[storedLSSchedules, setStoredLSSchedules] = useState<Array<number>>([]);
+    const[ranFirstStoredLots, setRanFirstStoredLots] = useState<boolean>(false);
 
+    useEffect(() => {
+        //at the very beginning we will query all lots
+        LotService.getAllLots()
+            .then(res => setStoredLots(res.data));
+    }, []);
+
+    useEffect(() => { // once storedLots is changed we will 
+        if(storedLots.length !=0 && !ranFirstStoredLots){ // store the lotstatusschedule ids into an array
+            storedLots.forEach( e=> {
+                if(e.LotStatusSchedule != null){
+                    setStoredLSSchedules(storedLSSchedules.concat(
+                        e.LotStatusSchedule.LotStatusScheduleId
+                        ));
+                    }
+            });
+
+            setRanFirstStoredLots(true);
+        }
+
+    }, [storedLots]);
+
+
+    useEffect( () =>{
         if(enteredValues){
             // console.log(createdLot);
 
@@ -42,6 +67,9 @@ const LotCreator: React.FC<any> =(props) => {
         }
 
     }, [createdLot]);
+
+    const checkLSSId = (id : number) =>{ }
+
 
     const handleLotSubmission = async (event : FormEvent<HTMLFormElement>) =>{
         // https://stackoverflow.com/questions/50193227/basic-react-form-submit-refreshes-entire-page
@@ -90,7 +118,7 @@ const LotCreator: React.FC<any> =(props) => {
     // }
 
     //
-    
+
     return (
         <div>
             
@@ -113,7 +141,6 @@ const LotCreator: React.FC<any> =(props) => {
                         </fieldset>
 
                         {!validId && <div className="error_message_style">{idMessage}</div>}
-
 
                         <fieldset className="input_style">
                         <label htmlFor="lotname">Lot Name:</label>
@@ -138,11 +165,13 @@ const LotCreator: React.FC<any> =(props) => {
                         </fieldset>
 
                         <fieldset className="input_style">
-                        <label >Lot Status Schedule ID: {"number"}</label>
- 
+                        <label >Lot Status Schedule ID:</label>
+                        <input id="lotstatusscheduleid" type="number" 
+                            className="object_id"
+                            min="1"
+                            defaultValue="1" />
                         </fieldset>
 
-                        
                         <fieldset className="input_style">
                         <label >Lot Status Schedule Name: </label>
                         <input id="lotstatusschedulename" type="text" className="object_name">
