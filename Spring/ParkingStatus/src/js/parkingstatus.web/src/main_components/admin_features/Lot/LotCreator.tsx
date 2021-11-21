@@ -145,7 +145,7 @@ const LotCreator: React.FC<any> =(props) => {
             }
         }
 
-        console.log(newLSSObj);
+        // console.log(newLSSObj);
 
         setCreatedLot({
             LotStatusSchedule: newLSSObj,

@@ -245,7 +245,7 @@ const DateCalendar: React.FC<any> = (props) => {
               
             }
             {/* store in dataRowArray for edit */}
-            {  preExistingApiDates.forEach(existingDate => console.log(existingDate))}
+            {/* {  preExistingApiDates.forEach(existingDate => console.log(existingDate))} */}
 
           </>
 
