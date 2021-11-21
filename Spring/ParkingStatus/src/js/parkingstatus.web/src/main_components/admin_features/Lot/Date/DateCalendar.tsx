@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext, FormEvent } from 'react'
 import '../../../general_style/calendar_style.css'
 
 import StatusService from '../../../../services/StatusService';
+import DateToUi from '../../DateToUi'; // help with day/time transfer
 
 import { LSSContext } from '../LSSContext';
 import { LSSIDContext } from '../LSSIDContext';
@@ -14,7 +15,8 @@ type DateRow = {// parse day from time on the dates
   statusId: number | null,
   lotStatusScheduleId: number,
 
-  reactId: number
+  reactId: number,
+  saved: boolean
 }
 
 //storage of actual lot status schedule date
@@ -29,9 +31,25 @@ type LSSDate ={
                   //successfully post to backend
 }
 
+//pre existing api dates 
+type PELSSAPIDate ={
+  startTime: string,
+  statusId: number,
+  endTime: string,
+  lotStatusScheduleDateId: number,
+  lotStatusScheduleId: number,
+}
+
 //TODO: store the reactId also in the stored 
 
 const DateCalendar: React.FC<any> = (props) => {
+
+//preexisting dates 
+
+  const [preExistingApiDates, setPreExistingApiDates] = 
+    useState<Array<PELSSAPIDate>>(props.preExistingDates);
+
+  console.log(preExistingApiDates);
 
   const [storedStatuses, setStoredStatuses] = useState<Array<any>>([]);
 
@@ -40,6 +58,8 @@ const DateCalendar: React.FC<any> = (props) => {
 
 
   const[createdLSSDates, setCreatedLSSDates] = useState<Array<LSSDate>>([]);
+
+  const[saveString, setSaveString] = useState<string>('');
 
   useEffect(() => { // queries storedstatuses on start
 
@@ -60,7 +80,8 @@ const DateCalendar: React.FC<any> = (props) => {
       endDate: null,
       statusId: null,
       lotStatusScheduleId: idInLotCreator,
-      reactId: dateRowCount
+      reactId: dateRowCount,
+      saved: false
     };
 
     currDateRows.push(newDateRow);
@@ -69,8 +90,10 @@ const DateCalendar: React.FC<any> = (props) => {
     setDateRowCount(dateRowCount + 1);
   }
 
+  // stores existing dates  properly into array (without button event)
+
   //each date row's save button (ui date row --> new lotstatusscheduledate)
-  const handleSaveRowToDate = (event : FormEvent<HTMLFormElement>, ReactId : number)=> {
+  const handleSaveRowToDate = (event : FormEvent<HTMLFormElement> , ReactId : number)=> {
     event.preventDefault();
 
     const {Startday, Starttime, Endday, Endtime, StatusId} =
@@ -96,6 +119,9 @@ const DateCalendar: React.FC<any> = (props) => {
       currLSSDates.push(newLSSDate);
       setCreatedLSSDates(currLSSDates);
       props.retrieveDates(createdLSSDates); // call props function if we are saving a date
+      // communicate to the user
+      setSaveString(saveString+'\n' + 
+        '[('+newLSSDate.statusId+')'+newLSSDate.startTime +" to "+ newLSSDate.endTime +" saved.]" );
     // console.log("Save row of : " + reactId);
   }
 
@@ -124,7 +150,7 @@ const DateCalendar: React.FC<any> = (props) => {
   }
 
   // console.log(dateRows);
-  // console.log(createdLSSDates);
+  console.log(createdLSSDates);
 
 
   const validIdInLotCreator = useContext(LSSContext); // boolean context
@@ -141,8 +167,92 @@ const DateCalendar: React.FC<any> = (props) => {
             <button onClick={e => renderNewRow(e)}>Add New Date</button>
           </div>
 
+          <div className="">
+            {saveString}
+          </div>
+
+{/* iterate through existing if it is an update */}
+          {preExistingApiDates &&
+          
+          <>
+          
+            {preExistingApiDates.map (existingDate =>
+                              <div className="date_row" key={existingDate.lotStatusScheduleDateId}>
+
+                              <form onSubmit={e => handleSaveRowToDate(e, 
+                                  existingDate.lotStatusScheduleDateId)}>
+                
+                                <label htmlFor="Startday">Start Day:
+                                  <select id="Startday" name="Startday" 
+                                    defaultValue={DateToUi.getDayAndTime(existingDate.startTime)[0]}>
+                                    <option value="Sun">Sun</option>
+                                    <option value="Mon">Mon</option>
+                                    <option value="Tue">Tue</option>
+                                    <option value="Wed">Wed</option>
+                                    <option value="Thur">Thur</option>
+                                    <option value="Fri">Fri</option>
+                                    <option value="Sat">Sat</option>
+                                  </select>
+                                </label>
+                
+                                &nbsp;&nbsp;&nbsp;
+                                <label htmlFor="Starttime">Start Time
+                                  <input type="time" id="Starttime" name="Starttime" 
+                                    defaultValue={DateToUi.getDayAndTime(existingDate.startTime)[1]}/>
+                                </label>
+                
+                                &nbsp;&nbsp;&nbsp;
+                                <label htmlFor="Endday">End Day:
+                                  <select id="Endday" name="Endday" 
+                                    defaultValue={DateToUi.getDayAndTime(existingDate.endTime)[0]}>
+                                    <option value="Sun" selected>Sun</option>
+                                    <option value="Mon">Mon</option>
+                                    <option value="Tue">Tue</option>
+                                    <option value="Wed">Wed</option>
+                                    <option value="Thur">Thur</option>
+                                    <option value="Fri">Fri</option>
+                                    <option value="Sat">Sat</option>
+                                  </select>
+                                </label>
+                
+                                &nbsp;&nbsp;&nbsp;
+                                <label htmlFor="Endtime">End Time
+                                  <input type="time" id="Endtime" name="Endtime" 
+                                    defaultValue={DateToUi.getDayAndTime(existingDate.endTime)[1]}/>
+                                </label>
+                
+                                &nbsp;&nbsp;&nbsp;
+                                <label htmlFor="StatusId">Status Id:
+                                  <select id="StatusId" name="StatusId" className="object_name"
+                                    defaultValue={existingDate.statusId}>
+                                    {storedStatuses &&
+                                      storedStatuses.map(status =>
+                                        <option key={status.statusId}
+                                          value={status.statusId}>({status.statusId}) {status.name}</option>
+                                      )
+                                    }
+                                  </select>
+                                </label>
+                                <button className="date_row_button_delete" type="button"
+                                  onClick={e => handleDeleteDateRow(e, 
+                                      existingDate.lotStatusScheduleDateId)}>X</button>
+                                <button className="date_row_button" type="submit">Save</button>
+                
+                              </form>
+                            </div>
+                          
+              )
+              
+            }
+            {/* store in dataRowArray for edit */}
+            {  preExistingApiDates.forEach(existingDate => console.log(existingDate))}
+
+          </>
+
+          }
 {/* iterorates through date row */}
-          {dateRows.map(row =>
+{/* default / new dates  */}
+          {dateRows.map(row => !row.statusId ? 
 
             <div className="date_row" key={row.reactId}>
 
@@ -196,12 +306,12 @@ const DateCalendar: React.FC<any> = (props) => {
                 </label>
                 <button className="date_row_button_delete" type="button"
                   onClick={e => handleDeleteDateRow(e, row.reactId)}>X</button>
-                <button className="date_row_button" type="submit">Save</button>
+                <button className={!row.saved ? "date_row_button" : ''} type="submit">Save</button>
 
               </form>
             </div>
 
-          )
+          : null)
 
           }
 

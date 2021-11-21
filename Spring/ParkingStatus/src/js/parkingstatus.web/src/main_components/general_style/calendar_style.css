@@ -28,4 +28,9 @@
     background-color: gray;
 }
 
+.date_string{
+    display: inline;
+    height: fit-content;
+}
+
 

@@ -5,6 +5,10 @@ import {  Link, RouteComponentProps } from 'react-router-dom';
 
 import LotService from "../../../services/LotService";
 
+import DateCalendar from './Date/DateCalendar';
+import {LSSContext} from '../Lot/LSSContext';
+import {LSSIDContext} from '../Lot/LSSIDContext';
+
 import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
 
 import '../../general_style/input_style.css';
@@ -12,6 +16,9 @@ import '../../general_style/input_style.css';
 interface Props extends RouteComponentProps<{id: string}>{}
 
 const LotEdit: React.FC<any> =({match}) => {
+
+    var nameMessage : string = 'The Lot name must not be empty.';
+
 
     const [idValue, setIdValue]= useState<number>(parseInt(match.params.id));
     const [lot, setLot] = useState<any>(null);
@@ -22,19 +29,28 @@ const LotEdit: React.FC<any> =({match}) => {
 
     }, []);
 
-    const handleSubmit = () =>{
+    const handleSubmit =  async (event : FormEvent<HTMLFormElement>) =>{
+        event.preventDefault();
+
         console.log("lot submitted");
     }
+
+        //function to retrieve info from child components
+    const pullLSSDates = (dates : Array<any>)=>{
+
+    }
     
-    // console.log(lot.LotStatusSchedule);
+    console.log(lot);
 
     return (
         <div>
 
-            {lot && 
+        {lot && 
+            <div>
+
                 <div className="page"> 
                     <form className="form_style"
-                        onSubmit={handleSubmit}>
+                        onSubmit={e => handleSubmit(e)}>
 
                         <fieldset className="input_style">
                         <label htmlFor="lotid">Id:</label>
@@ -69,7 +85,7 @@ const LotEdit: React.FC<any> =({match}) => {
                         </fieldset>
 
                         <fieldset className="input_style">
-                        <label >Lot Status Schedule ID: 
+                        <label>Lot Status Schedule ID: 
                                 {lot.LotStatusSchedule &&
                                  lot.LotStatusSchedule.LotStatusScheduleId
                                 }
@@ -96,8 +112,20 @@ const LotEdit: React.FC<any> =({match}) => {
                     </fieldset>
                         
                     </form>
-
+                
                 </div>
+
+                <div>
+                <LSSContext.Provider value={true}>
+                    <LSSIDContext.Provider value={lot.LotStatusSchedule ? 
+                        lot.LotStatusSchedule.LotStatusScheduleId : 0} >
+                        <DateCalendar retrieveDates={pullLSSDates} preExistingDates={lot.LotStatusSchedule ? 
+                            lot.LotStatusSchedule.LotStatusScheduleDates: null}/>
+                    </LSSIDContext.Provider>
+                </LSSContext.Provider>
+                </div>
+
+            </div>
             }
         </div>
     )

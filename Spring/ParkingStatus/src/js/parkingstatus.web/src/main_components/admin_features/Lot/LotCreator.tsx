@@ -36,7 +36,7 @@ const LotCreator: React.FC<any> =(props) => {
 
     var nameMessage : string = 'The Lot name must not be empty.';
     var idMessage : string = 'This Id is already assigned to a Lot.';
-    var lssIdMessage : string = 'This Id is already assigned to a Lot Status Schedule.'
+    var lssIdMessage : string = 'This Id is already assigned to a Lot Status Schedule.';
     
     const[createdLot, setCreatedLot] = useState<any>(null);
 
@@ -295,7 +295,7 @@ const LotCreator: React.FC<any> =(props) => {
 
                 <LSSContext.Provider value={validLssId}>
                     <LSSIDContext.Provider value={currentLSSId} >
-                    <DateCalendar retrieveDates={pullLSSDates}/>
+                    <DateCalendar retrieveDates={pullLSSDates} preExistingDates={null}/>
                     </LSSIDContext.Provider>
                 </LSSContext.Provider>
 
