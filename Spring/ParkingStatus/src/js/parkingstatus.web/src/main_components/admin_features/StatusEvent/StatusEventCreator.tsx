@@ -221,7 +221,7 @@ const StatusEventCreator: React.FC<any> =(props) => {
                 <div>{/* Start Calendar div*/}
                 <SEContext.Provider value={validId}>
                     <SEIDContext.Provider value={createdSEId}>
-                        <EventDateCalendar retrieveDates={pullSEDates} preExistingEventDates={null}/>
+                        <EventDateCalendar retrieveEventDates={pullSEDates} preExistingEventDates={null}/>
                     </SEIDContext.Provider>
                 </SEContext.Provider>
 

@@ -12,6 +12,13 @@
     padding: 10px;
 }
 
+.event_date_row{
+    background-color: rgb(243, 171, 112);
+    border: 1px solid;
+    border-color: rgb(122, 139, 113);
+    padding: 10px;
+}
+
 .date_row_button{
     float: right;
 }

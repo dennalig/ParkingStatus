@@ -12,7 +12,7 @@ import { SEContext } from '../SEContext';
 type EventDateRow={
     startDate: string | null,
     endDate: string | null,
-    lotId: number,
+    lotId: number | null,
     statusEventId: number,
 
     reactId : number
@@ -66,19 +66,68 @@ const EventDateCalendar: React.FC<any> = (props) => {
             .then(res => setStoredLots(res.data));
     }, []);
 
-    //
-    
+    //send created LSSDates to the parent component
+    props.retrieveEventDates(createdSEDates);
 
+    
+//render new row
     const renderNewRow = (event: any) =>{
         let currSEDateRows = eventDateRows;
-        // const newSEDateRow : EventDateRow ={
-        //     startDate: null, 
-        //     endDate : null,
-        //     lotId: null,
-        //     statusEventId : null,
+        const newSEDateRow : EventDateRow ={
+            startDate: null, 
+            endDate : null,
+            lotId: null,
+            statusEventId : idInStatusEventCreator,
 
-        //     reactId : eventDateRowCount
-        // }
+            reactId : eventDateRowCount
+        }
+
+        currSEDateRows.push(newSEDateRow);
+        setEventDateRows(currSEDateRows);
+
+        setEventDateRowCount(eventDateRowCount +1);
+    }
+
+    //store the new date
+    const handleSaveRowToEventDate = (event : FormEvent<HTMLFormElement>, ReactId: number) =>{
+        event.preventDefault();
+
+
+
+        //grab form elements
+        const{Startdate, Starttime, Enddate, Endtime, LotId } =
+            event.target as typeof event.target & {
+                Startdate : {value : string}
+                Starttime : {value : string}
+                Enddate : {value : string}
+                Endtime : {value : string}
+                LotId : {value : number}
+
+            }
+
+        let currSEDates = createdSEDates;
+
+        const newSEDate : SEDate ={
+            startTime : Startdate.value +' '+Starttime.value,
+            endTime : Enddate.value + ' ' + Endtime.value,
+            lotId : LotId.value,
+            statusEventId : idInStatusEventCreator,
+
+            reactId : ReactId
+        }
+
+        currSEDates.push(newSEDate);
+        setCreatedSEDates(currSEDates);
+        console.log(currSEDates);
+
+        setSaveString(saveString +'\n' +
+            '[('+newSEDate.lotId+')'+newSEDate.startTime +" to "+ newSEDate.endTime + " saved.]")
+
+    }
+
+    //delete a date  with delete button from U.I.
+    const handleDeleteEventDateRow = (event: any, reactId: number)=>{
+        console.log(reactId);
     }
 
     const validIdInStatusEventCreator = useContext(SEContext); // checks to see that we have a valid context
@@ -92,9 +141,53 @@ const EventDateCalendar: React.FC<any> = (props) => {
             <button onClick={e => renderNewRow(e)}>Add New Date</button>
           </div>
 
-            {eventDateRows.map(row => 
-                <div className="date_row" key={row.reactId}>{/*start new Dates div */}
+          <div className="">
+            {saveString}
+          </div>
 
+            {eventDateRows.map(row => 
+                <div className="event_date_row" key={row.reactId}>{/*start new Dates div */}
+
+                <form onSubmit={e => handleSaveRowToEventDate(e, 
+                    row.reactId)}>
+                    
+                    <label htmlFor="Startdate">Start Date:
+                        <input type="date" id="Startdate" name="Startdate"/>
+                    </label>
+
+                    &nbsp;&nbsp;&nbsp;
+                    <label htmlFor="Starttime">Start Time
+                        <input type="time" id="Starttime" name="Starttime" />
+                    </label>
+
+                    &nbsp;&nbsp;&nbsp;
+                    <label htmlFor="Enddate">End Date:
+                        <input type="date" id="Enddate" name="Enddate"/>
+                    </label>
+
+                    &nbsp;&nbsp;&nbsp;
+                    <label htmlFor="Endtime">End Time
+                        <input type="time" id="Endtime" name="Endtime" />
+                    </label>
+
+                    &nbsp;&nbsp;&nbsp;
+                    <label htmlFor="LotId">Lot Id:
+                        <select name="LotId" id="LotId" className="object_name">
+                            {storedLots &&
+                                storedLots.map(lot => 
+                                    <option key={lot.LotID}
+                                        value={lot.LotID}>({lot.LotID}){lot.LotName}</option>
+                                    )
+
+                            }
+                        </select>
+                    </label>
+
+                    <button className="date_row_button_delete" type="button"
+                        onClick={e => handleDeleteEventDateRow(e, row.reactId)}>X</button>
+                    <button className="date_row_button" type="submit">Save</button>
+
+                </form>
                 </div>
             
             )}
@@ -103,9 +196,12 @@ const EventDateCalendar: React.FC<any> = (props) => {
         }
 
         {!validIdInStatusEventCreator &&
+            <>
             <div className="calendar_error_message_style">
                     Provide a Valid Status Event ID in order to edit the Status Event Dates.
             </div>
+
+            </>
         }
 
 
