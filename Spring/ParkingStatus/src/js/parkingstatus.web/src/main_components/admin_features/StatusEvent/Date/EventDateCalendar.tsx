@@ -21,6 +21,7 @@ type EventDateRow={
 //storage of actual statusevent dates
 type SEDate ={
     startTime: string | null,
+    statusId: 0,
     endTime: string | null,
     lotId: number,
     statusEventId: number,
@@ -31,11 +32,11 @@ type SEDate ={
 //pre existing API SE dates coming in for an update render
 type PESEAPIDate = {
     startTime: string | null,
-    statusId : number | null, // not used
+    statusId : 0, // not used
     endTime: string | null,
     lotId: number,
     statusEventId: number,
-    statusEventDateId: number
+    statusEventDateId: number,
 }
 
 // SE Date JSON Structure
@@ -109,6 +110,7 @@ const EventDateCalendar: React.FC<any> = (props) => {
 
         const newSEDate : SEDate ={
             startTime : Startdate.value +' '+Starttime.value,
+            statusId: 0,
             endTime : Enddate.value + ' ' + Endtime.value,
             lotId : LotId.value,
             statusEventId : idInStatusEventCreator,
@@ -128,6 +130,24 @@ const EventDateCalendar: React.FC<any> = (props) => {
     //delete a date  with delete button from U.I.
     const handleDeleteEventDateRow = (event: any, reactId: number)=>{
         console.log(reactId);
+
+        const arrIndexFound = createdSEDates.findIndex(sedate => sedate.reactId === reactId);
+
+        //if we already saved that one that we deleted
+        if(arrIndexFound !== -1){// -1 is default for if it is not found
+            let currSEDates = createdSEDates;
+            currSEDates.splice(arrIndexFound, 1);
+
+            setCreatedSEDates(currSEDates);
+            props.retrieveEventDates(createdSEDates);
+        }
+
+        //delete ui element in array 
+        const indexFound = eventDateRows.findIndex(eventDateRow => eventDateRow.reactId === reactId);
+        let currSEDateRows = eventDateRows;
+        currSEDateRows.splice(indexFound, 1);
+        setEventDateRowCount(eventDateRowCount - 1 ); // splice operator --> https://love2dev.com/blog/javascript-remove-from-array/
+        setEventDateRows(currSEDateRows);
     }
 
     const validIdInStatusEventCreator = useContext(SEContext); // checks to see that we have a valid context

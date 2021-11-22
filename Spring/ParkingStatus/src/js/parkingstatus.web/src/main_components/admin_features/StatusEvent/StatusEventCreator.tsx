@@ -103,8 +103,15 @@ const StatusEventCreator: React.FC<any> =(props) => {
                 statusid : {value : number}
             }
 
+             let newSEDatesObj : Array<any> = []; // conditionally sets the statuseventdates obj
+
+             if(validId){ // only stores non null if valid
+                 newSEDatesObj = apiSEDates;
+             }
+
+
             setCreatedStatusEvent({
-                StatusEventDates : null,
+                StatusEventDates : newSEDatesObj,
         
                 Description: description.value,
                 StatusEventImage : null,
@@ -128,7 +135,7 @@ const StatusEventCreator: React.FC<any> =(props) => {
         if(seDates.length !== 0){//// we dont want to convert if it is null
             console.log(seDates);
 
-            apiSEDates.splice(0, apiSEDates.length); // this allows no duplicates in the 
+            apiSEDates.splice(0, apiSEDates.length); // this allows no duplicates in the array
             
             seDates.map(reactSEDate => apiSEDates.push({
                 startTime : reactSEDate.startTime,
@@ -137,6 +144,8 @@ const StatusEventCreator: React.FC<any> =(props) => {
                 lotId : reactSEDate.lotId,
                 statusEventId : reactSEDate.statusEventId
             }));
+
+            console.log(apiSEDates);
         }
     }
 
