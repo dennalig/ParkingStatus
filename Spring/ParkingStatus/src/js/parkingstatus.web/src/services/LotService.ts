@@ -21,7 +21,7 @@ class LotService{
         return axios.post(LOTS_REST_API_URL+'/'+ id, lot);
     }
 
-    deleteLot(id: number){
+    async deleteLot(id: number){
         return axios.delete(LOTS_REST_API_URL + '/'+id);
     }
 

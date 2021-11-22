@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext, FormEvent } from 'react'
+import React, { useState, useEffect, useContext, FormEvent } from 'react';
 
-import '../../../general_style/calendar_style.css'
+import '../../../general_style/calendar_style.css';
 
 import StatusService from '../../../../services/StatusService';
 import DateToUi from '../../DateToUi'; // help with day/time transfer
@@ -40,7 +40,7 @@ type PELSSAPIDate ={
   lotStatusScheduleId: number,
 }
 
-//TODO: store the reactId also in the stored 
+
 
 const DateCalendar: React.FC<any> = (props) => {
 
