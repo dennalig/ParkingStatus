@@ -31,9 +31,9 @@ type SEDate ={
 
 //pre existing API SE dates coming in for an update render
 type PESEAPIDate = {
-    startTime: string | null,
+    startTime: string,
     statusId : 0, // not used
-    endTime: string | null,
+    endTime: string ,
     lotId: number,
     statusEventId: number,
     statusEventDateId: number,
@@ -52,6 +52,9 @@ const EventDateCalendar: React.FC<any> = (props) => {
 
     const [preExistingApiEventDates, setPreExistingApiEventDates] = 
         useState<Array<PESEAPIDate>>(props.preExistingEventDates);
+    
+
+    console.log(preExistingApiEventDates);
 
     const [storedLots, setStoredLots] = useState<Array<any>>([]);
 
@@ -65,6 +68,7 @@ const EventDateCalendar: React.FC<any> = (props) => {
     useEffect(() => { // queries stored Lots on start
         LotService.getAllLots()
             .then(res => setStoredLots(res.data));
+
     }, []);
 
     //send created LSSDates to the parent component
@@ -133,6 +137,8 @@ const EventDateCalendar: React.FC<any> = (props) => {
 
         const arrIndexFound = createdSEDates.findIndex(sedate => sedate.reactId === reactId);
 
+
+
         //if we already saved that one that we deleted
         if(arrIndexFound !== -1){// -1 is default for if it is not found
             let currSEDates = createdSEDates;
@@ -141,6 +147,22 @@ const EventDateCalendar: React.FC<any> = (props) => {
             setCreatedSEDates(currSEDates);
             props.retrieveEventDates(createdSEDates);
         }
+        else if(preExistingApiEventDates){
+            const arrIndexInPreExist = preExistingApiEventDates.findIndex(preExistSE => 
+                preExistSE.statusEventDateId === reactId);
+
+                //for handling clicking x on premade dates
+            if(arrIndexInPreExist !== -1){
+                let currPreSEDates = preExistingApiEventDates;
+                currPreSEDates.splice(arrIndexInPreExist, 1);
+
+                setPreExistingApiEventDates(currPreSEDates);
+
+            }
+        
+        }
+
+        //if it is in the existing array if an update
 
         //delete ui element in array 
         const indexFound = eventDateRows.findIndex(eventDateRow => eventDateRow.reactId === reactId);
@@ -165,6 +187,68 @@ const EventDateCalendar: React.FC<any> = (props) => {
             {saveString}
           </div>
 
+          {/* iterate through existing if it is an update */}
+
+          {preExistingApiEventDates &&
+              <>
+              {preExistingApiEventDates.map(existingEventDate => 
+
+                  <div className="event_date_row" key={existingEventDate.statusEventDateId}>{/*start new Dates div */}
+
+                      <form onSubmit={e => handleSaveRowToEventDate(e,
+                          existingEventDate.statusEventDateId)}>
+
+                          <label htmlFor="Startdate">Start Date:
+                              <input type="date" id="Startdate" name="Startdate" 
+                                defaultValue={DateToUi.getDayAndTime(existingEventDate.startTime)[0]}/>
+                          </label>
+
+                          &nbsp;&nbsp;&nbsp;
+                          <label htmlFor="Starttime">Start Time
+                              <input type="time" id="Starttime" name="Starttime" 
+                                defaultValue={DateToUi.getDayAndTime(existingEventDate.startTime)[1]}/>
+                          </label>
+
+                          &nbsp;&nbsp;&nbsp;
+                          <label htmlFor="Enddate">End Date:
+                              <input type="date" id="Enddate" name="Enddate" 
+                                defaultValue={DateToUi.getDayAndTime(existingEventDate.endTime)[0]}/>
+                          </label>
+
+                          &nbsp;&nbsp;&nbsp;
+                          <label htmlFor="Endtime">End Time
+                              <input type="time" id="Endtime" name="Endtime" 
+                                defaultValue={DateToUi.getDayAndTime(existingEventDate.endTime)[1]}/>
+                          </label>
+
+                          &nbsp;&nbsp;&nbsp;
+                          <label htmlFor="LotId">Lot Id:
+                              <select name="LotId" id="LotId" className="object_name"
+                                defaultValue={existingEventDate.lotId}>
+                                  {storedLots &&
+                                      storedLots.map(lot =>
+                                          <option key={lot.LotID}
+                                              value={lot.LotID}>({lot.LotID}){lot.LotName}</option>
+                                      )
+
+                                  }
+                              </select>
+                          </label>
+
+                          <button className="date_row_button_delete" type="button"
+                              onClick={e => handleDeleteEventDateRow(e, existingEventDate.statusEventDateId)}>X</button>
+                          <button className="date_row_button" type="submit">Save</button>
+
+                      </form>
+                  </div>
+                )
+
+              }
+              </>
+          }
+
+          {/* iterorates through date row */}
+          {/* default / new dates  */}
             {eventDateRows.map(row => 
                 <div className="event_date_row" key={row.reactId}>{/*start new Dates div */}
 

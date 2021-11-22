@@ -139,6 +139,17 @@ const DateCalendar: React.FC<any> = (props) => {
         setCreatedLSSDates(currLSSDates);
         props.retrieveDates(createdLSSDates);
       }
+      else if(preExistingApiDates){
+         const arrIndexInPreExist = preExistingApiDates.findIndex(preExist => 
+            preExist.lotStatusScheduleDateId === reactId);
+
+            if(arrIndexInPreExist !== -1){
+              let currPreLSSDates = preExistingApiDates;
+              currPreLSSDates.splice(arrIndexInPreExist,1);
+
+              setPreExistingApiDates(currPreLSSDates);
+            }
+      }
 
       //delete ui element in array 
       const indexFound = dateRows.findIndex(dateRow => dateRow.reactId === reactId);
