@@ -1,9 +1,12 @@
-import React, {useState, useEffect, FormEvent} from 'react';
+import React, {useState, useEffect, useContext,FormEvent} from 'react';
 
 import '../../../general_style/calendar_style.css';
 
 import LotService from '../../../../services/LotService';
 import DateToUi from '../../DateToUi'; // help with day/time transfer
+
+import {SEIDContext} from '../SEIDContext';
+import { SEContext } from '../SEContext';
 
 //array for date row
 type EventDateRow={
@@ -47,7 +50,7 @@ type PESEAPIDate = {
 const EventDateCalendar: React.FC<any> = (props) => {
 
     const [preExistingApiEventDates, setPreExistingApiEventDates] = 
-    useState<Array<PESEAPIDate>>(props.preExistingEventDates);
+        useState<Array<PESEAPIDate>>(props.preExistingEventDates);
 
     const [storedLots, setStoredLots] = useState<Array<any>>([]);
 
@@ -62,11 +65,51 @@ const EventDateCalendar: React.FC<any> = (props) => {
         LotService.getAllLots()
             .then(res => setStoredLots(res.data));
     }, []);
-  
+
+    //
+    
+
+    const renderNewRow = (event: any) =>{
+        let currSEDateRows = eventDateRows;
+        // const newSEDateRow : EventDateRow ={
+        //     startDate: null, 
+        //     endDate : null,
+        //     lotId: null,
+        //     statusEventId : null,
+
+        //     reactId : eventDateRowCount
+        // }
+    }
+
+    const validIdInStatusEventCreator = useContext(SEContext); // checks to see that we have a valid context
+    const idInStatusEventCreator = useContext(SEIDContext); // check what the id is 
     return (
-        <div>
+        <div> {/*start entire div */}
+        {validIdInStatusEventCreator &&
+        <>
+          <div className="week_selection"> 
+            <div>Enter the Specific Dates and Times of this StatusEvent</div>
+            <button onClick={e => renderNewRow(e)}>Add New Date</button>
+          </div>
+
+            {eventDateRows.map(row => 
+                <div className="date_row" key={row.reactId}>{/*start new Dates div */}
+
+                </div>
             
-        </div>
+            )}
+        </>
+
+        }
+
+        {!validIdInStatusEventCreator &&
+            <div className="calendar_error_message_style">
+                    Provide a Valid Status Event ID in order to edit the Status Event Dates.
+            </div>
+        }
+
+
+        </div> 
     )
 }
 

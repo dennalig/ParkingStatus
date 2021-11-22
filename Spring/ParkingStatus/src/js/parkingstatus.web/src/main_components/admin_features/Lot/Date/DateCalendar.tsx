@@ -156,7 +156,6 @@ const DateCalendar: React.FC<any> = (props) => {
   const validIdInLotCreator = useContext(LSSContext); // boolean context
   const idInLotCreator = useContext(LSSIDContext);//number context
 
-  //TODO: query all statuses 
 
   return (
     <div>
