@@ -9,6 +9,7 @@ import Title from './Title';
 import LotButton from './admin_buttons/LotButton';
 import StatusButton from './admin_buttons/StatusButton';
 import StatusEventButton from './admin_buttons/StatusEventButton';
+import TimeZoneButton from './admin_buttons/TimeZoneButton';
 
 import { Link } from 'react-router-dom';
 
@@ -42,6 +43,7 @@ const NavigationBar : React.FC<any> = (props) => {
                     <StatusEventButton />
                     <StatusButton />
                     <LotButton />
+                    <TimeZoneButton />
                     </> 
                 }
     

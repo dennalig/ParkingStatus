@@ -16,6 +16,12 @@
 
 }
 
+.timezone_button{
+    background-color: rgb(0, 255, 0);
+    border-style: outset;
+    float: left;
+}
+
 button:hover{
     background-color: #e0e0e0;
 }

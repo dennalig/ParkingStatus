@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, createContext, useContext} from 'react';
 
 //style
 import './App.css';
@@ -27,6 +27,8 @@ import StatusEdit from './main_components/admin_features/Status/StatusEdit';
 import StatusEventSelector from './main_components/admin_features/StatusEvent/StatusEventSelector'
 import StatusEventCreator from './main_components/admin_features/StatusEvent/StatusEventCreator';
 import StatusEventEdit from './main_components/admin_features/StatusEvent/StatusEventEdit';
+
+import EditTimeZone from './main_components/admin_features/general/TimeZone/EditTimeZone';
 //end routing purposes
 
 //functional : routing
@@ -104,6 +106,13 @@ function App (){
 
           <Route path='/admin/edit/statusevent/:id' 
                 component={StatusEventEdit}/>
+
+        {/* Timezone Edit */}
+
+        <Route path='/admin/edittimezone'
+                 render={() => <EditTimeZone/>}>
+               
+        </Route>
 
 
         </Switch>
