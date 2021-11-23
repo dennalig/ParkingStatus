@@ -31,6 +31,8 @@ import StatusEventEdit from './main_components/admin_features/StatusEvent/Status
 import EditTimeZone from './main_components/admin_features/general/TimeZone/EditTimeZone';
 //end routing purposes
 
+import { TimeZoneContext } from './main_components/admin_features/general/TimeZone/TimeZoneContext';
+
 //functional : routing
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -43,7 +45,11 @@ interface LoginProps {
 
 function App (){
 
-  const [login_value, setLoginValue] = useState(true);
+  const [login_value, setLoginValue] = useState<boolean>(true);
+
+  const[timeZoneValue, setTimeZoneValue] = useState<string>('EST');
+
+  
 
 //   useEffect(() => {
 //           console.log(login_value);
@@ -56,19 +62,30 @@ function App (){
 
     }
 
+    const retrieveTimeZone = (timezoneName: string) => {
+        // console.log(timezoneName);
+        setTimeZoneValue(timezoneName);
+    }
+
     return (
       <>
       <div >
       <Router>
               <NavigationBar loginState={login_value} 
-                handleLogin={handleLogin} />
+                handleLogin={handleLogin} 
+                retrieveTimeZone={retrieveTimeZone}/>
 
 
         
         <Switch>
 
           {/* General Routes */}
-          <Route path='/' exact component={LotAccordion}/>  
+          {/* <Route path='/' exact component={LotAccordion}/>   */}
+          <Route path='/' exact render={() => (
+                <TimeZoneContext.Provider value={timeZoneValue}>
+                        <LotAccordion/>
+                </TimeZoneContext.Provider>
+          )}/>  
           <Route path='/signup' component={SignUp}/>
           <Route path='/admin/login' component={Login}/> 
 
@@ -108,11 +125,6 @@ function App (){
                 component={StatusEventEdit}/>
 
         {/* Timezone Edit */}
-
-        <Route path='/admin/edittimezone'
-                 render={() => <EditTimeZone/>}>
-               
-        </Route>
 
 
         </Switch>

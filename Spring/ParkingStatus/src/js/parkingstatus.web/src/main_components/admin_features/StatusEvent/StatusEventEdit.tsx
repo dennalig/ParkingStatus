@@ -155,7 +155,7 @@ const StatusEventEdit: React.FC<Props> =({ match }) => {
                     <fieldset className="input_style">
                     <label htmlFor="statuseventid">Id:</label>
                     <input id="statuseventid" type="number" min="0"
-                    className="object_id"
+                        className="object_id"
                     value={statusEvent.StatusEventId}>
                     </input>
                     </fieldset>

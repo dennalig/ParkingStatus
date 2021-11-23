@@ -38,6 +38,10 @@
     
 }
 
+.general_button{
+    display: flex;
+    justify-content: center; 
+}
 .legend_popup{
     display: flex;
     height: fit-content;
@@ -93,6 +97,14 @@
 .no_delete{
     background-color:aliceblue;
     font-size: 16px;
+}
+
+.edit_timezone{
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    height: fit-content;
+    justify-content: center;
+    padding-top: 45px;
 }
 
 

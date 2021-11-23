@@ -20,6 +20,11 @@ const NavigationBar : React.FC<any> = (props) => {
   
 
     // const[loginStatus, setLoginStatus] = useState<any>(loginState);
+
+    const retrieveTimeZone = (timezoneName: string) => {
+        // console.log(timezoneName);
+        props.retrieveTimeZone(timezoneName);
+    }
     
 
     // console.log(props.loginState);
@@ -43,9 +48,10 @@ const NavigationBar : React.FC<any> = (props) => {
                     <StatusEventButton />
                     <StatusButton />
                     <LotButton />
-                    <TimeZoneButton />
+
                     </> 
                 }
+                    <TimeZoneButton retrieveTimeZone={retrieveTimeZone}/>
     
             </div>
             );

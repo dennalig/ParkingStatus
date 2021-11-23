@@ -1,18 +1,43 @@
-import React from 'react'
+import React,  { useState, useEffect } from 'react'
 import '../style/navigationbar.css'
 
 
 import { Link } from 'react-router-dom';
+import EditTimeZone from '../../admin_features/general/TimeZone/EditTimeZone';
 
-export default function TimeZoneButton() {
+const TimeZoneButton : React.FC<any> = (props) => {
+
+    const[zoneEditFormIsVisible, setZoneEditFormIsVisible] = useState<boolean>(false);
+
+
+
+    const renderSelectView = () =>{
+        setZoneEditFormIsVisible(!zoneEditFormIsVisible);
+    }
+
+    const retrieveTimeZone = (timezoneName: string) =>{
+        // console.log(timezoneName);
+        props.retrieveTimeZone(timezoneName);
+    }
     return (
         <div>
-            <Link to='/admin/edittimezone'>
                <button 
-                    className='timezone_button'>
+                    className='timezone_button' onClick={renderSelectView}>
                     Edit TimeZone
                 </button>
-            </Link>
+
+                {zoneEditFormIsVisible &&
+
+                    <>
+                     <button onClick={renderSelectView}>X</button>
+                    <EditTimeZone retrieveTimeZone={retrieveTimeZone}/>
+                   
+
+                    </>
+
+                }
+
         </div>
     )
 }
+export default TimeZoneButton;
