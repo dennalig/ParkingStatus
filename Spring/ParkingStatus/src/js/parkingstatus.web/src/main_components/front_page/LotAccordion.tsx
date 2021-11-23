@@ -9,7 +9,11 @@ import LotService from '../../services/LotService';
 import StatusService from '../../services/StatusService';
 import StatusEventService from '../../services/StatusEventService';
 
+import TimeZoneService from '../../services/TimeZone/TimeZoneService';
+
 import DateToUi from '../admin_features/DateToUi';
+
+import FrontPageHandler from '../../Utility/FrontPageUtility/FrontPageHandler';
 
 import { TimeZoneContext } from '../admin_features/general/TimeZone/TimeZoneContext';
 
@@ -47,16 +51,21 @@ export default function LotAccordion() {
     //data states
     const[currentDate, setCurrentDate] = useState<any>(new Date());
 
+    const[currentTime, setCurrentTime] = useState<string>('');
+
     const[lots, setLots] = useState<Array<Lot>>([]);
     const[statuses, setStatuses] = useState<Array<Status>>([]);
     const[statusEvents, setStatusEvents] = useState<Array<StatusEvent>>([]);
+
+    const selectedTimeZone = useContext(TimeZoneContext);
+    // console.log(selectedTimeZone);
 
 
 
     //TODO: Allow for setting of a certain timezone
 
     var today : Date = new Date();
-    console.log(today);
+    // console.log(today);
 
     //query all objects 
     useEffect(() => {
@@ -68,17 +77,28 @@ export default function LotAccordion() {
             .then(res => setStatuses(res.data));
 
         StatusEventService.getAllStatusEvents()
-            .then(res => setStatusEvents(res.data))
+            .then(res => setStatusEvents(res.data));
+
+
+        TimeZoneService.getCurrentTimeOfTimeZone(selectedTimeZone)
+            .then(res => setCurrentTime(res.data.datetime)); //TODO: keep track of the system time to detect a change in each minute
 
     }, []);
+    
 
 
-    useEffect(()=>{
+    useEffect(()=>{ // TODO: Detect a Change of the date as well, this may require a request at a certain point in time to the api
         
     }, [currentDate]);
 
-    const selectedTimeZone = useContext(TimeZoneContext);
-    console.log(selectedTimeZone);
+    useEffect(()=>{
+
+        // console.log(currentTime);
+        DateToUi.parseCurrentTimeFromAPI(currentTime);
+
+    }, [currentTime])
+
+
     
     return (
         <div >
