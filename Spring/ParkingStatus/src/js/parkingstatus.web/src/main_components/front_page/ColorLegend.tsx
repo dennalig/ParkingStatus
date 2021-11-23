@@ -1,28 +1,33 @@
 import React, { useState, useEffect } from 'react'
+import './style/color_legend_style.css';
 
 type ColorAssign ={
     color_value : string, 
     status_value : string
 }
 
+interface Props{
+    statuses : Array<any>
+}
 
 
-const ColorLegend : React.FC<any> = (props) => {
 
-    const [colorList, setColorList] = useState<ColorAssign []>([]);
+const ColorLegend : React.FC<Props> = (props) => {
+
+
     
     const [popupStatus, setPopupStatus] = useState<boolean>(false);
 
-    useEffect(() => {
 
-    }, []);
 
     const handleLegend = () =>{
         setPopupStatus(!popupStatus);
     }
 
 
-    console.log(props.statuses);
+
+    // console.log(props.statuses);
+    // props.statuses.map(status => console.log(status));
     
     return (
         <div>
@@ -37,10 +42,25 @@ const ColorLegend : React.FC<any> = (props) => {
 
            {popupStatus ? 
            <>
+             <button onClick={handleLegend} className="close_CL_Button">X</button>
            <div className="legend_popup_window">
-           <button onClick={handleLegend}>X</button>
+         
            <span>
                Color Legend:
+               <div > 
+               {props.statuses.map(status => 
+                    
+                    <div key={status.statusId} className="item_style">
+                        <div className="display_box" style={{ backgroundColor: status.color}}>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                        </div> 
+                        {status.name} : {status.description ? status.description : ''}
+                    </div>
+                    )
+
+               }
+
+            </div>
            
 
             </span>

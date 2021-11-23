@@ -1,0 +1,14 @@
+.close_CL_Button{
+    align-items: center;
+}
+
+.item_style{
+        background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+}
+
+.display_box{
+
+    float: left;
+}
