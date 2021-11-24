@@ -1,4 +1,4 @@
-# ParkingStatus 
+# Parking Status 
 ## Covenant College Fall 2021 Computer Science Capstone
 
 
