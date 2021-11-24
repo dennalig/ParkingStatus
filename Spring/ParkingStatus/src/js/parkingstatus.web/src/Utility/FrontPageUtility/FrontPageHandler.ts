@@ -7,6 +7,17 @@ class FrontPageHandler{
 
     //2. Then check for matching lot statusschedules next 
 
+    findCorrespondingStatusEventDate(currentTime: string, lotId : number){
+        // here we will iterate through status event dates and find if the current time is in between start and end date time
+
+    }
+
+    findCorrespondingLSSDate(currentTime: string, lot : any){
+        //same thing with finding currrent statusevent date 
+
+        
+    }
+
 
 }
 

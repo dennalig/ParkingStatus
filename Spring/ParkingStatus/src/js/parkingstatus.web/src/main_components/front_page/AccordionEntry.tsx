@@ -1,4 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
+
+import { CurrentParsedTimeContext } from './CurrentParsedTimeContext';
 
 import './style/front_page_style.css';
 
@@ -10,6 +12,10 @@ import './style/front_page_style.css';
 const AccordionEntry: React.FC<any> = (props) => {
 
     const[isActive, setIsActive] = useState(false);
+
+    const currentTimeValue : string = useContext(CurrentParsedTimeContext);
+
+    // console.log(currentTimeValue);
 
     return (
         <div className="accordion-item">
@@ -30,6 +36,8 @@ const AccordionEntry: React.FC<any> = (props) => {
                         {props.lot.LotStatusSchedule &&
                             <div><b>{props.lot.LotStatusSchedule.Name ? props.lot.LotStatusSchedule.Name: ''}</b></div>
                         }
+
+                        
                     </div>
 
                 </>

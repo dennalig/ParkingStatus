@@ -16,6 +16,7 @@ import DateToUi from '../admin_features/DateToUi';
 import FrontPageHandler from '../../Utility/FrontPageUtility/FrontPageHandler';
 
 import { TimeZoneContext } from '../admin_features/general/TimeZone/TimeZoneContext';
+import {CurrentParsedTimeContext} from './CurrentParsedTimeContext';
 
 
 type Lot ={
@@ -51,7 +52,9 @@ export default function LotAccordion() {
     //data states
     const[currentDate, setCurrentDate] = useState<any>(new Date());
 
-    const[currentTime, setCurrentTime] = useState<string>('');
+    const[currentDateTime, setCurrentDateTime] = useState<string>('');
+
+    const[currentParsedTime, setCurrentParsedTime] = useState<string>('');
 
     const[lots, setLots] = useState<Array<Lot>>([]);
     const[statuses, setStatuses] = useState<Array<Status>>([]);
@@ -81,7 +84,7 @@ export default function LotAccordion() {
 
 
         TimeZoneService.getCurrentTimeOfTimeZone(selectedTimeZone)
-            .then(res => setCurrentTime(res.data.datetime)); //TODO: keep track of the system time to detect a change in each minute
+            .then(res => setCurrentDateTime(res.data.datetime)); //TODO: keep track of the system time to detect a change in each minute
 
     }, []);
     
@@ -94,9 +97,10 @@ export default function LotAccordion() {
     useEffect(()=>{
 
         // console.log(currentTime);
-        DateToUi.parseCurrentTimeFromAPI(currentTime);
 
-    }, [currentTime])
+        setCurrentParsedTime(DateToUi.parseCurrentTimeFromAPI(currentDateTime));
+
+    }, [currentDateTime])
 
 
     
@@ -109,14 +113,17 @@ export default function LotAccordion() {
             <div className="page">(Timezone:<i>{selectedTimeZone}</i>)</div>
 
             <div className="accordion">
-            {lots.map(lot => 
-                <AccordionEntry lot={lot} 
-                    currentDate={currentDate} 
-                    timeZone={selectedTimeZone}
-                    statuses={statuses}
-                    statusEvents={statusEvents}
+            {lots.map(lot => (
+
+                <CurrentParsedTimeContext.Provider value={currentParsedTime} key={lot.LotID}>
+                    <AccordionEntry key={lot.LotID} lot={lot} 
+                        currentDate={currentDate} 
+                        timeZone={selectedTimeZone}
+                        statuses={statuses}
+                        statusEvents={statusEvents}
                     />
-                )
+                </CurrentParsedTimeContext.Provider>
+            ))
 
             }
             </div>
