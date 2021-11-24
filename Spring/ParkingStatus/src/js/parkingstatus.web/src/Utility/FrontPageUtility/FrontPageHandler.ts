@@ -16,6 +16,7 @@ class FrontPageHandler{
         // console.log(statusEvents);
         let foundStatusEvent : any = null;
         let foundStatusEventDate : any = null;
+        let foundStatus: any = null;
 
         // use array.find() to find one
         
@@ -47,12 +48,23 @@ class FrontPageHandler{
         )
         // console.log(statusEvents[0].StatusEventId);
 
-        //we will return a [statusEvent, statusEventDate]
+        //we will return a [statusEvent, statusEventDate, and status]
         // return lotId;
 
         // console.log(foundStatusEvent);
         // console.log(foundStatusEvent, foundStatusEventDate);
-        return [foundStatusEvent, foundStatusEventDate] ;
+
+        if(foundStatusEventDate !== null && foundStatusEvent !== null){
+            //find the stautus of that 
+            const foundStatusId : number = foundStatusEvent.StatusId;
+            // console.log(foundStatusId);
+
+            foundStatus = statuses.find(status => status.statusId === foundStatusId);
+
+            // console.log(foundStatus);
+        }
+
+        return [foundStatusEvent, foundStatusEventDate, foundStatus] ;
         
     }
 
@@ -60,6 +72,8 @@ class FrontPageHandler{
         //same thing with finding currrent statusevent date 
 
         let foundLSSDate : any = null;
+
+        let foundStatus : any = null;
 
         
         const dayArray: Array<string> = ['Sun', 'Mon', 'Tue', 
@@ -91,7 +105,7 @@ class FrontPageHandler{
                     const currSecValue: number = (currNumericTimeValues[0]*3600) + 
                         (currNumericTimeValues[1] * 60) + (currNumericTimeValues[2]) + (86400*day);
 
-                    console.log("Current second value: "+currSecValue);
+             
 
                     const startTimeValues : Array<string> = 
                         DateToUi.parseIntoSecondsValue(startTimeArr[1]+':00');
@@ -102,7 +116,7 @@ class FrontPageHandler{
                         (startNumericTimeValues[1] *60) + (startNumericTimeValues[2]) + 
                             (86400 *dayArray.indexOf(startTimeArr[0]));
                     
-                    console.log("Start Second value: "+ startSecValue);
+                    
 
 
                     const endTimeValues : Array<string> = 
@@ -114,14 +128,18 @@ class FrontPageHandler{
                     (endNumericTimeValues[1] *60) + (endNumericTimeValues[2]) + 
                         (86400 *dayArray.indexOf(endTimeArr[0]));
                 
-                    console.log("End Second value: "+ endSecValue);
+                    
 
                     // console.log(lssDate);
 
                     if((currSecValue>= startSecValue) && (currSecValue <= endSecValue) &&
                         (foundLSSDate === null)){
                             foundLSSDate = lssDate;
+                            console.log("Current second value: "+currSecValue);
+                            console.log("Start Second value: "+ startSecValue);
+                            console.log("End Second value: "+ endSecValue);
                             // console.log(foundLSSDate);
+                            // console.log(lot);
                         }
 
 
@@ -135,8 +153,16 @@ class FrontPageHandler{
 
             // console.log(value);
         });
+        
+        if(foundLSSDate !== null){
+            const foundStatusId : number = foundLSSDate.statusId;
+            // console.log(foundStatusId);
 
-        return foundLSSDate;
+            foundStatus = statuses.find(status => status.statusId === foundStatusId);
+            // console.log(foundStatus);
+        }
+
+        return [foundLSSDate, foundStatus];
 
         //return the lotstatusScheduledate
         
