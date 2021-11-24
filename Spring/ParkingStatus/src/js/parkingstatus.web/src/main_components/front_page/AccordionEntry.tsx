@@ -19,7 +19,9 @@ const AccordionEntry: React.FC<any> = (props) => {
 
     const[isActive, setIsActive] = useState(false);
 
-    const [statusValue, setStatusValue] = useState<any>(null);
+    const [statusEventValue, setStatusEventValue] = useState<any>(null); // check status event state first 
+
+    const[lssValue, setLssValue] = useState<any>(null);
 
     const currentDateTimeValue : Date = useContext(CurrentParsedTimeContext);
 
@@ -31,9 +33,13 @@ const AccordionEntry: React.FC<any> = (props) => {
 
     useMemo(() =>{
     // console.log(props.lot.LotID);
-        FrontPageHandler.findCorrespondingStatusEventDate(currentDateTimeValue, props.statusEvents, 
+       let StatusEventResult : any = null;
+       FrontPageHandler.findCorrespondingStatusEventDate(currentDateTimeValue, props.statuses ,props.statusEvents, 
             props.lot.LotID)
-            .then(result => setStatusValue(result));
+            .then(result => setStatusEventValue(result));
+
+            // console.log(StatusEventResult);
+        FrontPageHandler.findCorrespondingLSSDate(currentDateTimeValue, props.statuses, props.lot);
         // console.log(props.statuses);
 
     }, [props.statuses, props.statusEvents, props.timeZone, props.currentDate]);
@@ -59,7 +65,7 @@ const AccordionEntry: React.FC<any> = (props) => {
                 <>
                     <div className="accordion-content">
                         <div><i>{props.lot.LotDescription}</i></div>
-                        <div>Current Status: {statusValue[0] ? statusValue[0].Description: 'none'}</div>
+                        <div>Current Status: {statusEventValue[0] ? statusEventValue[0].Description: 'none'}</div>
                         
 
                         {props.lot.LotStatusSchedule &&

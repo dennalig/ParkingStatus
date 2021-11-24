@@ -7,7 +7,8 @@ class FrontPageHandler{
 
     //2. Then check for matching lot statusschedules next 
 
-    async findCorrespondingStatusEventDate(currentTime: Date, statusEvents: Array<any>, lotId : number){
+    async findCorrespondingStatusEventDate(currentTime: Date, statuses: Array<any>,
+        statusEvents: Array<any>, lotId : number){
         // here we will iterate through status event dates and find if the current time is in between start and end date time
 
         // console.log(lotId);
@@ -54,13 +55,31 @@ class FrontPageHandler{
         
     }
 
-    async findCorrespondingLSSDate(currentTime: Date, lot : any){
+    async findCorrespondingLSSDate(currentTime: Date, statuses: Array<any>, lot : any){
         //same thing with finding currrent statusevent date 
 
         const foundLSSDate : any = null;
 
+        let day = this.determineDayOfWeek(new Date(currentTime).getDay());
+
+        console.log(day);
+        // console.log(lot.LotID);
+        lot.LotStatusSchedule.LotStatusScheduleDates.forEach((lssDate: any) => {
+
+        });
+
         //return the lotstatusScheduledate
         
+    }
+
+    async determineDayOfWeek(dayNumber: number){
+//https://stackoverflow.com/questions/24998624/day-name-from-date-in-js
+
+        const dayArray: Array<string> = ['Sun', 'Mon', 'Tue', 
+                        'Wed', 'Thur', 'Fri', 'Sat'];
+        
+        return dayArray[dayNumber];
+
     }
 
 
