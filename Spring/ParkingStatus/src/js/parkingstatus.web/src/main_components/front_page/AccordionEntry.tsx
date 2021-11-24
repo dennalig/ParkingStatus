@@ -23,6 +23,7 @@ const AccordionEntry: React.FC<any> = (props) => {
 
     const currentDateTimeValue : Date = useContext(CurrentParsedTimeContext);
 
+    // console.log(currentDateTimeValue);
  
 
     // console.log(currentTimeValue);
@@ -30,7 +31,9 @@ const AccordionEntry: React.FC<any> = (props) => {
 
     useEffect(() =>{
 
-        setStatusValue(findCorrespondingStatusEventDate(props.lot));
+        findCorrespondingStatusEventDate(props.lot)
+            .then(result => setStatusValue(result));
+        // console.log(props.statuses);
 
     }, []);
 
@@ -42,12 +45,16 @@ const AccordionEntry: React.FC<any> = (props) => {
             );
     }
 
+    // console.log(props.lot.LotID);
+    console.log(statusValue );
+
     return (
         <div className="accordion-item">
             <div className="accordion-title" onClick={() => setIsActive(!isActive)}>
                 <>
                     <div>{props.lot.LotName}</div>
                     <div>{isActive ? '-' : '+'}</div>
+
                 </>
 
             </div>
@@ -56,7 +63,8 @@ const AccordionEntry: React.FC<any> = (props) => {
                 <>
                     <div className="accordion-content">
                         <div><i>{props.lot.LotDescription}</i></div>
-                        <div>Current Status: {statusValue}</div>
+                        <div>Current Status: {statusValue ? statusValue.Description: 'none'}</div>
+                        
 
                         {props.lot.LotStatusSchedule &&
                             <div><b>{props.lot.LotStatusSchedule.Name ?

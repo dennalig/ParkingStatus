@@ -79,7 +79,6 @@ export default function LotAccordion() {
 
     //query all objects 
     useEffect(() => {
-
         LotService.getAllLots()
             .then(res => setLots(res.data));
 
@@ -91,15 +90,16 @@ export default function LotAccordion() {
 
 
         TimeZoneService.getCurrentTimeOfTimeZone(selectedTimeZone)
-            .then(res => setCurrentDateTime(res.data.datetime)); //TODO: keep track of the system time to detect a change in each minute
+            .then(res => setCurrentDateTime(res.data.datetime))
+            .catch(error => console.log(error)); //TODO: keep track of the system time to detect a change in each minute
+
 
     }, []);
+
+    useEffect(() => {
+
+    }, [lots]);
     
-
-
-    useEffect(()=>{ // TODO: Detect a Change of the date as well, this may require a request at a certain point in time to the api
-        
-    }, [currentDate]);
 
     useEffect(()=>{
 
@@ -110,7 +110,7 @@ export default function LotAccordion() {
 
     }, [currentDateTime])
 
-
+// console.log(statuses);
     
     return (
         <div >
