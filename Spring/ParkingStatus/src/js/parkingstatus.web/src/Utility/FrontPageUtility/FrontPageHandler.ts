@@ -7,7 +7,7 @@ class FrontPageHandler{
 
     //2. Then check for matching lot statusschedules next 
 
-    findCorrespondingStatusEventDate(currentTime: Date, statusEvents: Array<any>,lotId : number){
+    findCorrespondingStatusEventDate(currentTime: Date, statusEvents: Array<any>, lotId : number){
         // here we will iterate through status event dates and find if the current time is in between start and end date time
 
         const foundStatusEvent : any = null;
@@ -17,12 +17,20 @@ class FrontPageHandler{
 
         statusEvents.forEach(statusEvent => 
             (statusEvent.StatusEventDates ? 
-                statusEvent.StatusEventDates.forEach((seDate: any) => console.log(seDate.statusEventDateId))
+                statusEvent.StatusEventDates.forEach((seDate: any) => {
+                    
+                        if(seDate.lotId === lotId){
+                            console.log(statusEvent.Description +":"+lotId);
+                        }
+                    
+                }
+
+                )
                 : null))
-        console.log(statusEvents[0].StatusEventId);
+        // console.log(statusEvents[0].StatusEventId);
 
         //we will return a [statusEvent, statusEventDate]
-        return lotId;
+        // return lotId;
         
     }
 

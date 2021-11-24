@@ -192,8 +192,8 @@ const EventDateCalendar: React.FC<any> = (props) => {
           {preExistingApiEventDates &&
               <>
               {preExistingApiEventDates.map(existingEventDate => 
-
                   <div className="event_date_row" key={existingEventDate.statusEventDateId}>{/*start new Dates div */}
+
 
                       <form onSubmit={e => handleSaveRowToEventDate(e,
                           existingEventDate.statusEventDateId)}>
@@ -202,7 +202,7 @@ const EventDateCalendar: React.FC<any> = (props) => {
                               <input type="date" id="Startdate" name="Startdate" 
                                 defaultValue={DateToUi.getDayAndTime(existingEventDate.startTime)[0]}/>
                           </label>
-
+               
                           &nbsp;&nbsp;&nbsp;
                           <label htmlFor="Starttime">Start Time
                               <input type="time" id="Starttime" name="Starttime" 
@@ -222,13 +222,16 @@ const EventDateCalendar: React.FC<any> = (props) => {
                           </label>
 
                           &nbsp;&nbsp;&nbsp;
+                          
                           <label htmlFor="LotId">Lot Id:
                               <select name="LotId" id="LotId" className="object_name"
                                 defaultValue={existingEventDate.lotId}>
                                   {storedLots &&
                                       storedLots.map(lot =>
                                           <option key={lot.LotID}
-                                              value={lot.LotID}>({lot.LotID}){lot.LotName}</option>
+                                              value={lot.LotID}
+                                              selected={existingEventDate.lotId === 
+                                                lot.LotID}>({lot.LotID}){lot.LotName}</option>
                                       )
 
                                   }

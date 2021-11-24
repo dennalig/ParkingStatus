@@ -238,6 +238,7 @@ const DateCalendar: React.FC<any> = (props) => {
                                     {storedStatuses &&
                                       storedStatuses.map(status =>
                                         <option key={status.statusId}
+                                          selected={existingDate.statusId === status.statusId}
                                           value={status.statusId}>({status.statusId}) {status.name}</option>
                                       )
                                     }

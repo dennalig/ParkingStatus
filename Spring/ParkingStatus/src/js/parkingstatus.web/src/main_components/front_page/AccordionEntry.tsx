@@ -13,18 +13,28 @@ import './style/front_page_style.css';
 // [] status --> an array of all statuses that we will then search for
 
 interface EntryProps {
-    
+
 }
 const AccordionEntry: React.FC<any> = (props) => {
 
     const[isActive, setIsActive] = useState(false);
 
+    const [statusValue, setStatusValue] = useState<any>(null);
+
     const currentDateTimeValue : Date = useContext(CurrentParsedTimeContext);
+
+ 
 
     // console.log(currentTimeValue);
     const date: Date = new Date(currentDateTimeValue);
 
-    console.log(date.getTime());
+    useEffect(() =>{
+
+        setStatusValue(findCorrespondingStatusEventDate(props.lot));
+
+    }, []);
+
+    // console.log(date.getTime());
 
     const findCorrespondingStatusEventDate = (lot: any) =>{
         return FrontPageHandler.findCorrespondingStatusEventDate(currentDateTimeValue, 
@@ -46,7 +56,7 @@ const AccordionEntry: React.FC<any> = (props) => {
                 <>
                     <div className="accordion-content">
                         <div><i>{props.lot.LotDescription}</i></div>
-                        <div>Current Status: {findCorrespondingStatusEventDate(props.lot)}</div>
+                        <div>Current Status: {statusValue}</div>
 
                         {props.lot.LotStatusSchedule &&
                             <div><b>{props.lot.LotStatusSchedule.Name ?
