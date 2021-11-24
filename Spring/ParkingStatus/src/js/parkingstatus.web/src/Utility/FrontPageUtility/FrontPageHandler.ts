@@ -10,7 +10,8 @@ class FrontPageHandler{
     async findCorrespondingStatusEventDate(currentTime: Date, statusEvents: Array<any>, lotId : number){
         // here we will iterate through status event dates and find if the current time is in between start and end date time
 
-        console.log(statusEvents);
+        // console.log(lotId);
+        // console.log(statusEvents);
         let foundStatusEvent : any = null;
         let foundStatusEventDate : any = null;
 
@@ -54,7 +55,7 @@ class FrontPageHandler{
         
     }
 
-    findCorrespondingLSSDate(currentTime: Date, lot : any){
+    async findCorrespondingLSSDate(currentTime: Date, lot : any){
         //same thing with finding currrent statusevent date 
 
         const foundLSSDate : any = null;

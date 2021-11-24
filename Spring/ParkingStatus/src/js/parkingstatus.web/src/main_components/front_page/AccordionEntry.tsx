@@ -30,23 +30,18 @@ const AccordionEntry: React.FC<any> = (props) => {
     const date: Date = new Date(currentDateTimeValue);
 
     useEffect(() =>{
-
-        findCorrespondingStatusEventDate(props.lot)
+    console.log(props.lot.LotID);
+        FrontPageHandler.findCorrespondingStatusEventDate(currentDateTimeValue, props.statusEvents, 
+            props.lot.LotID)
             .then(result => setStatusValue(result));
         // console.log(props.statuses);
 
     }, []);
 
-    // console.log(date.getTime());
-
-    const findCorrespondingStatusEventDate = (lot: any) =>{
-        return FrontPageHandler.findCorrespondingStatusEventDate(currentDateTimeValue, 
-            props.statusEvents, lot.LotID
-            );
-    }
+    
 
     // console.log(props.lot.LotID);
-    console.log(statusValue );
+    // console.log(statusValue );
 
     return (
         <div className="accordion-item">

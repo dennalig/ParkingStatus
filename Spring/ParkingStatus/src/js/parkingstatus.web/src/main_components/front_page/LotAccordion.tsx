@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useState, useEffect, useContext, useMemo} from 'react'
 
 import ColorLegend from './ColorLegend';
 import AccordionEntry from './AccordionEntry';
@@ -82,35 +82,34 @@ export default function LotAccordion() {
         LotService.getAllLots()
             .then(res => setLots(res.data));
 
-        StatusService.getAllStatuses()
-            .then(res => setStatuses(res.data));
-
-        StatusEventService.getAllStatusEvents()
-            .then(res => setStatusEvents(res.data));
-
-
-        TimeZoneService.getCurrentTimeOfTimeZone(selectedTimeZone)
-            .then(res => setCurrentDateTime(res.data.datetime))
-            .catch(error => console.log(error)); //TODO: keep track of the system time to detect a change in each minute
-
+        
 
     }, []);
 
-    useEffect(() => {
+    //useMemo seemed to work here  -->https://www.youtube.com/watch?v=lStfMBiWROQ
+
+    useMemo(() => {
+
+        StatusService.getAllStatuses()
+            .then(res => setStatuses(res.data));
+
 
     }, [lots]);
-    
 
-    useEffect(()=>{
+    useMemo(() => {
 
-        // console.log(currentTime);
+        StatusEventService.getAllStatusEvents()
+            .then(res => setStatusEvents(res.data));
+    },[statuses]);
 
-        // setCurrentParsedTime(DateToUi.parseCurrentTimeFromAPI(currentDateTime));
-        // setCurrentParsedTime(currentDateTime)
+    useMemo(()=>{
+        TimeZoneService.getCurrentTimeOfTimeZone(selectedTimeZone)
+        .then(res => setCurrentDateTime(res.data.datetime))
+        .catch(error => console.log(error)); //TODO: keep track of the system time to detect a change in each minute
 
-    }, [currentDateTime])
 
-// console.log(statuses);
+    }, [statusEvents]);
+
     
     return (
         <div >
