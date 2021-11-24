@@ -1,3 +1,4 @@
+import DateToUi from '../../main_components/admin_features/DateToUi';
 
 class FrontPageHandler{
     //this will handle determining what a current lotstatusscheduledate we are using at a given time
@@ -58,29 +59,95 @@ class FrontPageHandler{
     async findCorrespondingLSSDate(currentTime: Date, statuses: Array<any>, lot : any){
         //same thing with finding currrent statusevent date 
 
-        const foundLSSDate : any = null;
+        let foundLSSDate : any = null;
 
-        let day = this.determineDayOfWeek(new Date(currentTime).getDay());
+        
+        const dayArray: Array<string> = ['Sun', 'Mon', 'Tue', 
+                        'Wed', 'Thur', 'Fri', 'Sat'];
 
-        console.log(day);
+        let day = dayArray.indexOf(dayArray[new Date(currentTime).getDay()]);
+
+        // console.log(day);
         // console.log(lot.LotID);
         lot.LotStatusSchedule.LotStatusScheduleDates.forEach((lssDate: any) => {
+            const startTimeArr = DateToUi.getDayAndTime(lssDate.startTime);
+            const endTimeArr = DateToUi.getDayAndTime(lssDate.endTime);
 
+            //LSS dates only go from SUN to SAT and don't wrap around from SAT to SUN so values should work here
+
+            // 60 seconds in a minute
+            //3600 seconds in an hour
+            //86400 seconds in a day
+            // console.log(currentTime.toString());
+            // console.log(lssDate);
+            if((day >= dayArray.indexOf(startTimeArr[0])) && 
+                (day <= dayArray.indexOf(endTimeArr[0])) && 
+                (foundLSSDate === null)){
+                   const currentTimeValue: string = DateToUi.parseCurrentTimeWithSecondsFromAPI(currentTime);
+                        //    console.log(currentTimeValue);
+                    const timeValues : Array<string> = DateToUi.parseIntoSecondsValue(currentTimeValue);
+                    const currNumericTimeValues:Array<number> = timeValues.map(value => parseInt(value));
+
+                    const currSecValue: number = (currNumericTimeValues[0]*3600) + 
+                        (currNumericTimeValues[1] * 60) + (currNumericTimeValues[2]) + (86400*day);
+
+                    console.log("Current second value: "+currSecValue);
+
+                    const startTimeValues : Array<string> = 
+                        DateToUi.parseIntoSecondsValue(startTimeArr[1]+':00');
+                    
+                    const startNumericTimeValues: Array<number> = startTimeValues.map(value => parseInt(value));
+                    // console.log(startNumericTimeValues);
+                    const startSecValue: number = (startNumericTimeValues[0]*3600) +
+                        (startNumericTimeValues[1] *60) + (startNumericTimeValues[2]) + 
+                            (86400 *dayArray.indexOf(startTimeArr[0]));
+                    
+                    console.log("Start Second value: "+ startSecValue);
+
+
+                    const endTimeValues : Array<string> = 
+                    DateToUi.parseIntoSecondsValue(endTimeArr[1]+':00');
+                
+                    const endNumericTimeValues: Array<number> = endTimeValues.map(value => parseInt(value));
+                    // console.log(endNumericTimeValues);
+                    const endSecValue: number = (endNumericTimeValues[0]*3600) +
+                    (endNumericTimeValues[1] *60) + (endNumericTimeValues[2]) + 
+                        (86400 *dayArray.indexOf(endTimeArr[0]));
+                
+                    console.log("End Second value: "+ endSecValue);
+
+                    // console.log(lssDate);
+
+                    if((currSecValue>= startSecValue) && (currSecValue <= endSecValue) &&
+                        (foundLSSDate === null)){
+                            foundLSSDate = lssDate;
+                            // console.log(foundLSSDate);
+                        }
+
+
+      
+
+                }
+
+                // assign numeric value to the day (maybe clock numeric value * )
+
+
+
+            // console.log(value);
         });
+
+        return foundLSSDate;
 
         //return the lotstatusScheduledate
         
     }
 
-    async determineDayOfWeek(dayNumber: number){
+
 //https://stackoverflow.com/questions/24998624/day-name-from-date-in-js
 
-        const dayArray: Array<string> = ['Sun', 'Mon', 'Tue', 
-                        'Wed', 'Thur', 'Fri', 'Sat'];
         
-        return dayArray[dayNumber];
 
-    }
+
 
 
 }

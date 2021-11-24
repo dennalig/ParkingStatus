@@ -24,5 +24,30 @@ class DateToUi{
         
     }
 
+    parseCurrentTimeWithSecondsFromAPI(dateTime: Date){
+        // console.log(dateTime);
+
+        const dateString : string = new Date(dateTime).toString();
+        // console.log(dateString);
+        const time : any = /\d\d:\d\d:\d\d/s.exec(dateString);
+
+        if(time !== null){
+            // console.log(time[0].slice(1));
+
+            // console.log(time[0]);
+
+            return time[0];
+            
+        }
+        // console.log(time[0]);
+
+        
+        
+    }
+
+    parseIntoSecondsValue(timeString : string){
+        return timeString.split(':');
+    }
+
 }
 export default new DateToUi();

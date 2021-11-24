@@ -6,6 +6,7 @@ import FrontPageHandler from '../../Utility/FrontPageUtility/FrontPageHandler';
 
 import './style/front_page_style.css';
 
+
 //current props
 // lot--> that given lot object
 //currentDate --> current date
@@ -31,7 +32,7 @@ const AccordionEntry: React.FC<any> = (props) => {
     // console.log(currentTimeValue);
     const date: Date = new Date(currentDateTimeValue);
 
-    useMemo(() =>{
+    useEffect(() =>{
     // console.log(props.lot.LotID);
        let StatusEventResult : any = null;
        FrontPageHandler.findCorrespondingStatusEventDate(currentDateTimeValue, props.statuses ,props.statusEvents, 
@@ -39,7 +40,8 @@ const AccordionEntry: React.FC<any> = (props) => {
             .then(result => setStatusEventValue(result));
 
             // console.log(StatusEventResult);
-        FrontPageHandler.findCorrespondingLSSDate(currentDateTimeValue, props.statuses, props.lot);
+        FrontPageHandler.findCorrespondingLSSDate(currentDateTimeValue, props.statuses, props.lot)
+            .then(result =>setLssValue(result));
         // console.log(props.statuses);
 
     }, [props.statuses, props.statusEvents, props.timeZone, props.currentDate]);
