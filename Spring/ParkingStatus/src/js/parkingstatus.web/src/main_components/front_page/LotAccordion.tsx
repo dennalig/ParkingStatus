@@ -82,34 +82,47 @@ export default function LotAccordion() {
         LotService.getAllLots()
             .then(res => setLots(res.data));
 
+            StatusService.getAllStatuses()
+            .then(res => setStatuses(res.data));
+
+            StatusEventService.getAllStatusEvents()
+            .then(res => setStatusEvents(res.data));
+
+            TimeZoneService.getCurrentTimeOfTimeZone(selectedTimeZone)
+            .then(res => setCurrentDateTime(res.data.datetime))
+            .catch(error => console.log(error));
         
 
     }, []);
 
     //useMemo seemed to work here  -->https://www.youtube.com/watch?v=lStfMBiWROQ
 
-    useMemo(() => {
+    // useEffect(() => {
 
-        StatusService.getAllStatuses()
-            .then(res => setStatuses(res.data));
-
-
-    }, [lots]);
-
-    useMemo(() => {
-
-        StatusEventService.getAllStatusEvents()
-            .then(res => setStatusEvents(res.data));
-    },[statuses]);
-
-    useMemo(()=>{
-        TimeZoneService.getCurrentTimeOfTimeZone(selectedTimeZone)
-        .then(res => setCurrentDateTime(res.data.datetime))
-        .catch(error => console.log(error)); //TODO: keep track of the system time to detect a change in each minute
+    //     StatusService.getAllStatuses()
+    //         .then(res => setStatuses(res.data));
 
 
-    }, [statusEvents]);
+    // }, [lots]);
 
+    // useEffect(() => {
+
+    //     StatusEventService.getAllStatusEvents()
+    //         .then(res => setStatusEvents(res.data));
+    // },[statuses]);
+
+    // useEffect(()=>{
+    //     TimeZoneService.getCurrentTimeOfTimeZone(selectedTimeZone)
+    //     .then(res => setCurrentDateTime(res.data.datetime))
+    //     .catch(error => console.log(error)); //TODO: keep track of the system time to detect a change in each minute
+
+
+    // }, [statusEvents]);
+
+
+// console.log(lots);
+// console.log(statuses);
+// console.log(statusEvents);
     
     return (
         <div >
@@ -120,6 +133,7 @@ export default function LotAccordion() {
             <div className="page">(Timezone:<i>{selectedTimeZone}</i>)</div>
 
             <div className="accordion">
+                
             {lots.map(lot => (
 
                 <CurrentParsedTimeContext.Provider value={currentDateTime} key={lot.LotID}>

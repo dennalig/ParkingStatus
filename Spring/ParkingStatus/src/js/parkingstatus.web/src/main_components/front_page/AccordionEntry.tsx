@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useState, useEffect, useContext, useMemo} from 'react'
 
 import { CurrentParsedTimeContext } from './CurrentParsedTimeContext';
 
@@ -29,19 +29,20 @@ const AccordionEntry: React.FC<any> = (props) => {
     // console.log(currentTimeValue);
     const date: Date = new Date(currentDateTimeValue);
 
-    useEffect(() =>{
-    console.log(props.lot.LotID);
+    useMemo(() =>{
+    // console.log(props.lot.LotID);
         FrontPageHandler.findCorrespondingStatusEventDate(currentDateTimeValue, props.statusEvents, 
             props.lot.LotID)
             .then(result => setStatusValue(result));
         // console.log(props.statuses);
 
-    }, []);
+    }, [props.statuses, props.statusEvents, props.timeZone, props.currentDate]);
 
     
 
     // console.log(props.lot.LotID);
-    // console.log(statusValue );
+    // console.log(props.statusEvents);
+    // console.log(statusValue[0]);
 
     return (
         <div className="accordion-item">
@@ -58,7 +59,7 @@ const AccordionEntry: React.FC<any> = (props) => {
                 <>
                     <div className="accordion-content">
                         <div><i>{props.lot.LotDescription}</i></div>
-                        <div>Current Status: {statusValue ? statusValue.Description: 'none'}</div>
+                        <div>Current Status: {statusValue[0] ? statusValue[0].Description: 'none'}</div>
                         
 
                         {props.lot.LotStatusSchedule &&

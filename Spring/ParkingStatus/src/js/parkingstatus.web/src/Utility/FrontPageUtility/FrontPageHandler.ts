@@ -17,33 +17,32 @@ class FrontPageHandler{
 
         // use array.find() to find one
         
-        statusEvents.forEach(statusEvent => 
-            (statusEvent.StatusEventDates ? 
-                statusEvent.StatusEventDates.forEach((seDate: any) => {
+       statusEvents.forEach(statusEvent => statusEvent.StatusEventDates.forEach((seDate: any) => {
+            // console.log(seDate.lotId, lotId);
+            // console.log('here');
+            // console.log(lotId);
+            if (seDate.lotId === lotId) { // if we have a matching Lot ID in a date
+                // console.log(statusEvent.Description +":"+lotId);
+                //https://stackoverflow.com/questions/2627650/why-javascript-gettime-is-not-a-function
+                const currentDateTimeValue: number = new Date(currentTime).getTime();
 
-                        if(seDate.lotId === lotId){// if we have a matching Lot ID in a date
-                            // console.log(statusEvent.Description +":"+lotId);
-                            //https://stackoverflow.com/questions/2627650/why-javascript-gettime-is-not-a-function
-                            const currentDateTimeValue: number = new Date(currentTime).getTime();
-
-                            const startDateTimeValue : number = new Date(seDate.startTime).getTime();
-                            const endDateTimeValue : number = new Date(seDate.endTime).getTime();
-                            
-
-                            if((currentDateTimeValue>= startDateTimeValue) 
-                                && (currentDateTimeValue <= endDateTimeValue) && (foundStatusEvent === null)
-                                 && (foundStatusEventDate === null)){
-                                    // console.log(statusEvent.Description +":"+lotId);
-                                    foundStatusEvent = statusEvent;
-                                    foundStatusEventDate = seDate;
-                                    console.log(foundStatusEvent);
-                                }
-                        }
-                    
+                const startDateTimeValue: number = new Date(seDate.startTime).getTime();
+                const endDateTimeValue: number = new Date(seDate.endTime).getTime();
+                // console.log(statusEvent);
+                if ((currentDateTimeValue >= startDateTimeValue)
+                    && (currentDateTimeValue <= endDateTimeValue) && (foundStatusEvent === null)
+                    && (foundStatusEventDate === null)) {
+                    // console.log(statusEvent.Description +":"+lotId);
+                    foundStatusEvent = statusEvent;
+                    foundStatusEventDate = seDate;
+                    // console.log(foundStatusEvent);
                 }
+            }
 
-                )
-                : null))
+        }
+
+        )
+        )
         // console.log(statusEvents[0].StatusEventId);
 
         //we will return a [statusEvent, statusEventDate]
@@ -51,7 +50,7 @@ class FrontPageHandler{
 
         // console.log(foundStatusEvent);
         // console.log(foundStatusEvent, foundStatusEventDate);
-        return foundStatusEvent ;
+        return [foundStatusEvent, foundStatusEventDate] ;
         
     }
 

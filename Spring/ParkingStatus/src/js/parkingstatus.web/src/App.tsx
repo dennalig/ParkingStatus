@@ -81,7 +81,7 @@ function App (){
 
           {/* General Routes */}
           {/* <Route path='/' exact component={LotAccordion}/>   */}
-          <Route path='/' exact render={() => (
+          <Route path='/' exact component={() => (
                 <TimeZoneContext.Provider value={timeZoneValue}>
                         <LotAccordion/>
                 </TimeZoneContext.Provider>
