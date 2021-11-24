@@ -11,6 +11,10 @@ import './style/front_page_style.css';
 //currentDate --> current date
 //timezone --> selected timezone
 // [] status --> an array of all statuses that we will then search for
+
+interface EntryProps {
+    
+}
 const AccordionEntry: React.FC<any> = (props) => {
 
     const[isActive, setIsActive] = useState(false);

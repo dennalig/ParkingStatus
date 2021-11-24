@@ -19,6 +19,13 @@ import { TimeZoneContext } from '../admin_features/general/TimeZone/TimeZoneCont
 import {CurrentParsedTimeContext} from './CurrentParsedTimeContext';
 
 
+type LotStatusSchedule = {
+    LotStatusScheduleDates : Array<any>,
+    Name : string | null,
+    LotStatusScheduleId : number | null
+    LotId : number
+}
+
 type Lot ={
     LotStatusSchedule: any,
     LotID: number,
@@ -38,7 +45,7 @@ type Status = {
 }
 
 type StatusEvent = {
-    StatusEventDates : any ,
+    StatusEventDates : Array<any> ,
     Description : string | null,
     StatusEventImage: null,
     StatusEventImageName: null,
