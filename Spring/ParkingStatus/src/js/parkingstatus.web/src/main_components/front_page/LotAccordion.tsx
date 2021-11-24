@@ -13,7 +13,7 @@ import TimeZoneService from '../../services/TimeZone/TimeZoneService';
 
 import DateToUi from '../admin_features/DateToUi';
 
-import FrontPageHandler from '../../Utility/FrontPageUtility/FrontPageHandler';
+
 
 import { TimeZoneContext } from '../admin_features/general/TimeZone/TimeZoneContext';
 import {CurrentParsedTimeContext} from './CurrentParsedTimeContext';
@@ -50,9 +50,9 @@ type StatusEvent = {
 export default function LotAccordion() {
 
     //data states
-    const[currentDate, setCurrentDate] = useState<any>(new Date());
+    const[currentDate, setCurrentDate] = useState<Date>(new Date());
 
-    const[currentDateTime, setCurrentDateTime] = useState<string>('');
+    const[currentDateTime, setCurrentDateTime] = useState<Date>(new Date());
 
     const[currentParsedTime, setCurrentParsedTime] = useState<string>('');
 
@@ -98,7 +98,8 @@ export default function LotAccordion() {
 
         // console.log(currentTime);
 
-        setCurrentParsedTime(DateToUi.parseCurrentTimeFromAPI(currentDateTime));
+        // setCurrentParsedTime(DateToUi.parseCurrentTimeFromAPI(currentDateTime));
+        // setCurrentParsedTime(currentDateTime)
 
     }, [currentDateTime])
 
@@ -115,7 +116,7 @@ export default function LotAccordion() {
             <div className="accordion">
             {lots.map(lot => (
 
-                <CurrentParsedTimeContext.Provider value={currentParsedTime} key={lot.LotID}>
+                <CurrentParsedTimeContext.Provider value={currentDateTime} key={lot.LotID}>
                     <AccordionEntry key={lot.LotID} lot={lot} 
                         currentDate={currentDate} 
                         timeZone={selectedTimeZone}
