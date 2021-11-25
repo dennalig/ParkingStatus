@@ -135,9 +135,9 @@ class FrontPageHandler{
                     if((currSecValue>= startSecValue) && (currSecValue <= endSecValue) &&
                         (foundLSSDate === null)){
                             foundLSSDate = lssDate;
-                            console.log("Current second value: "+currSecValue);
-                            console.log("Start Second value: "+ startSecValue);
-                            console.log("End Second value: "+ endSecValue);
+                            // console.log("Current second value: "+currSecValue);
+                            // console.log("Start Second value: "+ startSecValue);
+                            // console.log("End Second value: "+ endSecValue);
                             // console.log(foundLSSDate);
                             // console.log(lot);
                         }

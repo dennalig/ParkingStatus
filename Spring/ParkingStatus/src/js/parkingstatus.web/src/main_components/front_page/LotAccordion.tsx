@@ -123,6 +123,9 @@ export default function LotAccordion() {
 // console.log(lots);
 // console.log(statuses);
 // console.log(statusEvents);
+// console.log(currentDateTime);
+
+console.log(new Date());
     
     return (
         <div >

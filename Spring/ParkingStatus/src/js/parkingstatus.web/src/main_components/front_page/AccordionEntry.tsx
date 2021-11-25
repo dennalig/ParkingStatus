@@ -31,7 +31,8 @@ const AccordionEntry: React.FC<any> = (props) => {
 
     
 
-    // console.log(currentDateTimeValue);
+    console.log(currentDateTimeValue);
+    // console.log('here');
  
 
     // console.log(currentTimeValue);
@@ -55,7 +56,7 @@ const AccordionEntry: React.FC<any> = (props) => {
     useEffect(() =>{
         if(statusEventValue !== null){
             if(statusEventValue[2] !== null){
-                console.log(statusEventValue[2]?.color);
+                // console.log(statusEventValue[2]?.color);
                 setStatusColor(statusEventValue[2]?.color);
                 //https://stackoverflow.com/questions/40735406/checking-for-undefined-in-react
                 //?. helps
