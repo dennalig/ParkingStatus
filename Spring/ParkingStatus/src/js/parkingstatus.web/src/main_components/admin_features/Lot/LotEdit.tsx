@@ -256,9 +256,9 @@ const LotEdit: React.FC<any> =({match}) => {
                         <label>Lot Status Schedule ID: 
                         <input id="lotstatusscheduleid" type="number" 
                             className="object_id"
-                            min="1"
-                            defaultValue={lot.LotStatusSchedule ? lot.LotStatusSchedule.LotStatusScheduleId : 1} 
-                            onChange={e => handleLSSIdChange(e)}/>
+                            value={lot.LotStatusSchedule ? lot.LotStatusSchedule.LotStatusScheduleId : 1} 
+                            // onChange={e => handleLSSIdChange(e)}
+                            />
 
                         </label>
  
