@@ -93,7 +93,7 @@ const LotCreator: React.FC<any> =(props) => {
 
 
     useEffect( () =>{
-        if(enteredValues){
+        if(enteredValues && validLssId){
             // console.log(createdLot);
 
             if(createdLot.LotName ===''){
@@ -168,7 +168,8 @@ const LotCreator: React.FC<any> =(props) => {
         setValidValues(true);
     }
 
-    console.log(createdLot);
+    // console.log(createdLot);
+    console.log(validLssId);
 
     //message to user for lot status schedule id
     const handleLSSIdChange = (event: any)=>{
