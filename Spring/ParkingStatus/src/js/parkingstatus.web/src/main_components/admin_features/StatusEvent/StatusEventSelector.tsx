@@ -1,12 +1,15 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 
-import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
+import RandomDivValue from "../../inaccessible_features/RandomDivValue";
 import CreateButton from "../../admin_features/general/CreateButton";
 import StatusEventEdit from "./StatusEventEdit";
 import StatusEventService from '../../../services/StatusEventService';
 
 
 import { Link } from 'react-router-dom';
+
+//contexts
+import { LoginEmailContext } from '../../loginContexts/LoginEmailContext';
 
 const StatusEventSelector : React.FC<any> = (props) => {
 
@@ -70,6 +73,8 @@ const StatusEventSelector : React.FC<any> = (props) => {
     }
     // console.log(statusEventList[0].StatusEventDates[0].startTime);
 
+    const currentAdminUser = useContext(LoginEmailContext);
+
     return (
         <div>
 
@@ -78,8 +83,8 @@ const StatusEventSelector : React.FC<any> = (props) => {
             } */}
 
            
-
-            <>
+        {currentAdminUser !== '' &&
+                <>
             
             <CreateButton create_type="statusevent" />
                 <div className="page">
@@ -152,7 +157,7 @@ const StatusEventSelector : React.FC<any> = (props) => {
             </>
         
 
-          
+          }
         </div>
 
 

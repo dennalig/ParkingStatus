@@ -7,7 +7,7 @@ import StatusEventService from '../../../services/StatusEventService';
 import StatusService from '../../../services/StatusService';
 import LotService from '../../../services/LotService';
 
-import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
+import RandomDivValue from "../../inaccessible_features/RandomDivValue";
 import EventDateCalendar from './Date/EventDateCalendar';
 import {SEContext} from "./SEContext";
 import {SEIDContext} from "./SEIDContext";

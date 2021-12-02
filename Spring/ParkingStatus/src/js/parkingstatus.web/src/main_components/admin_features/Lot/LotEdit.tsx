@@ -9,7 +9,7 @@ import DateCalendar from './Date/DateCalendar';
 import {LSSContext} from '../Lot/LSSContext';
 import {LSSIDContext} from '../Lot/LSSIDContext';
 
-import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
+import RandomDivValue from "../../inaccessible_features/RandomDivValue";
 
 import '../../general_style/input_style.css';
 

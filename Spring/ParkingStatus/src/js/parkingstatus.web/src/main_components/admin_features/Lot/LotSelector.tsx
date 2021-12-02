@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react'
 
 import {Link} from 'react-router-dom'
 
-import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
+import RandomDivValue from "../../inaccessible_features/RandomDivValue";
 import CreateButton from "../../admin_features/general/CreateButton";
 import LotService from '../../../services/LotService'
 
@@ -11,10 +11,7 @@ import LotService from '../../../services/LotService'
 import { LoginEmailContext } from '../../loginContexts/LoginEmailContext';
 
 const LotSelector : React.FC<any> = (props) => {
-
-
-
-
+    
     const [lotList, setLotList] = useState<Array<any>>([]);
     const [displayLot, setDisplayLot] = useState<any>(null);
 

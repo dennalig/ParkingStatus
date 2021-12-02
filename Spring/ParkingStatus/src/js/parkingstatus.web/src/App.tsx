@@ -136,7 +136,11 @@ const PrivateRoute = ({ component, ...options } : any) => {
                   )}/>
           
         <Route path='/admin/create/lot'
-                  component={() => <LotCreator />}/>
+                  component={() => (
+                <LoginEmailContext.Provider value={loggedInEmailValue}>
+                  <LotCreator />
+                </LoginEmailContext.Provider>
+                  )}/>
 
         {/* private route allows for us to utilize context here */}
         <PrivateRoute path='/admin/edit/lot/:id' 
@@ -144,20 +148,37 @@ const PrivateRoute = ({ component, ...options } : any) => {
 
         {/* Status Routes */}
           <Route path='/admin/select/status' 
-                  component={() => <StatusSelector />}/>
+                  component={() => (
+                <LoginEmailContext.Provider value={loggedInEmailValue}>
+                        <StatusSelector />
+                </LoginEmailContext.Provider>
+                                )}/>
 
           <Route path='/admin/create/status'
-                  component={() => <StatusCreator />}/>
+                  component={() => (
+                   <LoginEmailContext.Provider value={loggedInEmailValue}>
+                        <StatusCreator />
+                  </LoginEmailContext.Provider>
+                
+                                )}/>
 
           <PrivateRoute path='/admin/edit/status/:id' 
                 component={StatusEdit}/>
 
         {/* StatusEvent Routes */}
           <Route path='/admin/select/statusevent' 
-                  component={() => <StatusEventSelector />}/>
+                  component={() => (
+                <LoginEmailContext.Provider value={loggedInEmailValue}>
+                        <StatusEventSelector />
+                </LoginEmailContext.Provider>
+                                )}/>
 
           <Route path='/admin/create/statusevent'
-                  component={() => <StatusEventCreator />}/> 
+                  component={() => (
+                 <LoginEmailContext.Provider value={loggedInEmailValue}>
+                        <StatusEventCreator />
+                </LoginEmailContext.Provider>
+                  )}/> 
 
           <PrivateRoute path='/admin/edit/statusevent/:id' 
                 component={StatusEventEdit}/>

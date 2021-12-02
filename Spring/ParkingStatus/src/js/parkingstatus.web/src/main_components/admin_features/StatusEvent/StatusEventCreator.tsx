@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import type {FormEvent} from 'react'
 
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 
-import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
+import RandomDivValue from "../../inaccessible_features/RandomDivValue";
 import EventDateCalendar from './Date/EventDateCalendar';
 import {SEContext}  from './SEContext';
 import {SEIDContext} from './SEIDContext';
@@ -13,6 +13,9 @@ import StatusService from '../../../services/StatusService';
 
 
 import '../../general_style/input_style.css';
+
+//contexts
+import { LoginEmailContext } from '../../../main_components/loginContexts/LoginEmailContext';
 
 type APISEDate = {
     startTime: string | null,
@@ -149,6 +152,8 @@ const StatusEventCreator: React.FC<any> =(props) => {
         }
     }
 
+    const currentAdminUser = useContext(LoginEmailContext);
+
     //JSON structure for STATUSEVENT
     // {
     //     StatusEventDates : [
@@ -163,16 +168,18 @@ const StatusEventCreator: React.FC<any> =(props) => {
     //         StatusEventId, StatusId    --> StatusEvent attributes
     // }
 
+    
+
     return (
         <div>
             
-            
-                <DefaultNoAccess/> 
+                <RandomDivValue/> 
                 {/* leave here */}
             
 
-           
-            <div className="unauth_page">
+        {currentAdminUser !== '' &&
+            <>
+            
                 <div className="page"> 
                 <form className="form_style"
                     onSubmit={e => handleStatusEventSubmission(e)}>
@@ -236,8 +243,9 @@ const StatusEventCreator: React.FC<any> =(props) => {
                 </SEContext.Provider>
 
                 </div>
-            </div>
             
+        </>
+        }
         </div>
     )
 }

@@ -1,12 +1,15 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import type {FormEvent} from 'react'
 
 import { Link } from 'react-router-dom';
 
-import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
+import RandomDivValue from "../../inaccessible_features/RandomDivValue";
 import StatusService from "../../../services/StatusService";
 
 import '../../general_style/input_style.css';
+
+//contexts
+import { LoginEmailContext } from '../../loginContexts/LoginEmailContext';
 
 const StatusCreator: React.FC<any> = (props) => {
 
@@ -84,6 +87,7 @@ const StatusCreator: React.FC<any> = (props) => {
     //                 statusimagename, statusid
 
 
+    const currentAdminUser = useContext(LoginEmailContext);
 
     return (
         <div>
@@ -93,7 +97,8 @@ const StatusCreator: React.FC<any> = (props) => {
             } */}
 
    
-            
+            {currentAdminUser !== '' &&
+                <>
                 <div className="page"> 
                     <form className="form_style"
                         onSubmit ={event => {handleStatusSubmission(event)}}>
@@ -157,8 +162,10 @@ const StatusCreator: React.FC<any> = (props) => {
                     </form>
 
                 </div>
+                
+            </>
+        }
             
-
         </div>
     )
 }

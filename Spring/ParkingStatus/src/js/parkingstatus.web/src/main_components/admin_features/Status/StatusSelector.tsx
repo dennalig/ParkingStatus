@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react'
-import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
+import React, {useState, useEffect, useContext} from 'react'
+import RandomDivValue from "../../inaccessible_features/RandomDivValue";
 
 import CreateButton from "../../admin_features/general/CreateButton";
 
@@ -8,6 +8,9 @@ import StatusService from '../../../services/StatusService';
 //type imports
 
 import { Link } from 'react-router-dom';
+
+//contexts
+import { LoginEmailContext } from '../../loginContexts/LoginEmailContext';
 
 
 const StatusSelector : React.FC<any> = (props) => {
@@ -81,17 +84,16 @@ const noDeleteSure = async (event: any) => {
 
 // console.log(statusList);
 
+const currentAdminUser = useContext(LoginEmailContext);
+
     return (
         <div>
 
             {/* {!props.logged_in &&
                 <DefaultNoAccess/>
             } */}
-
-        
-
-            
-            
+    {currentAdminUser !== '' &&
+        <>
             <CreateButton create_type="status" />
             <div className="page">
                     Status Selector
@@ -168,8 +170,8 @@ const noDeleteSure = async (event: any) => {
 
                 
         
-        
-          
+            </>
+        }
         </div>
 
 

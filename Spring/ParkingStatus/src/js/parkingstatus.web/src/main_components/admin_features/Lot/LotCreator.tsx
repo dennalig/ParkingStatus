@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import type { FormEvent } from 'react'
 
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 
-import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
+import RandomDivValue from "../../inaccessible_features/RandomDivValue";
 import DateCalendar from "../Lot/Date/DateCalendar";
 
 import LotService from '../../../services/LotService';
@@ -12,6 +12,7 @@ import StatusService from '../../../services/StatusService';
 //contexts for the DateCalendar Child component
 import {LSSContext} from '../Lot/LSSContext';
 import {LSSIDContext} from '../Lot/LSSIDContext';
+import { LoginEmailContext } from '../../loginContexts/LoginEmailContext';
 
 import '../../general_style/input_style.css';
 
@@ -60,6 +61,9 @@ const LotCreator: React.FC<any> =(props) => {
 
     //
     const apiDates : Array<APILSSDate> = [];
+
+
+    const currentAdminUser = useContext(LoginEmailContext);
 
     useEffect(() => {
         //at the very beginning we will query all lots
@@ -224,7 +228,8 @@ const LotCreator: React.FC<any> =(props) => {
                 <DefaultNoAccess/>
             } */}
 
-           
+
+    {currentAdminUser !== '' &&
             <div>
                 <div className="page"> 
                     <form className="form_style"
@@ -305,7 +310,7 @@ const LotCreator: React.FC<any> =(props) => {
             </div>
                 
             
-
+        }
        
         </div>
     )

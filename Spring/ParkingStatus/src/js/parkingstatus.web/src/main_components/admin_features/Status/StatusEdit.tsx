@@ -3,7 +3,7 @@ import type {FormEvent} from 'react'
 
 import { Link, RouteComponentProps } from 'react-router-dom';
 
-import DefaultNoAccess from "../../inaccessible_features/DefaultNoAccess";
+import RandomDivValue from "../../inaccessible_features/RandomDivValue";
 import StatusService from '../../../services/StatusService';
 
 import '../../general_style/input_style.css';
