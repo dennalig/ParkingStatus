@@ -57,7 +57,9 @@ const NavigationBar : React.FC<any> = (props) => {
 
 
    
-                
+                {currentAdminUser !=='' &&
+
+                <>
                     <StatusEventButton />
                     <StatusButton />
                     <LotButton />
@@ -65,6 +67,10 @@ const NavigationBar : React.FC<any> = (props) => {
                     
 
                     <TimeZoneButton retrieveTimeZone={retrieveTimeZone}/>
+                </>
+
+                }
+
 
                     
     
