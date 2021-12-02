@@ -82,6 +82,19 @@ function App (){
 
 //     const currentAdminUser = useContext(LoginEmailContext);
 
+//private route component
+
+// https://medium.com/trabe/implementing-private-routes-with-react-router-and-hooks-ed38d0cf93d5
+
+const PrivateRoute = ({ component, ...options } : any) => {
+
+        const allowedComponent = loggedInEmailValue !== '' ? component : null
+        //check if we have our email, if so, let the component pass through,
+        //otherwise set it to null or defaultnoAccess
+
+        return <Route {...options} component={allowedComponent} />;
+      };
+
     return (
       <>
       <div >
@@ -115,33 +128,38 @@ function App (){
           
           {/* Lot Routes */}
           <Route path='/admin/select/lot' 
-                  render={() => <LotSelector />}/>
+                  component={() => (
+                <LoginEmailContext.Provider value={loggedInEmailValue}>
+                        <LotSelector />
+                </LoginEmailContext.Provider>
+                
+                  )}/>
           
         <Route path='/admin/create/lot'
-                  render={() => <LotCreator />}/>
+                  component={() => <LotCreator />}/>
 
-        
-        <Route path='/admin/edit/lot/:id' 
+        {/* private route allows for us to utilize context here */}
+        <PrivateRoute path='/admin/edit/lot/:id' 
                 component={LotEdit}/>
 
         {/* Status Routes */}
           <Route path='/admin/select/status' 
-                  render={() => <StatusSelector />}/>
+                  component={() => <StatusSelector />}/>
 
           <Route path='/admin/create/status'
-                  render={() => <StatusCreator />}/>
+                  component={() => <StatusCreator />}/>
 
-          <Route path='/admin/edit/status/:id' 
+          <PrivateRoute path='/admin/edit/status/:id' 
                 component={StatusEdit}/>
 
         {/* StatusEvent Routes */}
           <Route path='/admin/select/statusevent' 
-                  render={() => <StatusEventSelector />}/>
+                  component={() => <StatusEventSelector />}/>
 
           <Route path='/admin/create/statusevent'
-                  render={() => <StatusEventCreator />}/> 
+                  component={() => <StatusEventCreator />}/> 
 
-          <Route path='/admin/edit/statusevent/:id' 
+          <PrivateRoute path='/admin/edit/statusevent/:id' 
                 component={StatusEventEdit}/>
 
         {/* Timezone Edit */}
