@@ -71,7 +71,7 @@ function App (){
       <>
       <div >
       <Router>
-              <NavigationBar loginState={login_value} 
+              <NavigationBar 
                 handleLogin={handleLogin} 
                 retrieveTimeZone={retrieveTimeZone}/>
 

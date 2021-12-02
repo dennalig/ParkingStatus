@@ -43,14 +43,14 @@ const NavigationBar : React.FC<any> = (props) => {
                 {/* https://reactjs.org/docs/conditional-rendering.html */}
 
 
-                {props.loginState && 
-                    <>
+   
+                
                     <StatusEventButton />
                     <StatusButton />
                     <LotButton />
 
-                    </> 
-                }
+                    
+
                     <TimeZoneButton retrieveTimeZone={retrieveTimeZone}/>
     
             </div>

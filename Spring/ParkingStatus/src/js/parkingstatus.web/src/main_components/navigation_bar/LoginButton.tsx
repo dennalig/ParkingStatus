@@ -7,26 +7,26 @@ const LoginButton : React.FC<any> = (props) => {
 
     // const[login_State, setLoginState] = useState(loginState);
 
-    let login_status: string ='';
+    let login_status: string ='Admin Login';
     
     const checkLoggedIn = () =>{
         // console.log(props);
-        if(props.loginState){
-            login_status = 'Admin Logout';
-        }
-        else{
-            login_status = 'Admin Login';
-        }
+        // if(props.loginState){
+        //     login_status = 'Admin Logout';
+        // }
+        // else{
+        //     login_status = 'Admin Login';
+        // }
     }
 
     const logout = () =>{
 
     
-        if(props.loginState){
-            // console.log('logout');
-            props.handleLogin();
+        // if(props.loginState){
+        //     // console.log('logout');
+        //     props.handleLogin();
             
-        }
+        // }
         
         // console.log(props.loginState);
 
@@ -35,7 +35,7 @@ const LoginButton : React.FC<any> = (props) => {
     }
 
 // console.log(props.loginState);
-    checkLoggedIn();
+    // checkLoggedIn();
 
 
     return (
