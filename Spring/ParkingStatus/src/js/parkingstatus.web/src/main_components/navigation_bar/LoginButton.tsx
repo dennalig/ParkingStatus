@@ -11,10 +11,6 @@ const LoginButton : React.FC<any> = (props) => {
 
     // const[login_State, setLoginState] = useState(loginState);
 
-    const currentAdminUser = useContext(LoginEmailContext);
-
-    let login_status: string = currentAdminUser ==='' ? 'Admin Login' : 'Logout';
-    
     const checkLoggedIn = () =>{
         // console.log(props);
         // if(props.loginState){
@@ -25,20 +21,19 @@ const LoginButton : React.FC<any> = (props) => {
         // }
     }
 
-    const logout = () =>{
+    const handleLogout = () =>{
 
-    
-        // if(props.loginState){
-        //     // console.log('logout');
-        //     props.handleLogin();
-            
-        // }
-        
-        // console.log(props.loginState);
-
-        // props.handleLogin()
+        if(currentAdminUser !== ''){
+            props.handleLogout();
+        }
 
     }
+
+    const currentAdminUser = useContext(LoginEmailContext);
+
+    let login_status: string = currentAdminUser ==='' ? 'Admin Login' : 'Logout';
+    
+
 
 // console.log(props.loginState);
     // checkLoggedIn();
@@ -49,7 +44,7 @@ const LoginButton : React.FC<any> = (props) => {
             <Link to='/admin/login'>
                 <button 
                     className='button'
-                    onClick={logout}>
+                    onClick={handleLogout}>
                     {login_status}
                 </button>
             </Link>

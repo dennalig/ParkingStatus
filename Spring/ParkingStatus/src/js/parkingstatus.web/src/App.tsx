@@ -71,7 +71,7 @@ function App (){
     }
 
     const handleLogout = () =>{
-
+        setLoggedInEmailValue('');
     }
 
     const retrieveTimeZone = (timezoneName: string) => {
@@ -88,7 +88,8 @@ function App (){
       <Router>
         <LoginEmailContext.Provider value={loggedInEmailValue}>
               <NavigationBar 
-                retrieveTimeZone={retrieveTimeZone}/>
+                retrieveTimeZone={retrieveTimeZone}
+                handleLogout={handleLogout}/>
         </LoginEmailContext.Provider>
 
         

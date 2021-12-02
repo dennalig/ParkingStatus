@@ -24,6 +24,11 @@ const NavigationBar : React.FC<any> = (props) => {
 
     // const[loginStatus, setLoginStatus] = useState<any>(loginState);
 
+    const handleLogout = () =>{
+        props.handleLogout();
+        
+    }
+
     const retrieveTimeZone = (timezoneName: string) => {
         // console.log(timezoneName);
         props.retrieveTimeZone(timezoneName);
@@ -40,7 +45,7 @@ const NavigationBar : React.FC<any> = (props) => {
                 <SignUpButton />
                 <LoginEmailContext.Provider value={currentAdminUser}>
 
-                    <LoginButton/>
+                    <LoginButton handleLogout={handleLogout}/>
 
                 </LoginEmailContext.Provider>
             
