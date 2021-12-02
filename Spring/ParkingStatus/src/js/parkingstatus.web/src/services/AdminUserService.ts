@@ -30,6 +30,7 @@ class AdminUserService{
 
     async validateLoginAttempt(enteredEmail: string, enteredPassword : string){
         console.log(enteredEmail, enteredPassword);
+
         var userValue : any;
 
         enteredEmail = enteredEmail.trim();
@@ -43,7 +44,28 @@ class AdminUserService{
 
         const {createHash} = require('crypto');
 
-        console.log(createHash('sha256').update(enteredPassword).digest('hex'));
+        var enteredPwHash : string  = 
+            createHash('sha256').update(enteredPassword).digest('hex');
+
+        if(userValue === ''){
+            console.log('Email does not exist');
+
+            return 3;
+
+        }
+        else{
+
+            if(enteredPwHash === userValue.password){
+                console.log('successful login');
+                return 1;
+            }
+            else{
+                console.log('Incorrect Password.');
+
+                return 2;
+            }
+
+        }
 
     }
 

@@ -29,7 +29,8 @@ const SignIn: React.FC = () => {
         if(enteredCreds){
             // console.log('login Attempt');
             // console.log(user);
-            AdminUserService.validateLoginAttempt(user?.email, user?.password);
+            AdminUserService.validateLoginAttempt(user?.email, user?.password)
+                .then(res => console.log(res));
         }
 
         setEnteredCreds(false);
