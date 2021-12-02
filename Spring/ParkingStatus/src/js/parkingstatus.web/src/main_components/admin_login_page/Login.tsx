@@ -7,8 +7,8 @@ import '../general_style/sign_up_login_style.css';
 import AdminUserService from '../../services/AdminUserService';
 
 type AdminUser ={
-    email: string| null,
-    password: string |null
+    email: string,
+    password: string
 }
 
 const SignIn: React.FC = () => {
@@ -16,11 +16,26 @@ const SignIn: React.FC = () => {
     var emptyEmailMessage : string = 'The email must not be empty.';
     var pwMessage : string = 'The password entered is incorrect.';
 
-    const[user, setUser] = useState<AdminUser | null>(null);
+    const[user, setUser] = useState<AdminUser>({email : '', password : ''});
+
+    const[enteredCreds, setEnteredCreds] = useState<boolean>(false);
 
     const[emptyEmailValue, setEmptyEmailValue] = useState<boolean>(false);
     const[validEmail, setValidEmail] = useState<boolean>(false);
     const[validPassword, setValidPassword] = useState<boolean>(false);
+
+    useEffect(()=>{
+
+        if(enteredCreds){
+            // console.log('login Attempt');
+            // console.log(user);
+            AdminUserService.validateLoginAttempt(user?.email, user?.password);
+        }
+
+        setEnteredCreds(false);
+
+
+    }, [user]);
 
 
     const handleEmailNotNull = async (email : string) => {
@@ -49,6 +64,8 @@ const SignIn: React.FC = () => {
 
         if(await handleEmailNotNull(email.value)){
             // console.log('here');
+
+            setEnteredCreds(true);
 
             setUser({
                 email : email.value,
