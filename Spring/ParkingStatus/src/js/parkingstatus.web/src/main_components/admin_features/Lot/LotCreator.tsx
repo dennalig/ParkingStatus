@@ -220,11 +220,11 @@ const LotCreator: React.FC<any> =(props) => {
     return (
         <div>
             
-            {!props.logged_in &&
+            {/* {!props.logged_in &&
                 <DefaultNoAccess/>
-            }
+            } */}
 
-            {props.logged_in && 
+           
             <div>
                 <div className="page"> 
                     <form className="form_style"
@@ -304,7 +304,7 @@ const LotCreator: React.FC<any> =(props) => {
 
             </div>
                 
-            }
+            
 
        
         </div>

@@ -95,10 +95,10 @@ function App (){
           
           {/* Lot Routes */}
           <Route path='/admin/select/lot' 
-                  render={() => <LotSelector logged_in={login_value}/>}/>
+                  render={() => <LotSelector />}/>
           
         <Route path='/admin/create/lot'
-                  render={() => <LotCreator logged_in={login_value}/>}/>
+                  render={() => <LotCreator />}/>
 
         
         <Route path='/admin/edit/lot/:id' 

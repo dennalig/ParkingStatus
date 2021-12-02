@@ -72,11 +72,11 @@ const LotSelector : React.FC<any> = (props) => {
     return (
         <div>
 
-            {!props.logged_in &&
+            {/* {!props.logged_in &&
                 <DefaultNoAccess/>
-            }
+            } */}
 
-            {props.logged_in  &&
+         
 
                 <>
 
@@ -153,7 +153,7 @@ const LotSelector : React.FC<any> = (props) => {
 
                 </>
 
-            }
+            
           
         </div>
 

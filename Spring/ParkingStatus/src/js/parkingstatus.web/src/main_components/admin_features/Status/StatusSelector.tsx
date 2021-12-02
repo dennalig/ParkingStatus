@@ -84,13 +84,13 @@ const noDeleteSure = async (event: any) => {
     return (
         <div>
 
-            {!props.logged_in &&
+            {/* {!props.logged_in &&
                 <DefaultNoAccess/>
-            }
+            } */}
 
-        {props.logged_in &&
+        
 
-            <>
+            
             
             <CreateButton create_type="status" />
             <div className="page">
@@ -167,8 +167,8 @@ const noDeleteSure = async (event: any) => {
             } {/* end display object section */}
 
                 
-            </>
-        }
+        
+        
           
         </div>
 

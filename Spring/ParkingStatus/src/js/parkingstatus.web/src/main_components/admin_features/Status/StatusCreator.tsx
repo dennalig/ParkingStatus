@@ -88,11 +88,11 @@ const StatusCreator: React.FC<any> = (props) => {
     return (
         <div>
             
-            {!props.logged_in &&
+            {/* {!props.logged_in &&
                 <DefaultNoAccess/>
-            }
+            } */}
 
-            {props.logged_in && 
+   
             
                 <div className="page"> 
                     <form className="form_style"
@@ -157,7 +157,7 @@ const StatusCreator: React.FC<any> = (props) => {
                     </form>
 
                 </div>
-            }
+            
 
         </div>
     )

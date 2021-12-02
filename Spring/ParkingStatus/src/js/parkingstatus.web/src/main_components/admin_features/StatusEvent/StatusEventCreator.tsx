@@ -166,12 +166,13 @@ const StatusEventCreator: React.FC<any> =(props) => {
     return (
         <div>
             
-            {!props.logged_in &&
-                <DefaultNoAccess/>
-            }
+            
+                <DefaultNoAccess/> 
+                {/* leave here */}
+            
 
-            {props.logged_in && 
-            <div>
+           
+            <div className="unauth_page">
                 <div className="page"> 
                 <form className="form_style"
                     onSubmit={e => handleStatusEventSubmission(e)}>
@@ -236,7 +237,7 @@ const StatusEventCreator: React.FC<any> =(props) => {
 
                 </div>
             </div>
-            }
+            
         </div>
     )
 }
