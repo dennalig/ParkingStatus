@@ -25,14 +25,21 @@ export const SignUp = () => {
     const[creds, setInvalidCreds] = useState< InvalidCredentials | null>(null);
     const[enteredCreds, setCredStatus] = useState<boolean>(false);
 
+
+    const[emptyEmailValue, setEmptyEmailValue] = useState<boolean>(false);
+
+    const[alreadyExistingEmail, setAlreadyExistingEmail] = useState<boolean>(false);
+
     const run= () => {
-        console.log("ran");
+        // console.log("ran");
     }
 
     //user useEffect hook
     useEffect(() => {
 
-        if(enteredCreds){
+        console.log(emptyEmail);
+
+        if(enteredCreds  && (!emptyEmail)){
             // console.log(user);
             AdminUserService.createAdminUser(user)
                 .then((response) => {
@@ -41,8 +48,7 @@ export const SignUp = () => {
             })
             .catch(error => {
                 console.log('error: ', error.response)
-
-                run();
+                setAlreadyExistingEmail(true);
                 return error.response.status;
                 
             });
@@ -54,21 +60,34 @@ export const SignUp = () => {
     var invalidEmail : boolean = false;
     var invalidPw : boolean = false;
     
+    var emptyEmail : boolean = false;
 
 
     //error messages
-    var emailMessage : string = 'The entered email already exists within Parking Status.';
+    var emailMessage : string = ' already exists within Parking Status.';
+    var emptyEmailMessage : string = 'The email must not be empty';
     var pwMessage : string = 'The password entered is invalid.';
 
     const handleEmailValidation = async (email: string) => {
         //check that email does not already exist
 
-            invalidEmail = false;
+        email = email.trim();
+
+        if(email !==''){
+            emptyEmail = false;
+            return true;
+        }
+        else{
+            emptyEmail = true;
+            // console.log('here');
+            return false
+        }
+
     }
 
     const handlePwValidation =  async (password: string) => {
         // check that password != null
-        // console.log(password === '')
+        // console.log(password === '');
 
         if(password !== ''){
             invalidPw = false;
@@ -76,6 +95,7 @@ export const SignUp = () => {
         }
         else{// null password
             invalidPw = true;
+            return false;
             
         }
     }
@@ -97,7 +117,11 @@ export const SignUp = () => {
             invalid_password : invalidPw
         });
 
-        if(!invalidEmail && !invalidPw){
+        if(!invalidEmail && !invalidPw && !emptyEmail){
+
+
+            setEmptyEmailValue(false);//reset just in case
+            setAlreadyExistingEmail(false);
 
             setUser({
                 email: newemail.value,
@@ -108,6 +132,9 @@ export const SignUp = () => {
 
 
             // AdminUserService.createAdminUser(user);
+        }
+        else if(emptyEmail){
+            setEmptyEmailValue(true);
         }
 
     }
@@ -132,6 +159,22 @@ export const SignUp = () => {
                     {creds?.invalid_email ? 
                         <div className="error_message_style">
                             {emailMessage}</div>: null}
+                    
+                    {alreadyExistingEmail && 
+
+                        <div className="error_message_style">
+                        {user?.email + emailMessage}
+                        </div> 
+                    }
+
+                    {emptyEmailValue  &&
+
+                    <div className="error_message_style">
+                    {emptyEmailMessage}
+                    </div> 
+                    }
+
+                      
                     
                     <fieldset className="input_style">
                         <label htmlFor="password">Password:</label>

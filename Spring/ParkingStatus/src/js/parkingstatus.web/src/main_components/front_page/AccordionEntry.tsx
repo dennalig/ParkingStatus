@@ -31,7 +31,7 @@ const AccordionEntry: React.FC<any> = (props) => {
 
     
 
-    console.log(currentDateTimeValue);
+    // console.log(currentDateTimeValue);
     // console.log('here');
  
 
@@ -83,6 +83,7 @@ const AccordionEntry: React.FC<any> = (props) => {
     // console.log(props.lot.LotID);
     // console.log(props.statusEvents);
     // console.log(statusValue[0]);
+    console.log(props.lot);
 
     return (
         <div className="accordion-item">
@@ -111,6 +112,7 @@ const AccordionEntry: React.FC<any> = (props) => {
                         
 
                         {props.lot.LotStatusSchedule &&
+                            
                             <div><b>{props.lot.LotStatusSchedule.Name ?
                                  props.lot.LotStatusSchedule.Name: ''}</b></div>
                         }
