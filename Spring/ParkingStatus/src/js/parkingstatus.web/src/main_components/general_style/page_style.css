@@ -28,6 +28,11 @@
 
 }
 
+.unauthorized_page{
+    background-color: darkgrey;
+
+}
+
 
 .create_button{
     background-color:blue;

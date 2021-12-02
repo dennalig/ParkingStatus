@@ -29,7 +29,12 @@ import StatusEventCreator from './main_components/admin_features/StatusEvent/Sta
 import StatusEventEdit from './main_components/admin_features/StatusEvent/StatusEventEdit';
 
 import EditTimeZone from './main_components/admin_features/general/TimeZone/EditTimeZone';
+
 //end routing purposes
+
+//default no access component
+
+import DefaultNoAccess from './main_components/inaccessible_features/DefaultNoAccess';
 
 //contexts
 import { TimeZoneContext } from './main_components/admin_features/general/TimeZone/TimeZoneContext';
@@ -88,7 +93,7 @@ function App (){
 
 const PrivateRoute = ({ component, ...options } : any) => {
 
-        const allowedComponent = loggedInEmailValue !== '' ? component : null
+        const allowedComponent = loggedInEmailValue !== '' ? component : DefaultNoAccess
         //check if we have our email, if so, let the component pass through,
         //otherwise set it to null or defaultnoAccess
 
