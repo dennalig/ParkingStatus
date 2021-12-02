@@ -31,7 +31,10 @@ import StatusEventEdit from './main_components/admin_features/StatusEvent/Status
 import EditTimeZone from './main_components/admin_features/general/TimeZone/EditTimeZone';
 //end routing purposes
 
+//contexts
 import { TimeZoneContext } from './main_components/admin_features/general/TimeZone/TimeZoneContext';
+
+import { LoginEmailContext } from './main_components/loginContexts/LoginEmailContext';
 
 //functional : routing
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -45,9 +48,11 @@ interface LoginProps {
 
 function App (){
 
-  const [login_value, setLoginValue] = useState<boolean>(true);
+  const [login_value, setLoginValue] = useState<boolean>(false);
 
   const[timeZoneValue, setTimeZoneValue] = useState<string>('EST');
+
+  const[loggedInEmailValue, setLoggedInEmailValue] = useState<string>('');
 
   
 
@@ -55,10 +60,14 @@ function App (){
 //           console.log(login_value);
 //   }, [login_value]);
 
-   const handleLogin = () => {
+   const handleLogin = (email : string) => {
 
-        setLoginValue(!login_value);
+        // setLoginValue(!login_value);
         // console.log(login_value);
+        // console.log(email);
+
+        setLoginValue(true);
+        setLoggedInEmailValue(email);
 
     }
 
@@ -66,6 +75,9 @@ function App (){
         // console.log(timezoneName);
         setTimeZoneValue(timezoneName);
     }
+
+
+//     const currentAdminUser = useContext(LoginEmailContext);
 
     return (
       <>
@@ -87,7 +99,11 @@ function App (){
                 </TimeZoneContext.Provider>
           )}/>  
           <Route path='/signup' component={SignUp}/>
-          <Route path='/admin/login' component={Login}/> 
+          <Route path='/admin/login' component={() =>(
+                <LoginEmailContext.Provider value={loggedInEmailValue}>
+                        <Login handleLogin={handleLogin}/>
+                </LoginEmailContext.Provider>
+                )}/> 
 
           {/* Admin Routes */}
           {/* TODO: Pass the boolean value to these areas so that non admins cannot access */}
@@ -106,20 +122,20 @@ function App (){
 
         {/* Status Routes */}
           <Route path='/admin/select/status' 
-                  render={() => <StatusSelector logged_in={login_value}/>}/>
+                  render={() => <StatusSelector />}/>
 
           <Route path='/admin/create/status'
-                  render={() => <StatusCreator logged_in={login_value}/>}/>
+                  render={() => <StatusCreator />}/>
 
           <Route path='/admin/edit/status/:id' 
                 component={StatusEdit}/>
 
         {/* StatusEvent Routes */}
           <Route path='/admin/select/statusevent' 
-                  render={() => <StatusEventSelector logged_in={login_value}/>}/>
+                  render={() => <StatusEventSelector />}/>
 
           <Route path='/admin/create/statusevent'
-                  render={() => <StatusEventCreator logged_in={login_value}/>}/> 
+                  render={() => <StatusEventCreator />}/> 
 
           <Route path='/admin/edit/statusevent/:id' 
                 component={StatusEventEdit}/>

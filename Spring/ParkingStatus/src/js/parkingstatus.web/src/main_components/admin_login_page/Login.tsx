@@ -1,6 +1,8 @@
-import React, {useState, useEffect, FormEvent} from 'react'
+import React, {useState, useEffect, FormEvent, useContext} from 'react'
 import { Link } from 'react-router-dom';
 
+import { LoginEmailContext } from '../../main_components/loginContexts/LoginEmailContext';
+//contexts
 import '../general_style/sign_up_login_style.css';
 
 //services
@@ -11,7 +13,7 @@ type AdminUser ={
     password: string
 }
 
-const SignIn: React.FC = () => {
+const SignIn: React.FC<any> = (props) => {
     var emailMessage : string = ' does not exist within Parking Status.'; 
     var emptyEmailMessage : string = 'The email must not be empty.';
     var pwMessage : string = 'The password entered is incorrect.';
@@ -24,19 +26,29 @@ const SignIn: React.FC = () => {
     const[validEmail, setValidEmail] = useState<boolean>(false);
     const[validPassword, setValidPassword] = useState<boolean>(false);
 
+    const[loginAttemptValue, setLoginAttemptValue] = useState<number>(0);
+
     useEffect(()=>{
 
         if(enteredCreds){
             // console.log('login Attempt');
             // console.log(user);
             AdminUserService.validateLoginAttempt(user?.email, user?.password)
-                .then(res => console.log(res));
+                .then(res => setLoginAttemptValue(res));
         }
 
         setEnteredCreds(false);
 
 
     }, [user]);
+
+    useEffect(() => {
+
+        if(loginAttemptValue === 1){
+            props.handleLogin(user.email);
+        }
+
+    }, [loginAttemptValue])
 
 
     const handleEmailNotNull = async (email : string) => {
@@ -81,6 +93,8 @@ const SignIn: React.FC = () => {
 
     }
 
+    const currentAdminUser = useContext(LoginEmailContext);
+    console.log(currentAdminUser);
     return (
         
         <div>

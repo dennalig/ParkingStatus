@@ -1,3 +1,3 @@
 import {createContext} from 'react';
 
-export const LoginEmailContext = createContext(null);
+export const LoginEmailContext = createContext<string>('');
