@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 
 import './style/navigationbar.css';
 
@@ -13,6 +13,9 @@ import TimeZoneButton from './admin_buttons/TimeZoneButton';
 
 import { Link } from 'react-router-dom';
 
+//contexts
+import { LoginEmailContext } from '../../main_components/loginContexts/LoginEmailContext';
+
 
 
 
@@ -26,19 +29,24 @@ const NavigationBar : React.FC<any> = (props) => {
         props.retrieveTimeZone(timezoneName);
     }
     
+    const currentAdminUser = useContext(LoginEmailContext);
+    // console.log(currentAdminUser);
 
     // console.log(props.loginState);
         return(
        
             <div className='navigationbar_main'>
-               
+               {currentAdminUser}
                 <SignUpButton />
-                
-                <LoginButton loginState={props.loginState}
-                    handleLogin={props.handleLogin}/>
+                <LoginEmailContext.Provider value={currentAdminUser}>
+
+                    <LoginButton/>
+
+                </LoginEmailContext.Provider>
             
                 <Title />
 
+                
                 {/* Conditional Rendering Components */}
                 {/* https://reactjs.org/docs/conditional-rendering.html */}
 
@@ -52,6 +60,8 @@ const NavigationBar : React.FC<any> = (props) => {
                     
 
                     <TimeZoneButton retrieveTimeZone={retrieveTimeZone}/>
+
+                    
     
             </div>
             );

@@ -94,7 +94,7 @@ const SignIn: React.FC<any> = (props) => {
     }
 
     const currentAdminUser = useContext(LoginEmailContext);
-    console.log(currentAdminUser);
+    // console.log(currentAdminUser);
     return (
         
         <div>

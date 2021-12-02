@@ -1,13 +1,19 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import './style/navigationbar.css'
 import { Link } from 'react-router-dom';
+
+
+//contexts
+import { LoginEmailContext } from '../loginContexts/LoginEmailContext';
 
 
 const LoginButton : React.FC<any> = (props) => {
 
     // const[login_State, setLoginState] = useState(loginState);
 
-    let login_status: string ='Admin Login';
+    const currentAdminUser = useContext(LoginEmailContext);
+
+    let login_status: string = currentAdminUser ==='' ? 'Admin Login' : 'Logout';
     
     const checkLoggedIn = () =>{
         // console.log(props);

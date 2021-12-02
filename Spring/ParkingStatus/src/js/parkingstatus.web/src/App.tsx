@@ -65,9 +65,12 @@ function App (){
         // setLoginValue(!login_value);
         // console.log(login_value);
         // console.log(email);
-
         setLoginValue(true);
         setLoggedInEmailValue(email);
+
+    }
+
+    const handleLogout = () =>{
 
     }
 
@@ -83,10 +86,10 @@ function App (){
       <>
       <div >
       <Router>
+        <LoginEmailContext.Provider value={loggedInEmailValue}>
               <NavigationBar 
-                handleLogin={handleLogin} 
                 retrieveTimeZone={retrieveTimeZone}/>
-
+        </LoginEmailContext.Provider>
 
         
         <Switch>
