@@ -11,6 +11,9 @@ import '../../general_style/input_style.css';
 //contexts
 import { LoginEmailContext } from '../../loginContexts/LoginEmailContext';
 
+//default no access
+import DefaultNoAccess from '../../inaccessible_features/DefaultNoAccess';
+
 const StatusCreator: React.FC<any> = (props) => {
 
     var nameMessage : string = 'The Status name must not be empty.';
@@ -165,6 +168,15 @@ const StatusCreator: React.FC<any> = (props) => {
                 
             </>
         }
+
+
+            {currentAdminUser === '' &&
+
+                <>
+                    <DefaultNoAccess />
+                </>
+
+            }
             
         </div>
     )

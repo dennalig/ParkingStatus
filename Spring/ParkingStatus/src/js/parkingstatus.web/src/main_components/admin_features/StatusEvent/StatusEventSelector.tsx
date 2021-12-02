@@ -11,6 +11,9 @@ import { Link } from 'react-router-dom';
 //contexts
 import { LoginEmailContext } from '../../loginContexts/LoginEmailContext';
 
+//default no access
+import DefaultNoAccess from '../../inaccessible_features/DefaultNoAccess';
+
 const StatusEventSelector : React.FC<any> = (props) => {
 
     const [statusEventList, setStatusEventList] = useState<Array<any>>([]);
@@ -158,6 +161,14 @@ const StatusEventSelector : React.FC<any> = (props) => {
         
 
           }
+
+            {currentAdminUser === '' &&
+
+                <>
+                    <DefaultNoAccess />
+                </>
+
+            }
         </div>
 
 

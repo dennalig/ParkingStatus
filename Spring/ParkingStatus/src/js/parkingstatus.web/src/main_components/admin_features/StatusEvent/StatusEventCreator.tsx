@@ -17,6 +17,9 @@ import '../../general_style/input_style.css';
 //contexts
 import { LoginEmailContext } from '../../../main_components/loginContexts/LoginEmailContext';
 
+//default no access
+import DefaultNoAccess from '../../inaccessible_features/DefaultNoAccess';
+
 type APISEDate = {
     startTime: string | null,
     statusId : 0, // not used
@@ -246,6 +249,14 @@ const StatusEventCreator: React.FC<any> =(props) => {
             
         </>
         }
+
+            {currentAdminUser === '' &&
+
+                <>
+                    <DefaultNoAccess />
+                </>
+
+            }
         </div>
     )
 }

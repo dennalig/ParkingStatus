@@ -6,6 +6,9 @@ import RandomDivValue from "../../inaccessible_features/RandomDivValue";
 import CreateButton from "../../admin_features/general/CreateButton";
 import LotService from '../../../services/LotService'
 
+//default no access
+
+import DefaultNoAccess from '../../inaccessible_features/DefaultNoAccess';
 
 //contexts
 import { LoginEmailContext } from '../../loginContexts/LoginEmailContext';
@@ -159,10 +162,16 @@ const LotSelector : React.FC<any> = (props) => {
                 }
             </>
               }
-            
 
+        { currentAdminUser === '' &&
+
+        <>
+        <DefaultNoAccess/>
+        </>
+
+        }
             
-          
+ 
         </div>
 
 

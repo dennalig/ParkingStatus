@@ -16,6 +16,9 @@ import { LoginEmailContext } from '../../loginContexts/LoginEmailContext';
 
 import '../../general_style/input_style.css';
 
+//default no access
+import DefaultNoAccess from '../../inaccessible_features/DefaultNoAccess';
+
 
 type APILSSDate = {
     startTime: string | null,
@@ -311,6 +314,14 @@ const LotCreator: React.FC<any> =(props) => {
                 
             
         }
+
+            {currentAdminUser === '' &&
+
+                <>
+                    <DefaultNoAccess />
+                </>
+
+            }
        
         </div>
     )
