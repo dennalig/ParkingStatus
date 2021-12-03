@@ -293,7 +293,7 @@ const LotCreator: React.FC<any> =(props) => {
                         </button>
                         </Link>
                     <button 
-                        type="submit">Save</button>
+                        type="submit">Save Lot</button>
                     </fieldset>
                         
                     </form>

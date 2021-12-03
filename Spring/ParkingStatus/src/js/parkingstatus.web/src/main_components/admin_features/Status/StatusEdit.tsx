@@ -140,7 +140,7 @@ const StatusEdit: React.FC<Props> =({match}) => {
                         </button>
                         </Link>
                     <button 
-                        type="submit">Save</button>
+                        type="submit">Save Status</button>
                     </fieldset>
                         
                         

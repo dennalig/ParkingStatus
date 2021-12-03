@@ -279,11 +279,17 @@ const LotEdit: React.FC<any> =({match}) => {
                         </button>
                         </Link>
                     <button 
-                        type="submit">Save</button>
+                        type="submit">Save Lot</button>
                     </fieldset>
+
+                    <div>
+                        <b>NOTE: To save previous Lot Status Schedule Dates, 
+                        be sure to click 'save' on the entry.</b>
+                    </div>
                         
                     </form>
                 
+
                 </div>
 
                 <div>

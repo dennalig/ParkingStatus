@@ -199,10 +199,13 @@ const StatusEventEdit: React.FC<Props> =({ match }) => {
                         </button>
                         </Link>
                     <button 
-                        type="submit">Save</button>
+                        type="submit">Save Status Event</button>
                     </fieldset>
                         
-                    
+                    <div>
+                        <b>NOTE: To save previous Status Event Dates, 
+                        be sure to click 'save' on the entry.</b>
+                    </div>
                 </form>
 
                 </div>
