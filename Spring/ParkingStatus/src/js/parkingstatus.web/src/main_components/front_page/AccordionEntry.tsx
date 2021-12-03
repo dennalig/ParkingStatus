@@ -107,9 +107,29 @@ const AccordionEntry: React.FC<any> = (props) => {
                         <div>Current Status: {statusEventValue[0] ? statusEventValue[0].Description :
                              (lssValue[0] ? <i>{lssValue[1].description}</i> : 'none')}
                              <div className="display_box" 
-                                style={{ backgroundColor: statusColor}}>&nbsp; &nbsp; </div>
+                                style={{ backgroundColor: statusColor}}>&nbsp; &nbsp; 
                              </div>
+                        </div>
                         
+                        {/* lets us render the duration of the event date */}
+
+                        {statusEventValue[1] ? 
+                            <> 
+                            <div>
+                                <b>Duration</b>: 
+                                {statusEventValue[1].startTime}<b> - </b>{statusEventValue[1].endTime}
+                            </div>
+                            </>
+                        
+                        :
+                            (lssValue[0] ? 
+                                <>
+                                <div>
+                                    <b>Duration</b>:
+                                     {lssValue[0].startTime}<b> - </b>{lssValue[0].endTime}
+                                </div>
+                                </> : null)}
+
 
                         {props.lot.LotStatusSchedule &&
                             
