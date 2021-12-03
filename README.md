@@ -7,6 +7,6 @@ Fullstack Web application for storing, editing, and displaying parking lot statu
 ### Backend
 Spring Boot(Maven), Java, MVC
 ### Frontend 
-Reactjs , TypeScript (ES6)
+Reactjs , TypeScript (ES5)
 ### Database 
 PostgreSQL Server
