@@ -97,7 +97,10 @@ const SignIn: React.FC<any> = (props) => {
     // console.log(currentAdminUser);
     return (
         
+
         <div>
+            {currentAdminUser === '' &&
+                <>
             <div className='title_style'>
                 <h1> Admin Login </h1>
             </div>
@@ -131,6 +134,15 @@ const SignIn: React.FC<any> = (props) => {
                     </fieldset>
 
             </form>
+                </>
+            }
+
+            {currentAdminUser !== '' &&
+
+                <>
+                <div>{currentAdminUser} is already logged in.</div>
+                </>
+            }
             
         </div>
 
