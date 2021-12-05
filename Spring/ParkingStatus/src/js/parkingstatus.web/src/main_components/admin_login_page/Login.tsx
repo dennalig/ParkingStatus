@@ -28,7 +28,11 @@ const SignIn: React.FC<any> = (props) => {
 
     const[loginAttemptValue, setLoginAttemptValue] = useState<number>(0);
 
+    const[emailDoesNotExist, setEmailDoesNotExist] = useState<boolean>(false);
+    const[passwordIsIncorrect, setPasswordIsIncorrect] = useState<boolean>(false);
+
     useEffect(()=>{
+
 
         if(enteredCreds){
             // console.log('login Attempt');
@@ -44,9 +48,30 @@ const SignIn: React.FC<any> = (props) => {
 
     useEffect(() => {
 
-        if(loginAttemptValue === 1){
+        if(loginAttemptValue === 1 && !emptyEmailValue){
+            setEmptyEmailValue(false);
+            setPasswordIsIncorrect(false);
+            setEmailDoesNotExist(false);
+
             props.handleLogin(user.email);
+
         }
+        else if(loginAttemptValue === 2  && !emptyEmailValue){
+            setEmptyEmailValue(false);
+            setPasswordIsIncorrect(true);
+            setEmailDoesNotExist(false);
+
+            console.log('incorrect pw');
+        }
+        else if(loginAttemptValue === 3 && !emptyEmailValue){
+            setEmptyEmailValue(false);
+            setPasswordIsIncorrect(false);
+            setEmailDoesNotExist(true);
+            console.log('not exist');
+        }
+
+
+
 
     }, [loginAttemptValue])
 
@@ -63,6 +88,7 @@ const SignIn: React.FC<any> = (props) => {
         }
         else{
             setEmptyEmailValue(true);
+            console.log('it does equal null;')
             return false;
         }
     }
@@ -75,7 +101,8 @@ const SignIn: React.FC<any> = (props) => {
             password : {value : string}
         }
 
-        if(await handleEmailNotNull(email.value)){
+        if(email.value !== ''){
+            setEmptyEmailValue(false);
             // console.log('here');
 
             setEnteredCreds(true);
@@ -85,6 +112,15 @@ const SignIn: React.FC<any> = (props) => {
                 password : password.value
             });
         }
+        else{
+            setEmptyEmailValue(true);
+            setEmailDoesNotExist(false);
+            setPasswordIsIncorrect(false);
+        }
+
+        console.log(emptyEmailValue);
+        console.log(emailDoesNotExist);
+        console.log(passwordIsIncorrect);
 
         // console.log(email.value);
         // console.log(password.value);
@@ -116,6 +152,22 @@ const SignIn: React.FC<any> = (props) => {
                     </label>
                     </fieldset>
 
+                    {emptyEmailValue &&
+
+                        <div className="error_message_style">
+                            {emptyEmailMessage}
+                        </div>
+
+                    }
+
+                    {emailDoesNotExist &&
+
+                    <div className="error_message_style">
+                        { user.email + emailMessage}
+                    </div>
+                        
+                    }
+
                
                 <fieldset className="input_style">
 
@@ -125,8 +177,17 @@ const SignIn: React.FC<any> = (props) => {
                             placeholder="password">
                         </input>
                     </label>
+                    
                 
                     </fieldset>
+
+                    {passwordIsIncorrect &&
+
+                        <div className="error_message_style">
+                            {pwMessage}
+                        </div>
+
+                    }
 
                     <fieldset className="input_style">
                     <button 
