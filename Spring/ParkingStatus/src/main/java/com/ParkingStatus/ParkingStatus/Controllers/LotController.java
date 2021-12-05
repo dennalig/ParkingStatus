@@ -54,7 +54,7 @@ public class LotController {
      @PostMapping(path ="{lotId}")
      public ResponseEntity<Object> updateLot(@PathVariable("lotId")int id, @RequestBody Lot lot){
         int response = lotService.updateLot(id, lot);
-
+        System.out.println(response);
         return responseEntityForController.responseForObjects(response);
      }
 

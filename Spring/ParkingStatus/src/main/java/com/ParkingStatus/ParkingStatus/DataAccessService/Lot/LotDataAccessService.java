@@ -147,7 +147,7 @@ public class LotDataAccessService {
     }
 
     public int updateLot(int id, Lot lot){
-
+        System.out.println("here");
         if(selectLotById(id) != null){
             LotInsertDataMapper lotInsertDataMapper = new LotInsertDataMapper(
               lot.getLotID(),

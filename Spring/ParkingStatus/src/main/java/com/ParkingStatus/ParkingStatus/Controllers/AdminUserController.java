@@ -50,11 +50,12 @@ public class AdminUserController {
 
        return responseEntityForController.responseForAdminUsers(response);
     }
-
+    
     @DeleteMapping("{adminemail}")
     public ResponseEntity<Object> deleteAdminUser(@PathVariable("adminemail")String email){
         String response = adminUserService.deleteAdminUser(email);
 
         return responseEntityForController.responseForAdminUsers(response);
     }
+
 }

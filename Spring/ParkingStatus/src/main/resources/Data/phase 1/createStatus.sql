@@ -6,4 +6,3 @@ CREATE TABLE STATUS
     StatusDescription VARCHAR(500) NULL,
     StatusImageName VARCHAR(500) NULL
 
-);
