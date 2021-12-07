@@ -142,7 +142,7 @@ const PrivateRoute = ({ component, ...options } : any) => {
           
         <Route path='/admin/create/lot'
                   component={() => (
-                <LoginEmailContext.Provider value={loggedInEmailValue}> 
+                <LoginEmailContext.Provider value={loggedInEmailValue}>
                   <LotCreator />
                 </LoginEmailContext.Provider>
                   )}/>
